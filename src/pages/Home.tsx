@@ -22,41 +22,41 @@ const Home: React.FC = () => {
         <h2 className="text-2xl mb-6 font-bold rounded-2xl text-rich-black">SKILLS</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="bg-alice-blue rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-4">
-            <h3 className="text-xl font-semibold text-rich-black">JavaScript</h3>
-            <div className="w-full bg-gray-200 rounded-full h-8 my-4 relative">
-              <div className="bg-dark-cyan h-8 rounded-full flex items-center justify-center" style={{ width: '75%' }}>
-                <span className="text-white text-sm">75%</span>
-              </div>
-            </div>
-          </div>
-          <div className="bg-alice-blue rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-4">
-            <h3 className="text-xl font-semibold text-rich-black">TypeScript</h3>
-            <div className="w-full bg-gray-200 rounded-full h-8 my-4 relative">
-              <div className="bg-dark-cyan h-8 rounded-full flex items-center justify-center" style={{ width: '80%' }}>
-                <span className="text-white text-sm">80%</span>
-              </div>
-            </div>
-          </div>
-          <div className="bg-alice-blue rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-4">
-            <h3 className="text-xl font-semibold text-rich-black">React</h3>
-            <div className="w-full bg-gray-200 rounded-full h-8 my-4 relative">
-              <div className="bg-dark-cyan h-8 rounded-full flex items-center justify-center" style={{ width: '85%' }}>
-                <span className="text-white text-sm">85%</span>
-              </div>
-            </div>
-          </div>
-          <div className="bg-alice-blue rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-4">
             <h3 className="text-xl font-semibold text-rich-black">Solidity</h3>
-            <div className="w-full bg-gray-200 rounded-full h-8 my-4 relative">
-              <div className="bg-dark-cyan h-8 rounded-full flex items-center justify-center" style={{ width: '90%' }}>
+            <div className="w-full bg-gray-200 rounded-xl h-8 my-4 relative">
+              <div className="bg-dark-cyan h-8 rounded-xl flex items-center justify-center" style={{ width: '90%' }}>
                 <span className="text-white text-sm">90%</span>
               </div>
             </div>
           </div>
           <div className="bg-alice-blue rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-4">
+            <h3 className="text-xl font-semibold text-rich-black">React</h3>
+            <div className="w-full bg-gray-200 rounded-xl h-8 my-4 relative">
+              <div className="bg-dark-cyan h-8 rounded-xl flex items-center justify-center" style={{ width: '85%' }}>
+                <span className="text-white text-sm">85%</span>
+              </div>
+            </div>
+          </div>
+          <div className="bg-alice-blue rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-4">
+            <h3 className="text-xl font-semibold text-rich-black">TypeScript</h3>
+            <div className="w-full bg-gray-200 rounded-xl h-8 my-4 relative">
+              <div className="bg-dark-cyan h-8 rounded-xl flex items-center justify-center" style={{ width: '80%' }}>
+                <span className="text-white text-sm">80%</span>
+              </div>
+            </div>
+          </div>
+          <div className="bg-alice-blue rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-4">
+            <h3 className="text-xl font-semibold text-rich-black">JavaScript</h3>
+            <div className="w-full bg-gray-200 rounded-xl h-8 my-4 relative">
+              <div className="bg-dark-cyan h-8 rounded-xl flex items-center justify-center" style={{ width: '75%' }}>
+                <span className="text-white text-sm">75%</span>
+              </div>
+            </div>
+          </div>
+          <div className="bg-alice-blue rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-4">
             <h3 className="text-xl font-semibold text-rich-black">Python</h3>
-            <div className="w-full bg-gray-200 rounded-full h-8 my-4 relative">
-              <div className="bg-dark-cyan h-8 rounded-full flex items-center justify-center" style={{ width: '70%' }}>
+            <div className="w-full bg-gray-200 rounded-xl h-8 my-4 relative">
+              <div className="bg-dark-cyan h-8 rounded-xl flex items-center justify-center" style={{ width: '70%' }}>
                 <span className="text-white text-sm">70%</span>
               </div>
             </div>

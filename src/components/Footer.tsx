@@ -3,7 +3,7 @@ import { FaGithub, FaLinkedin, FaMapMarkerAlt } from 'react-icons/fa';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-murrey text-white mt-12 p-4 mx-auto max-w-full sm:max-w-4xl rounded-t-xl shadow-lg p-4">
+    <footer className="bg-murrey text-white mt-12 mx-auto max-w-full sm:max-w-4xl rounded-t-xl shadow-lg p-4">
       <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center p-4">
         <div className="mb-4 sm:mb-0 text-center sm:text-left flex items-center">
           <FaMapMarkerAlt className="mr-2" size={24} />

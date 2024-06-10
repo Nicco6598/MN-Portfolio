@@ -4,9 +4,9 @@ import { projects } from '../data/projectData'; // Importa i dati dei progetti
 
 const Projects: React.FC = () => {
   return (
-    <div className="container mx-auto p-8">
-      <h1 className="text-4xl font-bold text-center mb-12 mt-12 text-rich-black">PROGETTI</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="max-w-4xl mx-auto p-8 mt-12">
+      <h1 className="text-4xl font-bold text-center mb-12 text-rich-black">PROGETTI</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12">
         {projects.map((project) => (
           <div key={project.id} className="bg-alice-blue rounded-lg shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-6 transition-shadow duration-300 flex flex-col items-center">
             <img src={project.imageUrl} alt={project.title} className="w-52 h-52 object-cover rounded-lg mb-4" />
