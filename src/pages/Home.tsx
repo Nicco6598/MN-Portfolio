@@ -4,12 +4,12 @@ import ProjectCarousel from '../components/ProjectCarousel';
 
 const Home: React.FC = () => {
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-white mt-12 ">
-      <div className="flex items-center mb-8">
-        <img src={profilePic} alt="Profile" className="w-52 h-52 rounded-xl shadow-lg mr-12" />
-        <div>
-          <h1 className="text-4xl font-bold italic text-rich-black">MARCO NICCOLINI</h1>
-          <p className="mt-4 text-lg text-gray-600 font-modern">Sono Marco, uno sviluppatore informatico con una forte passione per
+    <div className="max-w-4xl mx-auto p-8 bg-white mt-12">
+      <div className="flex flex-col lg:flex-row items-center mb-8">
+        <img src={profilePic} alt="Profile" className="w-auto h-72 md:w-64 md:h-64 rounded-xl shadow-lg mb-6 lg:mb-0 lg:mr-12" />
+        <div className="text-center lg:text-left">
+          <h1 className="text-3xl md:text-4xl font-bold italic text-rich-black">MARCO NICCOLINI</h1>
+          <p className="mt-4 text-base md:text-lg text-gray-600 font-modern">Sono Marco, uno sviluppatore informatico con una forte passione per
           la tecnologia blockchain. Ho conseguito un master in sviluppo
           blockchain presso l'Università Start2Impact, acquisendo una solida base
           nella progettazione e nello sviluppo di software. Sono proattivo,
@@ -54,7 +54,7 @@ const Home: React.FC = () => {
             </div>
           </div>
           <div className="bg-alice-blue rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-4">
-            <h3 className="text-xl font-semibold text-rich-black">Phyton</h3>
+            <h3 className="text-xl font-semibold text-rich-black">Python</h3>
             <div className="w-full bg-gray-200 rounded-full h-8 my-4 relative">
               <div className="bg-dark-cyan h-8 rounded-full flex items-center justify-center" style={{ width: '70%' }}>
                 <span className="text-white text-sm">70%</span>
