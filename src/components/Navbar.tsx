@@ -56,7 +56,7 @@ const Navbar: React.FC = () => {
           onClick={closeMenu}
         >
           <div 
-            className="w-full max-w-md mx-auto rounded-xl shadow-lg p-8 text-center" 
+            className="w-full max-w-md mx-auto rounded-xl p-8 text-center" 
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-8">
