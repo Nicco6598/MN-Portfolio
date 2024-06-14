@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
         <div className="flex items-center justify-between">
           <Link to="/" className="hidden md:inline-block px-4 text-lg font-bold uppercase hover:text-dark-cyan transition">Home</Link>
           <Link to="/projects" className="hidden md:inline-block px-4 text-lg font-bold uppercase hover:text-dark-cyan transition">Progetti</Link>
-          <Link to="/contact" className="hidden md:inline-block px-4 text-lg font-bold uppercase hover:text-dark-cyan transition">Contatti</Link>
+          <Link to="/contact" className="hidden md:inline-block px-4 text-lg font-bold uppercase hover:text-dark-cyan transition mr-8">Contatti</Link>
           <a 
             href="https://www.dropbox.com/scl/fi/qq0zfpybd8fh1mf8869jm/Marco_Niccolini_CV-IT.pdf?rlkey=p6ke8o7aoafw1o58prs9p1oal&st=w7vok4o5&dl=0" 
             target="_blank" 
