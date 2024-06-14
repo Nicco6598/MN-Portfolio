@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -14,6 +15,12 @@ const Navbar: React.FC = () => {
     setIsMenuOpen(false);
     document.body.style.overflow = 'auto';
   };
+
+  useEffect(() => {
+    // Scroll to top on route change
+    window.scrollTo(0, 0);
+    closeMenu();
+  }, [location]);
 
   return (
     <>
@@ -53,7 +60,7 @@ const Navbar: React.FC = () => {
       </nav>
       {isMenuOpen && (
         <>
-          <div className="fixed  inset-0 bg-blue-50 bg-opacity-80 backdrop-blur-md z-40" onClick={closeMenu}></div>
+          <div className="fixed inset-0 bg-blue-50 bg-opacity-80 backdrop-blur-md z-40" onClick={closeMenu}></div>
           <div 
             className="fixed inset-0 flex justify-center items-center z-50"
             onClick={closeMenu}
