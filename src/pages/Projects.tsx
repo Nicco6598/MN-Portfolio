@@ -1,21 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { projects } from '../data/projectData'; // Importa i dati dei progetti
+import '../styles/animations.css';
 
 const Projects: React.FC = () => {
   return (
-    <div className="max-w-4xl mx-auto p-8 mt-12">
-      <h1 className="text-4xl font-bold text-center mb-12 text-rich-black">PROGETTI</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12">
+    <div className="max-w-6xl mx-auto p-12 mt-12 fade-in-up bg-gradient-to-r from-blue-50 to-indigo-50 bg-opacity-80 backdrop-blur-lg shadow-[inset_0px_0px_30px_0px_#00000024] rounded-xl">
+      <h1 className="text-5xl font-extrabold text-center mb-16 text-gray-800 tracking-tight">PROGETTI</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project) => (
-          <div key={project.id} className="bg-alice-blue rounded-lg shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-6 transition-shadow duration-300 flex flex-col items-center">
-            <img src={project.imageUrl} alt={project.title} className="w-52 h-52 object-cover rounded-lg mb-4" />
-            <h2 className="text-xl font-semibold text-center text-rich-black mb-4">{project.title}</h2>
+          <Link 
+            to={`/projects/${project.id}`} 
+            key={project.id} 
+            className="group bg-white bg-opacity-90 backdrop-blur-md rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition transform hover:scale-105 duration-300 flex flex-col items-center p-6 no-underline"
+          >
+            <div className="w-full h-52 mb-4 overflow-hidden rounded-xl">
+              <img 
+                src={project.imageUrl} 
+                alt={project.title} 
+                className="w-full h-full object-cover transform group-hover:scale-105 transition duration-300" 
+              />
+            </div>
+            <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">{project.title}</h2>
             <p className="text-gray-600 mb-6 text-center">{project.shortDescription}</p>
-            <Link to={`/projects/${project.id}`} className="bg-dark-cyan text-white px-4 py-2 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 mt-auto">
-              Vedi Progetto
-            </Link>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

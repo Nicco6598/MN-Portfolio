@@ -6,11 +6,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'murrey': '#FF6F61',      // Un rosso corallo vivace
-        'dark-cyan': '#00B4D8',   // Un azzurro vibrante
-        'flax': '#FFDA77',        // Un giallo solare e acceso
-        'alice-blue': '#f0fcff',  // Un azzurro chiaro e fresco
-        'rich-black': '#212121',  // Un nero intenso con un tocco di modernità
+        'murrey': '#1F2937',      // Un grigio antracite
+        'dark-cyan': '#3B82F6',   // Un blu vivace
+        'flax': '#10B981',        // Un verde smeraldo
+        'alice-blue': '#F3F4F6',  // Un grigio molto chiaro
+        'rich-black': '#111827',  // Un nero intenso
       },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],
