@@ -9,7 +9,7 @@ module.exports = {
         'murrey': '#FF6F61',      // Un rosso corallo vivace
         'dark-cyan': '#00B4D8',   // Un azzurro vibrante
         'flax': '#FFDA77',        // Un giallo solare e acceso
-        'alice-blue': '#E0F7FA',  // Un turchese chiaro e fresco
+        'alice-blue': '#cfe3e6',  // Un turchese chiaro e fresco
         'rich-black': '#212121',  // Un nero intenso con un tocco di modernità
       },
       fontFamily: {
