@@ -62,19 +62,19 @@ const ProjectDetail: React.FC = () => {
               {project.vercelLink && (
                 <a
                   href={project.vercelLink}
-                  className="inline-block bg-flax text-white px-6 py-3 rounded-lg text-center w-fit shadow-md hover:bg-flax/80 transition duration-300 transform hover:scale-105 flex items-center"
+                  className="inline-block bg-flax text-white px-6 py-3 rounded-lg text-center w-3/12 justify-center text-center shadow-md hover:bg-flax/80 transition duration-300 transform hover:scale-105 flex items-center"
                 >
-                  <FontAwesomeIcon icon={faGlobe} className="mr-2" />
-                  Vercel Link
+                  Vercel
+                  <FontAwesomeIcon icon={faGlobe} className="ml-4" />
                 </a>
               )}
               {project.githubLink && (
                 <a
                   href={project.githubLink}
-                  className="inline-block bg-rich-black text-white px-6 py-3 text-center w-fit rounded-lg shadow-md hover:bg-rich-black/80 transition duration-300 transform hover:scale-105 flex items-center"
+                  className="inline-block bg-rich-black text-white px-6 py-3 text-center w-3/12 text-center justify-center rounded-lg shadow-md hover:bg-rich-black/80 transition duration-300 transform hover:scale-105 flex items-center"
                 >
-                  <FontAwesomeIcon icon={faGithub} className="mr-2" />
-                  GitHub Link
+                  GitHub
+                  <FontAwesomeIcon icon={faGithub} className="ml-4" />
                 </a>
               )}
             </div>
