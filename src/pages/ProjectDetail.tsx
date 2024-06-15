@@ -1,18 +1,30 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { projects } from '../data/projectData'; // Importa i dati dei progetti
 import logo from '../assets/logo.png'; // Ensure the logo is in the assets folder
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 const ProjectDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const project = projects.find((proj) => proj.id === parseInt(id!));
-
+  const navigate = useNavigate();
+  
   if (!project) {
     return <div>Project not found</div>;
   }
 
+  const currentIndex = projects.findIndex((proj) => proj.id === project.id);
+  const prevProject = projects[currentIndex - 1];
+  const nextProject = projects[currentIndex + 1];
+
+  const handleProjectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    navigate(`/projects/${event.target.value}`);
+  };
+
   return (
-    <div className="relative">
+    <div className="relative min-h-screen flex flex-col items-center justify-center">
       <a href="/" className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full z-20">
         <img 
           src={logo} 
@@ -20,7 +32,7 @@ const ProjectDetail: React.FC = () => {
           className="w-36 h-36 object-cover transform transition duration-500 hover:scale-105 mb-12" 
         />
       </a>
-      <div className="max-w-6xl mx-auto p-12 mt-60 bg-gradient-to-r from-blue-50 to-indigo-50 bg-opacity-80 backdrop-blur-lg rounded-xl shadow-[inset_0px_0px_30px_0px_#00000024]">
+      <div className="max-w-6xl mx-auto p-12 bg-gradient-to-r from-blue-50 to-indigo-50 bg-opacity-80 backdrop-blur-lg rounded-xl shadow-[inset_0px_0px_30px_0px_#00000024]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div className="flex justify-center">
             <img src={project.imageUrl} alt={project.title} className="w-96 h-96 object-cover lg:max-w-lg rounded-xl transform transition duration-500 hover:scale-105" />
@@ -44,26 +56,57 @@ const ProjectDetail: React.FC = () => {
                 </li>
               </ul>
             </div>
-            <div className="mt-8 flex space-x-4">
+            <div className="mt-8 flex flex-col lg:flex-row lg:justify-center items-center space-y-4 lg:space-y-0 lg:space-x-4">
               {project.vercelLink && (
                 <a
                   href={project.vercelLink}
-                  className="inline-block bg-flax text-white px-6 py-3 rounded-lg shadow-md hover:bg-flax/80 transition duration-300 transform hover:scale-105"
+                  className="inline-block bg-flax text-white px-6 py-3 rounded-lg text-center w-4/12 shadow-md hover:bg-flax/80 transition duration-300 transform hover:scale-105"
                 >
-                  Vercel Link
+                  Vercel
+                  <FontAwesomeIcon icon={faGlobe} className="ml-4" />
                 </a>
               )}
               {project.githubLink && (
                 <a
                   href={project.githubLink}
-                  className="inline-block bg-rich-black text-white px-6 py-3 rounded-lg shadow-md hover:bg-rich-black/80 transition duration-300 transform hover:scale-105"
+                  className="inline-block bg-rich-black text-white px-6 py-3 text-center w-4/12 rounded-lg shadow-md hover:bg-rich-black/80 transition duration-300 transform hover:scale-105"
                 >
-                  GitHub Link
+                  GitHub
+                  <FontAwesomeIcon icon={faGithub} className="ml-4" />
                 </a>
               )}
             </div>
           </div>
         </div>
+      </div>
+      <div className="mt-8 flex flex-col max-w-4xl lg:flex-row lg:justify-center items-center space-y-4 lg:space-y-0 lg:space-x-4 rounded-lg p-4 bg-opacity-90">
+        {prevProject && (
+          <Link
+            to={`/projects/${prevProject.id}`}
+            className="inline-block bg-green-200 text-gray-800 px-4 py-2 rounded-lg shadow-md hover:bg-green-300 transition duration-300 transform hover:scale-105"
+          >
+            ← Progetto Precedente
+          </Link>
+        )}
+        <select
+          value={project.id}
+          onChange={handleProjectChange}
+          className="bg-white border border-flax rounded-lg shadow-md px-4 py-2 transition duration-300 transform hover:scale-95"
+        >
+          {projects.map((proj) => (
+            <option key={proj.id} value={proj.id}>
+              {proj.title}
+            </option>
+          ))}
+        </select>
+        {nextProject && (
+          <Link
+            to={`/projects/${nextProject.id}`}
+            className="inline-block bg-blue-200 text-gray-800 px-4 py-2 rounded-lg shadow-md hover:bg-blue-300 transition duration-300 transform hover:scale-105"
+          >
+            Prossimo Progetto →
+          </Link>
+        )}
       </div>
     </div>
   );
