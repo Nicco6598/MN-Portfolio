@@ -23,7 +23,7 @@ const Projects: React.FC = () => {
               key={project.id} 
               className="group bg-white bg-opacity-90 backdrop-blur-md rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition transform hover:scale-105 duration-300 flex flex-col items-center p-6 no-underline"
             >
-              <div className="w-full h-52 mb-4 overflow-hidden rounded-xl">
+              <div className="w-52 h-52 mb-4 overflow-hidden rounded-xl">
                 <img 
                   src={project.imageUrl} 
                   alt={project.title} 

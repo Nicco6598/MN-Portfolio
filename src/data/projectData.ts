@@ -1,8 +1,42 @@
 import marketplace from '../assets/marketplace.png';
 import nft from '../assets/nft.png';
 import travel from '../assets/travel.png';
+import dao from '../assets/dao.png';
+import bombyx from '../assets/bombyx_logo.png';
 
-export const projects = [
+interface Project {
+  id: number;
+  title: string;
+  shortDescription: string;
+  fullDescription: string;
+  imageUrl: string;
+  year: string;
+  month: string;
+  languages: string[];
+  type: string;
+  vercelLink: string;
+  githubLink: string;
+}
+
+const monthToNumber = (month: string): number => {
+  const months: { [key: string]: number } = {
+    'Gennaio': 1,
+    'Febbraio': 2,
+    'Marzo': 3,
+    'Aprile': 4,
+    'Maggio': 5,
+    'Giugno': 6,
+    'Luglio': 7,
+    'Agosto': 8,
+    'Settembre': 9,
+    'Ottobre': 10,
+    'Novembre': 11,
+    'Dicembre': 12
+  };
+  return months[month];
+};
+
+export const projects: Project[] = [
   { 
     id: 1, 
     title: 'Moove Marketplace', 
@@ -42,5 +76,49 @@ export const projects = [
     vercelLink: 'https://eth-d-app-travel.vercel.app/',
     githubLink: 'https://github.com/Nicco6598/eth_dApp-Travel',
   },
+  { 
+    id: 4, 
+    title: 'DAO Smart Contract', 
+    shortDescription: 'Contratto DAO per votazioni eque e trasparenti.',
+    fullDescription: `Il contratto DAO offre agli utenti l'opportunità di partecipare attivamente alle decisioni e alla governance della nostra piattaforma decentralizzata. Con la detenzione di azioni e il voto su proposte, gli utenti diventano membri chiave del nostro ecosistema, contribuendo direttamente alla sua crescita e sviluppo. La trasparenza e la partecipazione sono valori fondamentali su cui è costruita la nostra DAO. Con il nostro contratto, gli utenti possono acquistare azioni per partecipare alla governance e proporsi come amministratori della piattaforma. Le proposte possono riguardare una vasta gamma di argomenti, e ogni membro può esprimere il proprio voto, garantendo che le decisioni riflettano il vero consenso della comunità.`,
+    imageUrl: dao,
+    year: '2024',
+    month: 'Febbraio',
+    languages: ['Solidity', 'Remix IDE'],
+    type: 'Sviluppo Smart Contract',
+    vercelLink: '#',
+    githubLink: 'https://github.com/Nicco6598/DAO-SmartContract',
+  },
+  { 
+    id: 5, 
+    title: 'Bombyx Bar Digital Menù', 
+    shortDescription: 'Un menù digitale creato per Bombyx Bar (Pensato principalmente per Mobile).',
+    fullDescription: `Benvenuti nel progetto del menù digitale per Bombyx Bar, un'innovativa soluzione pensata per migliorare l'esperienza dei clienti e ottimizzare le operazioni quotidiane di uno dei locali più trendy della città.
+
+      Il Bombyx Bar è rinomato non solo per i suoi cocktail unici e l'atmosfera accogliente, ma anche per la sua costante ricerca di innovazione e miglioramento. Il menù digitale rappresenta un passo avanti verso il futuro del settore della ristorazione, combinando estetica moderna e funzionalità avanzate per offrire un'esperienza utente senza pari.
+
+      Questo menù digitale non è solo un elenco di piatti e bevande: è un'opportunità per i clienti di immergersi completamente nell'esperienza Bombyx, grazie a fotografie artistiche, descrizioni dettagliate dei prodotti e suggerimenti di abbinamento creati con cura. Ogni sezione è progettata per guidare i clienti attraverso un viaggio sensoriale, evidenziando i piatti di punta e invitando a esplorare nuovi sapori e combinazioni.
+
+      Grazie alla sua interfaccia intuitiva e accessibile, il menù digitale facilita non solo la scelta dei piatti, ma anche la gestione degli ordini per il personale del bar. Con un design responsivo, il menù si adatta perfettamente a diversi dispositivi, dallo smartphone al tablet, garantendo un'esperienza coerente e piacevole in ogni situazione.
+
+      Il progetto non si limita alla semplice creazione di un menù; è un impegno verso l'innovazione continua e il miglioramento dell'efficienza operativa. Oltre a migliorare l'esperienza del cliente, il menù digitale aiuta il Bombyx Bar a ridurre i costi di stampa e aggiornamento dei menù cartacei, contribuendo così a una gestione più sostenibile dell'ambiente.
+
+      In sintesi, il menù digitale per Bombyx Bar rappresenta l'incontro perfetto tra tradizione e modernità, offrendo un'esperienza culinaria e visiva senza precedenti. È un onore presentare questo progetto nel mio portfolio, testimoniando l'impegno nel portare innovazione e valore aggiunto a clienti e partner commerciali.`,
+    imageUrl: bombyx,
+    year: '2024',
+    month: 'Maggio',
+    languages: ['React', 'Typescript'],
+    type: 'Sviluppo Web',
+    vercelLink: 'https://bombyx-menu.vercel.app/',
+    githubLink: '#',
+  },
   // Aggiungi altri progetti se necessario
 ];
+
+export const sortedProjects = projects.sort((a, b) => {
+  const yearDiff = parseInt(b.year) - parseInt(a.year);
+  if (yearDiff !== 0) {
+    return yearDiff;
+  }
+  return monthToNumber(b.month) - monthToNumber(a.month);
+});
