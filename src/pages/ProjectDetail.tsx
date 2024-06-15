@@ -25,14 +25,16 @@ const ProjectDetail: React.FC = () => {
 
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center">
-      <a href="/" className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full z-20">
-        <img 
-          src={logo} 
-          alt="Logo" 
-          className="w-36 h-36 object-cover transform transition duration-500 hover:scale-105 mb-12" 
-        />
-      </a>
-      <div className="max-w-6xl mx-auto p-12 bg-gradient-to-r from-blue-50 to-indigo-50 bg-opacity-80 backdrop-blur-lg rounded-xl shadow-[inset_0px_0px_30px_0px_#00000024]">
+      <div className="absolute top-0 w-full flex justify-center mt-12">
+        <a href="/" className="z-20">
+          <img 
+            src={logo} 
+            alt="Logo" 
+            className="w-36 h-36 object-cover transform transition duration-500 hover:scale-105" 
+          />
+        </a>
+      </div>
+      <div className="max-w-6xl mx-auto p-12 bg-gradient-to-r from-blue-50 to-indigo-50 bg-opacity-80 backdrop-blur-lg rounded-xl shadow-[inset_0px_0px_30px_0px_#00000024] mt-60">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div className="flex justify-center">
             <img src={project.imageUrl} alt={project.title} className="w-96 h-96 object-cover lg:max-w-lg rounded-xl transform transition duration-500 hover:scale-105" />
@@ -56,23 +58,23 @@ const ProjectDetail: React.FC = () => {
                 </li>
               </ul>
             </div>
-            <div className="mt-8 flex flex-col lg:flex-row lg:justify-center items-center space-y-4 lg:space-y-0 lg:space-x-4">
+            <div className="mt-8 flex flex-col items-center lg:flex-row lg:justify-center space-y-4 lg:space-y-0 lg:space-x-4">
               {project.vercelLink && (
                 <a
                   href={project.vercelLink}
-                  className="inline-block bg-flax text-white px-6 py-3 rounded-lg text-center w-4/12 shadow-md hover:bg-flax/80 transition duration-300 transform hover:scale-105"
+                  className="inline-block bg-flax text-white px-6 py-3 rounded-lg text-center w-fit shadow-md hover:bg-flax/80 transition duration-300 transform hover:scale-105 flex items-center"
                 >
-                  Vercel
-                  <FontAwesomeIcon icon={faGlobe} className="ml-4" />
+                  <FontAwesomeIcon icon={faGlobe} className="mr-2" />
+                  Vercel Link
                 </a>
               )}
               {project.githubLink && (
                 <a
                   href={project.githubLink}
-                  className="inline-block bg-rich-black text-white px-6 py-3 text-center w-4/12 rounded-lg shadow-md hover:bg-rich-black/80 transition duration-300 transform hover:scale-105"
+                  className="inline-block bg-rich-black text-white px-6 py-3 text-center w-fit rounded-lg shadow-md hover:bg-rich-black/80 transition duration-300 transform hover:scale-105 flex items-center"
                 >
-                  GitHub
-                  <FontAwesomeIcon icon={faGithub} className="ml-4" />
+                  <FontAwesomeIcon icon={faGithub} className="mr-2" />
+                  GitHub Link
                 </a>
               )}
             </div>
