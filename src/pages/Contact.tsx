@@ -95,15 +95,15 @@ const Contact: React.FC = () => {
               ))}
             </select>
             {selectedProjectData && (
-              <div className="mt-4 p-4 bg-gradient-to-r from-green-100 to-emerald-300 rounded-xl shadow-lg transform transition duration-500">
+              <div className="mt-4 p-4 bg-gradient-to-r from-blue-100 to-red-100 rounded-2xl shadow-lg transform transition duration-500">
                 <div className="flex flex-col items-center lg:flex-row lg:items-start">
-                  <img src={selectedProjectData.imageUrl} alt={selectedProjectData.title} className="w-32 h-32 object-cover rounded-xl mb-4 lg:mb-0 lg:mr-4" />
+                  <img src={selectedProjectData.imageUrl} alt={selectedProjectData.title} className="w-32 h-32 object-cover mt-4 rounded-xl mb-4 lg:mb-0 lg:mr-4" />
                   <div>
-                    <h2 className="text-xl font-semibold text-center text-gray-800 mb-2 lg:text-left">{selectedProjectData.title}</h2>
-                    <p className="text-gray-600 text-center lg:text-left mb-2">{selectedProjectData.shortDescription}</p>
-                    <p className="text-gray-600 text-center lg:text-left mb-2"><strong>Anno:</strong> {selectedProjectData.year}</p>
-                    <p className="text-gray-600 text-center lg:text-left mb-2"><strong>Linguaggi:</strong> {selectedProjectData.languages.join(', ')}</p>
-                    <p className="text-gray-600 text-center lg:text-left"><strong>Tipologia:</strong> {selectedProjectData.type}</p>
+                    <h2 className="text-xl font-semibold text-center text-red-800 mb-2 lg:text-left">{selectedProjectData.title}</h2>
+                    <p className="text-black text-center lg:text-left mb-2">{selectedProjectData.shortDescription}</p>
+                    <p className="text-blue-600 text-center lg:text-left mb-2"><strong>Anno:</strong> {selectedProjectData.year}</p>
+                    <p className="text-blue-600 text-center lg:text-left mb-2"><strong>Linguaggi:</strong> {selectedProjectData.languages.join(', ')}</p>
+                    <p className="text-blue-600 text-center lg:text-left"><strong>Tipologia:</strong> {selectedProjectData.type}</p>
                   </div>
                 </div>
               </div>
