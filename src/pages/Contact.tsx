@@ -60,7 +60,6 @@ const Contact: React.FC = () => {
       }
     }
   };
-  
 
   const selectedProjectData = projects.find(project => project.id === selectedProject);
 
