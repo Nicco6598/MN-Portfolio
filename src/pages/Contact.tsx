@@ -14,37 +14,53 @@ const Contact: React.FC = () => {
     return re.test(String(email).toLowerCase());
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     let validationErrors: { email?: string; message?: string } = {};
-
+  
     if (!validateEmail(email)) {
       validationErrors.email = 'Inserisci una email valida.';
     }
-
+  
     if (message.length < 10) {
       validationErrors.message = 'La descrizione deve contenere almeno 10 caratteri.';
     }
-
+  
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
-      // Invio del modulo alla tua email
       const formData = {
         email: email,
         message: message,
         selectedProject: selectedProject
       };
-      console.log('Form Data:', formData);
-
-      // Resetta lo stato del modulo dopo l'invio
-      setEmail('');
-      setMessage('');
-      setSelectedProject(null);
-      setErrors({});
+  
+      try {
+        const response = await fetch('/api/sendEmail', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+  
+        const result = await response.json();
+        if (result.success) {
+          console.log('Email inviata con successo');
+          setEmail('');
+          setMessage('');
+          setSelectedProject(null);
+          setErrors({});
+        } else {
+          console.error('Errore durante l\'invio dell\'email:', result.error);
+        }
+      } catch (error) {
+        console.error('Errore durante l\'invio dell\'email:', error);
+      }
     }
   };
+  
 
   const selectedProjectData = projects.find(project => project.id === selectedProject);
 
