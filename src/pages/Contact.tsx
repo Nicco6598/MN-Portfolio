@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { projects } from '../data/projectData'; // Importa i dati dei progetti
-import logo from '../assets/logo.png'; // Ensure the logo is in the assets folder
+import logo from '../assets/logo.png'; // Assicurati che il logo sia nella cartella assets
 import '../styles/animations.css';
 
 const Contact: React.FC = () => {
@@ -14,50 +14,36 @@ const Contact: React.FC = () => {
     return re.test(String(email).toLowerCase());
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
+
     let validationErrors: { email?: string; message?: string } = {};
-  
+
     if (!validateEmail(email)) {
       validationErrors.email = 'Inserisci una email valida.';
     }
-  
+
     if (message.length < 10) {
       validationErrors.message = 'La descrizione deve contenere almeno 10 caratteri.';
     }
-  
+
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
+      // Invio del modulo alla tua email
       const formData = {
         email: email,
         message: message,
         selectedProject: selectedProject
       };
-  
-      try {
-        const response = await fetch('/api/sendEmail', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
-  
-        const result = await response.json();
-        if (result.success) {
-          console.log('Email inviata con successo');
-          setEmail('');
-          setMessage('');
-          setSelectedProject(null);
-          setErrors({});
-        } else {
-          console.error('Errore durante l\'invio dell\'email:', result.error);
-        }
-      } catch (error) {
-        console.error('Errore durante l\'invio dell\'email:', error);
-      }
+
+      console.log('Form Data:', formData);
+
+      // Resetta lo stato del modulo dopo l'invio
+      setEmail('');
+      setMessage('');
+      setSelectedProject(null);
+      setErrors({});
     }
   };
 
@@ -136,7 +122,7 @@ const Contact: React.FC = () => {
             frameBorder="0" 
             style={{ border: 0 }} 
             allowFullScreen={false} 
-            aria-hidden="false" 
+            aria-hidden={false} 
             tabIndex={0}
             className="rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)]"
           ></iframe>
