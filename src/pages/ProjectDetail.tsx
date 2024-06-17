@@ -87,7 +87,7 @@ const ProjectDetail: React.FC = () => {
             to={`/projects/${prevProject.id}`}
             className="inline-block bg-green-200 text-gray-800 px-4 py-2 rounded-lg shadow-md hover:bg-green-300 transition duration-300 transform hover:scale-105"
           >
-            ← Progetto Precedente
+            ← Precedente
           </Link>
         )}
         <select
@@ -106,7 +106,7 @@ const ProjectDetail: React.FC = () => {
             to={`/projects/${nextProject.id}`}
             className="inline-block bg-blue-200 text-gray-800 px-4 py-2 rounded-lg shadow-md hover:bg-blue-300 transition duration-300 transform hover:scale-105"
           >
-            Prossimo Progetto →
+            Prossimo →
           </Link>
         )}
       </div>
