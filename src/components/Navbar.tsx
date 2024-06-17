@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes, FaHome, FaProjectDiagram, FaEnvelope, FaFileDownload, FaGithub } from 'react-icons/fa';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,81 +24,98 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <nav className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-red-50 to-blue-50 text-gray-800 p-4 rounded-xl shadow-[5px_5px_0px_0px_rgba(0,40,58)] z-50 backdrop-filter backdrop-blur-md">
-        <div className="flex items-center justify-between">
-          <Link to="/" className="hidden md:inline-block px-4 text-lg font-bold uppercase hover:text-dark-cyan transition">Home</Link>
-          <Link to="/projects" className="hidden md:inline-block px-4 text-lg font-bold uppercase hover:text-dark-cyan transition">Progetti</Link>
-          <Link to="/contact" className="hidden md:inline-block px-4 text-lg font-bold uppercase hover:text-dark-cyan transition mr-8">Contatti</Link>
-          <a 
-            href="https://www.dropbox.com/scl/fi/qq0zfpybd8fh1mf8869jm/Marco_Niccolini_CV-IT.pdf?rlkey=p6ke8o7aoafw1o58prs9p1oal&st=w7vok4o5&dl=0" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="hidden mr-4 md:inline-block bg-flax text-white px-4 py-2 rounded-xl font-bold uppercase hover:bg-flax/80 transition"
+      <nav className="fixed top-1/2 right-4 transform -translate-y-1/2 flex-col items-center bg-gradient-to-r from-red-200/50 to-blue-200/50 text-gray-800 p-4 rounded-xl shadow-2xl border border-gray-200 z-50 backdrop-filter backdrop-blur-md transition-transform duration-300 hidden md:flex">
+        <div className="flex flex-col items-center space-y-4 w-24">
+          <Link to="/" className="flex flex-col items-center text-lg font-bold uppercase hover:text-dark-cyan transition">
+            <FaHome size={24} />
+            <span className="text-sm mt-1">Home</span>
+          </Link>
+          <Link to="/projects" className="flex flex-col items-center text-lg font-bold uppercase hover:text-dark-cyan transition">
+            <FaProjectDiagram size={24} />
+            <span className="text-sm mt-1">Progetti</span>
+          </Link>
+          <Link to="/contact" className="flex flex-col items-center text-lg font-bold uppercase hover:text-dark-cyan transition">
+            <FaEnvelope size={24} />
+            <span className="text-sm mt-1">Contatti</span>
+          </Link>
+          <a
+            href="https://www.dropbox.com/scl/fi/qq0zfpybd8fh1mf8869jm/Marco_Niccolini_CV-IT.pdf?rlkey=p6ke8o7aoafw1o58prs9p1oal&st=w7vok4o5&dl=0"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex flex-col items-center bg-flax text-white px-4 py-2 rounded-xl font-bold uppercase hover:bg-flax/80 transition w-full"
           >
-            CV Italiano
+            <FaFileDownload size={24} />
+            <span className="text-sm mt-1">CV (IT)</span>
           </a>
-          <a 
-            href="https://www.dropbox.com/scl/fi/aijt4s3d9q5qxuhb5guw7/Marco_Niccolini_CV-ENG.pdf?rlkey=0aobe9miqapzscftl2935xg1q&st=200e060b&dl=0" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="hidden mr-4 md:inline-block bg-flax text-white px-4 py-2 rounded-xl font-bold uppercase hover:bg-flax/80 transition"
+          <a
+            href="https://www.dropbox.com/scl/fi/aijt4s3d9q5qxuhb5guw7/Marco_Niccolini_CV-ENG.pdf?rlkey=0aobe9miqapzscftl2935xg1q&st=200e060b&dl=0"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex flex-col items-center bg-flax text-white px-4 py-2 rounded-xl font-bold uppercase hover:bg-flax/80 transition w-full"
           >
-            CV Inglese
+            <FaFileDownload size={24} />
+            <span className="text-sm mt-1">CV (EN)</span>
           </a>
-          <a 
-            href="https://github.com/Nicco6598" 
-            className="hidden md:inline-block bg-rich-black text-white px-4 py-2 rounded-xl font-bold uppercase hover:bg-rich-black/80 transition"
-            target="_blank" 
+          <a
+            href="https://github.com/Nicco6598"
+            className="flex flex-col items-center bg-rich-black text-white px-4 py-2 rounded-xl font-bold uppercase hover:bg-rich-black/80 transition w-full"
+            target="_blank"
             rel="noopener noreferrer"
           >
-            GitHub
+            <FaGithub size={24} />
+            <span className="text-sm mt-1">GitHub</span>
           </a>
-          <button onClick={toggleMenu} className="text-gray-800 focus:outline-none w-auto p-2 mx-auto justify-center md:hidden flex">
-            {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-          </button>
         </div>
       </nav>
+      <div className="fixed top-4 right-4 md:hidden z-50">
+        <button onClick={toggleMenu} className="text-gray-800 bg-gradient-to-r from-red-200/50 to-blue-200/50 rounded-xl border border-gray-200 p-4 focus:outline-none w-auto p-2 mx-auto justify-center flex">
+          {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+        </button>
+      </div>
       {isMenuOpen && (
         <>
           <div className="fixed inset-0 bg-blue-50 bg-opacity-80 backdrop-blur-md z-40" onClick={closeMenu}></div>
-          <div 
-            className="fixed inset-0 flex justify-center items-center z-50"
-            onClick={closeMenu}
-          >
-            <div 
-              className="bg-blue-100 text-gray-800 p-8 rounded-2xl shadow-lg space-y-4 w-11/12 max-w-md mx-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
+          <div className="fixed inset-0 flex justify-center items-center z-50" onClick={closeMenu}>
+            <div className="bg-gradient-to-r from-red-200/50 to-blue-200/50 text-gray-800 p-8 rounded-2xl shadow-lg space-y-4 w-11/12 max-w-md mx-auto" onClick={(e) => e.stopPropagation()}>
               <div className="flex flex-col items-center space-y-4">
-                <Link to="/" className="block text-2xl font-bold uppercase" onClick={closeMenu}>Home</Link>
-                <Link to="/projects" className="block text-2xl font-bold uppercase" onClick={closeMenu}>Progetti</Link>
-                <Link to="/contact" className="block text-2xl font-bold uppercase" onClick={closeMenu}>Contatti</Link>
-                <a 
-                  href="https://www.dropbox.com/scl/fi/qq0zfpybd8fh1mf8869jm/Marco_Niccolini_CV-IT.pdf?rlkey=p6ke8o7aoafw1o58prs9p1oal&st=w7vok4o5&dl=0" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="block bg-dark-cyan text-white px-6 py-3 rounded-xl font-bold uppercase w-full text-center"
-                  onClick={closeMenu}
-                >
-                  Scarica CV Italiano
-                </a>
-                <a 
-                  href="https://www.dropbox.com/scl/fi/aijt4s3d9q5qxuhb5guw7/Marco_Niccolini_CV-ENG.pdf?rlkey=0aobe9miqapzscftl2935xg1q&st=200e060b&dl=0" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="block bg-dark-cyan text-white px-6 py-3 rounded-xl font-bold uppercase w-full text-center"
-                  onClick={closeMenu}
-                >
-                  Scarica CV Inglese
-                </a>
-                <a 
-                  href="https://github.com/Nicco6598" 
-                  className="block bg-rich-black text-white px-6 py-3 rounded-xl font-bold uppercase w-full text-center"
-                  target="_blank" 
+                <Link to="/" className="flex flex-col items-center text-lg font-bold uppercase hover:text-dark-cyan transition">
+                  <FaHome size={24} />
+                  <span className="text-sm mt-1">Home</span>
+                </Link>
+                <Link to="/projects" className="flex flex-col items-center text-lg font-bold uppercase hover:text-dark-cyan transition">
+                  <FaProjectDiagram size={24} />
+                  <span className="text-sm mt-1">Progetti</span>
+                </Link>
+                <Link to="/contact" className="flex flex-col items-center text-lg font-bold uppercase hover:text-dark-cyan transition">
+                  <FaEnvelope size={24} />
+                  <span className="text-sm mt-1">Contatti</span>
+                </Link>
+                <a
+                  href="https://www.dropbox.com/scl/fi/qq0zfpybd8fh1mf8869jm/Marco_Niccolini_CV-IT.pdf?rlkey=p6ke8o7aoafw1o58prs9p1oal&st=w7vok4o5&dl=0"
+                  target="_blank"
                   rel="noopener noreferrer"
-                  onClick={closeMenu}
+                  className="flex flex-col items-center bg-flax text-white px-4 py-2 rounded-xl font-bold uppercase hover:bg-flax/80 transition w-full"
                 >
-                  GitHub
+                  <FaFileDownload size={24} />
+                  <span className="text-sm mt-1">CV (IT)</span>
+                </a>
+                <a
+                  href="https://www.dropbox.com/scl/fi/aijt4s3d9q5qxuhb5guw7/Marco_Niccolini_CV-ENG.pdf?rlkey=0aobe9miqapzscftl2935xg1q&st=200e060b&dl=0"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col items-center bg-flax text-white px-4 py-2 rounded-xl font-bold uppercase hover:bg-flax/80 transition w-full"
+                >
+                  <FaFileDownload size={24} />
+                  <span className="text-sm mt-1">CV (EN)</span>
+                </a>
+                <a
+                  href="https://github.com/Nicco6598"
+                  className="flex flex-col items-center bg-rich-black text-white px-4 py-2 rounded-xl font-bold uppercase hover:bg-rich-black/80 transition w-full"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaGithub size={24} />
+                  <span className="text-sm mt-1">GitHub</span>
                 </a>
               </div>
             </div>
