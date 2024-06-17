@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <nav className="fixed top-1/2 right-4 transform -translate-y-1/2 flex-col items-center bg-gradient-to-r from-red-200/50 to-blue-200/50 text-gray-800 p-4 rounded-xl shadow-2xl border border-gray-200 z-50 backdrop-filter backdrop-blur-md transition-transform duration-300 hidden md:flex">
+      <nav className="fixed top-1/2 right-16 transform -translate-y-1/2 flex-col items-center bg-gradient-to-r from-red-200/50 to-blue-200/50 text-gray-800 p-4 rounded-xl shadow-2xl border border-gray-200 z-50 backdrop-filter backdrop-blur-md transition-transform duration-300 hidden md:flex">
         <div className="flex flex-col items-center space-y-4 w-24">
           <Link to="/" className="flex flex-col items-center text-lg font-bold uppercase hover:text-dark-cyan transition">
             <FaHome size={24} />
@@ -68,7 +68,7 @@ const Navbar: React.FC = () => {
         </div>
       </nav>
       <div className="fixed top-4 right-4 md:hidden z-50">
-        <button onClick={toggleMenu} className="text-gray-800 bg-gradient-to-r from-red-200 to-blue-200 rounded-xl border border-gray-200 p-4 focus:outline-none w-auto p-2 mx-auto justify-center flex">
+        <button onClick={toggleMenu} className="text-gray-800 bg-gradient-to-r from-red-100 to-blue-100 rounded-xl border border-gray-200 p-4 focus:outline-none w-auto p-2 mx-auto justify-center flex">
           {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
         </button>
       </div>

@@ -113,6 +113,19 @@ const Contact: React.FC = () => {
             Invia
           </button>
         </form>
+        <div className="mt-12">
+          <iframe 
+            src="https://maps.google.com/maps?width=100%&amp;height=100%&amp;hl=en&amp;q=pioltello&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" 
+            width="100%" 
+            height="450" 
+            frameBorder="0" 
+            style={{ border: 0 }} 
+            allowFullScreen={false} 
+            aria-hidden="false" 
+            tabIndex={0}
+            className="rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)]"
+          ></iframe>
+        </div>
       </div>
     </div>
   );
