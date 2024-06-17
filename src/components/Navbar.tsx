@@ -68,7 +68,7 @@ const Navbar: React.FC = () => {
         </div>
       </nav>
       <div className="fixed top-4 right-4 md:hidden z-50">
-        <button onClick={toggleMenu} className="text-gray-800 bg-gradient-to-r from-red-200/50 to-blue-200/50 rounded-xl border border-gray-200 p-4 focus:outline-none w-auto p-2 mx-auto justify-center flex">
+        <button onClick={toggleMenu} className="text-gray-800 bg-gradient-to-r from-red-200 to-blue-200 rounded-xl border border-gray-200 p-4 focus:outline-none w-auto p-2 mx-auto justify-center flex">
           {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
         </button>
       </div>
@@ -76,7 +76,7 @@ const Navbar: React.FC = () => {
         <>
           <div className="fixed inset-0 bg-blue-50 bg-opacity-80 backdrop-blur-md z-40" onClick={closeMenu}></div>
           <div className="fixed inset-0 flex justify-center items-center z-50" onClick={closeMenu}>
-            <div className="bg-gradient-to-r from-red-200/50 to-blue-200/50 text-gray-800 p-8 rounded-2xl shadow-lg space-y-4 w-11/12 max-w-md mx-auto" onClick={(e) => e.stopPropagation()}>
+            <div className="bg-gradient-to-r from-red-200/50 to-blue-200/50 border border-gray-200 text-gray-800 p-8 rounded-2xl shadow-lg space-y-4 w-11/12 max-w-md mx-auto" onClick={(e) => e.stopPropagation()}>
               <div className="flex flex-col items-center space-y-4">
                 <Link to="/" className="flex flex-col items-center text-lg font-bold uppercase hover:text-dark-cyan transition">
                   <FaHome size={24} />
