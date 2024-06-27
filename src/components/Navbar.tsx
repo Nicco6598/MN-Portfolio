@@ -39,7 +39,7 @@ const Navbar: React.FC = () => {
             <span className="text-sm mt-1">Contatti</span>
           </Link>
           <a
-            href="https://www.dropbox.com/scl/fi/qq0zfpybd8fh1mf8869jm/Marco_Niccolini_CV-IT.pdf?rlkey=p6ke8o7aoafw1o58prs9p1oal&st=w7vok4o5&dl=0"
+            href="https://www.dropbox.com/scl/fi/bj7k1zmc906y680m43o9a/Marco_Niccolini_CV-IT.pdf?rlkey=odfi1slevmv7d3194yb30gi08&st=n2vnk5ei&dl=0"
             target="_blank"
             rel="noopener noreferrer"
             className="flex flex-col items-center bg-flax text-white px-4 py-2 rounded-xl font-bold uppercase hover:bg-flax/80 transition w-full"
@@ -48,7 +48,7 @@ const Navbar: React.FC = () => {
             <span className="text-sm mt-1">CV (IT)</span>
           </a>
           <a
-            href="https://www.dropbox.com/scl/fi/aijt4s3d9q5qxuhb5guw7/Marco_Niccolini_CV-ENG.pdf?rlkey=0aobe9miqapzscftl2935xg1q&st=200e060b&dl=0"
+            href="https://www.dropbox.com/scl/fi/fl5mqi4fxaqrk76b9m4rq/Marco_Niccolini_CV-ENG.pdf?rlkey=4irakujhbx7x7lhk98cel3raz&st=g363iikd&dl=0"
             target="_blank"
             rel="noopener noreferrer"
             className="flex flex-col items-center bg-flax text-white px-4 py-2 rounded-xl font-bold uppercase hover:bg-flax/80 transition w-full"
