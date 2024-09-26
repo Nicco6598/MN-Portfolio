@@ -39,7 +39,7 @@ const Navbar: React.FC = () => {
             <span className="text-sm mt-1">Contatti</span>
           </Link>
           <a
-            href="https://www.dropbox.com/scl/fi/bj7k1zmc906y680m43o9a/Marco_Niccolini_CV-IT.pdf?rlkey=odfi1slevmv7d3194yb30gi08&st=n2vnk5ei&dl=0"
+            href="https://www.dropbox.com/scl/fi/j6fmtjtc4pz5tg0ym2ft5/Marco_Niccolini-CV-IT.pdf?rlkey=usg26nik24hays92zwodzum9v&st=qgjrzhgx&dl=0"
             target="_blank"
             rel="noopener noreferrer"
             className="flex flex-col items-center bg-flax text-white px-4 py-2 rounded-xl font-bold uppercase hover:bg-flax/80 transition w-full"
