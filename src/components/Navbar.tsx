@@ -75,7 +75,7 @@ const Navbar: React.FC = () => {
           {/* Desktop Download Links */}
           <div className="hidden md:flex items-center space-x-2">
             <a
-              href="https://www.dropbox.com/scl/fi/j6fmtjtc4pz5tg0ym2ft5/Marco_Niccolini-CV-IT.pdf?rlkey=usg26nik24hays92zwodzum9v&st=qgjrzhgx&dl=0"
+              href="https://www.dropbox.com/scl/fi/8s8vlg5i47u9v99k78u4m/Marco_Niccolini-CV-IT-2.pdf?rlkey=aotn6uq6rab75ml8e6fhou4sl&st=ucr4z9lh&dl=0"
               target="_blank"
               rel="noopener noreferrer"
               className="px-3 py-1 rounded-full bg-sunglow text-raisin-black font-medium text-sm hover:bg-opacity-90 transition-colors"
@@ -83,12 +83,12 @@ const Navbar: React.FC = () => {
               CV (IT)
             </a>
             <a
-              href="https://www.dropbox.com/scl/fi/fl5mqi4fxaqrk76b9m4rq/Marco_Niccolini_CV-ENG.pdf?rlkey=4irakujhbx7x7lhk98cel3raz&st=g363iikd&dl=0"
+              href="https://www.dropbox.com/scl/fi/683lfqrtxnu59rk7a4lll/Marco_Niccolini-CV-EN-1.pdf?rlkey=4xupp70mjwurxpnmh2zmxe3jh&st=9gbpevxy&dl=0"
               target="_blank"
               rel="noopener noreferrer"
               className="px-3 py-1 rounded-full bg-white bg-opacity-10 text-sm hover:bg-opacity-20 transition-colors"
             >
-              CV (EN)
+              RESUME
             </a>
             <a
               href="https://github.com/Nicco6598"
@@ -207,7 +207,7 @@ const Navbar: React.FC = () => {
                   }`}
                 >
                   <FaFileDownload />
-                  <span>CV (EN)</span>
+                  <span>RESUME</span>
                 </a>
                 <a
                   href="https://github.com/Nicco6598"
