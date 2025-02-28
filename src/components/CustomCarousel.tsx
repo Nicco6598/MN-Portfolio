@@ -90,14 +90,21 @@ const CustomCarousel: React.FC = () => {
   return (
     <div className="custom-carousel relative" ref={carouselRef}>
       {/* Main Carousel */}
-      <div className="glassmorphism-card rounded-2xl overflow-hidden transition-all duration-500">
+      <div className="glassmorphism rounded-2xl overflow-hidden transition-all duration-500 relative">
+        {/* Decorative elements */}
+        <div className="absolute top-0 right-0 w-40 h-40 rounded-full bg-accent opacity-15 blur-xl transform translate-x-10 -translate-y-10"></div>
+        <div className="absolute bottom-0 left-0 w-40 h-40 rounded-full bg-accent opacity-15 blur-xl transform -translate-x-10 translate-y-10"></div>
+        
         <div className="flex flex-col lg:flex-row">
           {/* Project Image */}
           <div className="lg:w-1/2 relative overflow-hidden h-64 lg:h-[360px]">
             {/* Background blur effect */}
             <div 
-              className="absolute inset-0 z-0 blur-xl opacity-50"
-              style={{ backgroundColor: theme === 'light' ? '#222222' : '#ffd13e' }}
+              className="absolute inset-0 z-0 blur-xl opacity-30 rounded-full"
+              style={{ 
+                backgroundColor: theme === 'light' ? '#e6aa00' : '#ffd13e',
+                transform: 'scale(1.5)',
+              }}
             ></div>
             
             <div className="relative z-10 w-full h-full">
@@ -108,7 +115,7 @@ const CustomCarousel: React.FC = () => {
               />
               
               {/* Project type badge */}
-              <div className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-medium bg-sunglow text-raisin-black">
+              <div className="absolute top-4 left-4 badge badge-primary">
                 {project.type}
               </div>
             </div>
@@ -119,19 +126,19 @@ const CustomCarousel: React.FC = () => {
             <div>
               <div className="flex justify-between items-start mb-3">
                 <h3 className="text-2xl font-bold">{project.title}</h3>
-                <span className="text-sm px-2 py-1 rounded-full bg-battle-gray bg-opacity-20">
+                <span className="badge badge-secondary">
                   {project.year}
                 </span>
               </div>
               
-              <p className="text-current font-medium mb-6">{project.shortDescription}</p>
+              <p className="text-secondary font-medium mb-6">{project.shortDescription}</p>
               
-              <div className="flex flex-col sm:flex-row gap-2 mb-4 text-current font-medium">
+              <div className="flex flex-col sm:flex-row gap-2 mb-4 text-secondary font-medium">
                 <div className="flex items-center gap-2">
                   <span className="font-semibold">Anno:</span>
                   <span>{project.year}</span>
                 </div>
-                <div className="hidden sm:block text-current">•</div>
+                <div className="hidden sm:block text-secondary">•</div>
                 <div className="flex items-center gap-2">
                   <span className="font-semibold">Tipo:</span>
                   <span>{project.type}</span>
@@ -142,7 +149,7 @@ const CustomCarousel: React.FC = () => {
             <div className="flex flex-wrap gap-4 mt-auto">
               <Link
                 to={`/projects/${project.id}`}
-                className="bg-sunglow text-raisin-black px-4 py-2 rounded-full font-medium flex items-center gap-2 transform transition hover:translate-y-[-2px]"
+                className="btn btn-primary shadow-md hover:shadow-lg transform transition hover:translate-y-[-2px]"
               >
                 <span>Scopri di più</span>
                 <FaArrowRight size={14} />
@@ -154,7 +161,7 @@ const CustomCarousel: React.FC = () => {
                     href={project.githubLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-raisin-black text-white flex items-center justify-center transform transition hover:scale-110"
+                    className="w-10 h-10 rounded-full bg-primary text-accent flex items-center justify-center transform transition hover:scale-110 border border-accent"
                     aria-label="GitHub Repository"
                   >
                     <FaGithub size={18} />
@@ -166,7 +173,7 @@ const CustomCarousel: React.FC = () => {
                     href={project.vercelLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-battle-gray bg-opacity-20 flex items-center justify-center transform transition hover:scale-110"
+                    className="w-10 h-10 rounded-full bg-subtle flex items-center justify-center transform transition hover:scale-110"
                     aria-label="Live Demo"
                   >
                     <FaExternalLinkAlt size={14} />
@@ -182,7 +189,7 @@ const CustomCarousel: React.FC = () => {
       <div className="flex justify-between mt-6">
         <button
           onClick={goToPrevious}
-          className="flex items-center justify-center w-10 h-10 rounded-full bg-battle-gray bg-opacity-20 hover:bg-sunglow hover:text-raisin-black transition-colors"
+          className="flex items-center justify-center w-10 h-10 rounded-full bg-subtle hover:bg-accent hover:text-primary transition-colors"
           aria-label="Previous project"
         >
           <FaChevronLeft />
@@ -195,8 +202,8 @@ const CustomCarousel: React.FC = () => {
               onClick={() => goToIndex(index)}
               className={`w-3 h-3 rounded-full transition-all ${
                 currentIndex === index 
-                  ? 'bg-sunglow w-6' 
-                  : 'bg-battle-gray bg-opacity-30 hover:bg-opacity-50'
+                  ? 'bg-accent w-6' 
+                  : 'bg-subtle hover:bg-opacity-50'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -205,7 +212,7 @@ const CustomCarousel: React.FC = () => {
         
         <button
           onClick={goToNext}
-          className="flex items-center justify-center w-10 h-10 rounded-full bg-battle-gray bg-opacity-20 hover:bg-sunglow hover:text-raisin-black transition-colors"
+          className="flex items-center justify-center w-10 h-10 rounded-full bg-subtle hover:bg-accent hover:text-primary transition-colors"
           aria-label="Next project"
         >
           <FaChevronRight />

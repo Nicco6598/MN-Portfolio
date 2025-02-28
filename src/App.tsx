@@ -1,4 +1,3 @@
-// App.tsx
 import React, { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, useNavigationType } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -9,8 +8,9 @@ import ProjectDetail from './pages/ProjectDetail';
 import Footer from './components/Footer';
 import { LoadingProvider, LoadingContext } from './context/LoadingContext';
 import { ThemeProvider } from './context/ThemeContext';
-import { InfinitySpin } from 'react-loader-spinner';
+import PortfolioLoader from './components/PortfolioLoader';
 import './styles/theme.css';
+import './styles/home-animations.css'; // Importa le animazioni per la home
 import BackgroundShapes from './components/BackgroundShapes';
 
 const getRouteName = (pathname: string) => {
@@ -39,10 +39,11 @@ const AppContent: React.FC = () => {
       setLoading(true);
       setDestination(getRouteName(location.pathname));
 
-      // Simulate loading time
+      // Simulate loading time with a variable duration for a more natural feel
+      const loadingTime = Math.random() * 300 + 700; // Between 700ms and 1000ms
       const timer = setTimeout(() => {
         setLoading(false);
-      }, 800);
+      }, loadingTime);
 
       return () => clearTimeout(timer);
     }
@@ -53,15 +54,10 @@ const AppContent: React.FC = () => {
       <BackgroundShapes />
       <Navbar />
       {loading ? (
-        <div className="flex flex-col items-center justify-center min-h-screen space-y-4">
-          <InfinitySpin 
-            width='200'
-            color="var(--color-accent)"
-          />
-          <p className="text-lg font-semibold animate-pulse">Caricamento {destination}...</p>
-        </div>
+        <PortfolioLoader destination={destination} />
       ) : (
-        <div>
+        // Aggiungi padding-top per compensare la navbar
+        <div className="page-transition pt-24">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />

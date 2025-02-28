@@ -1,0 +1,67 @@
+/* src/styles/home-animations.css */
+@keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes progress {
+    from { width: 0; }
+  }
+  
+  .skill-category {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  .skill-category:nth-child(1) {
+    animation: fadeInUp 0.8s ease forwards;
+  }
+  
+  .skill-category:nth-child(2) {
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 0.2s;
+  }
+  
+  .skill-category:nth-child(3) {
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 0.4s;
+  }
+  
+  .skill-category:nth-child(4) {
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 0.6s;
+  }
+  
+  .skill-frameworks {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 0.8s;
+  }
+  
+  .framework-tag {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.6s ease forwards;
+  }
+  
+  .framework-tag:nth-child(1) { animation-delay: 0.9s; }
+  .framework-tag:nth-child(2) { animation-delay: 0.95s; }
+  .framework-tag:nth-child(3) { animation-delay: 1s; }
+  .framework-tag:nth-child(4) { animation-delay: 1.05s; }
+  .framework-tag:nth-child(5) { animation-delay: 1.1s; }
+  .framework-tag:nth-child(6) { animation-delay: 1.15s; }
+  .framework-tag:nth-child(7) { animation-delay: 1.2s; }
+  .framework-tag:nth-child(8) { animation-delay: 1.25s; }
+  .framework-tag:nth-child(9) { animation-delay: 1.3s; }
+  
+  .skill-progress-bar {
+    width: 0;
+    animation: progress 1.5s ease-out forwards;
+  }
