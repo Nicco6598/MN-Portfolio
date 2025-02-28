@@ -184,7 +184,7 @@ const Navbar: React.FC = () => {
               <h3 className="text-sunglow text-center font-medium mb-4">Download e Collegamenti</h3>
               <div className="grid grid-cols-2 gap-3">
                 <a
-                  href="https://www.dropbox.com/scl/fi/8s8vlg5i47u9v99k78u4m/Marco_Niccolini-CV-IT-2.pdf?rlkey=aotn6uq6rab75ml8e6fhou4sl&st=kjngmcfw&dl=0"
+                  href="https://www.dropbox.com/scl/fi/8s8vlg5i47u9v99k78u4m/Marco_Niccolini-CV-IT-2.pdf?rlkey=aotn6uq6rab75ml8e6fhou4sl&st=ucr4z9lh&dl=0"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`flex items-center justify-center gap-2 p-3 rounded-xl transition-colors ${
@@ -197,7 +197,7 @@ const Navbar: React.FC = () => {
                   <span>CV (IT)</span>
                 </a>
                 <a
-                  href="https://www.dropbox.com/scl/fi/683lfqrtxnu59rk7a4lll/Marco_Niccolini-CV-EN-1.pdf?rlkey=4xupp70mjwurxpnmh2zmxe3jh&st=q92pgac4&dl=0"
+                  href="https://www.dropbox.com/scl/fi/683lfqrtxnu59rk7a4lll/Marco_Niccolini-CV-EN-1.pdf?rlkey=4xupp70mjwurxpnmh2zmxe3jh&st=9gbpevxy&dl=0"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`flex items-center justify-center gap-2 p-3 rounded-xl transition-colors ${
