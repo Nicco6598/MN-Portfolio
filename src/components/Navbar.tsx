@@ -1,128 +1,249 @@
-import React, { useState, useEffect } from 'react';
+// src/components/Navbar.tsx
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaBars, FaTimes, FaHome, FaProjectDiagram, FaEnvelope, FaFileDownload, FaGithub } from 'react-icons/fa';
+import { ThemeContext } from '../context/ThemeContext';
+import { FaHome, FaProjectDiagram, FaEnvelope, FaFileDownload, FaGithub, FaSun, FaMoon, FaTimes } from 'react-icons/fa';
+import logo from '../assets/logo.png';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-    document.body.style.overflow = isMenuOpen ? 'auto' : 'hidden';
-  };
-
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-    document.body.style.overflow = 'auto';
-  };
-
+  // Close menu on navigation
   useEffect(() => {
-    // Scroll to top on route change
     window.scrollTo(0, 0);
-    closeMenu();
+    setIsMenuOpen(false);
   }, [location]);
 
+  // Disable body scroll when menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isMenuOpen]);
+
   return (
-    <>
-      <nav className="fixed top-1/2 right-16 transform -translate-y-1/2 flex-col items-center bg-gradient-to-r from-red-200/50 to-blue-200/50 text-gray-800 p-4 rounded-xl shadow-2xl border border-gray-200 z-50 backdrop-filter backdrop-blur-md transition-transform duration-300 hidden md:flex">
-        <div className="flex flex-col items-center space-y-4 w-24">
-          <Link to="/" className="flex flex-col items-center text-lg font-bold uppercase hover:text-dark-cyan transition">
-            <FaHome size={24} />
-            <span className="text-sm mt-1">Home</span>
-          </Link>
-          <Link to="/projects" className="flex flex-col items-center text-lg font-bold uppercase hover:text-dark-cyan transition">
-            <FaProjectDiagram size={24} />
-            <span className="text-sm mt-1">Progetti</span>
-          </Link>
-          <Link to="/contact" className="flex flex-col items-center text-lg font-bold uppercase hover:text-dark-cyan transition">
-            <FaEnvelope size={24} />
-            <span className="text-sm mt-1">Contatti</span>
-          </Link>
-          <a
-            href="https://www.dropbox.com/scl/fi/j6fmtjtc4pz5tg0ym2ft5/Marco_Niccolini-CV-IT.pdf?rlkey=usg26nik24hays92zwodzum9v&st=qgjrzhgx&dl=0"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-col items-center bg-flax text-white px-4 py-2 rounded-xl font-bold uppercase hover:bg-flax/80 transition w-full"
+    <header className="fixed top-0 w-full z-50">
+      {/* Main Navbar */}
+      <nav className="glassmorphism mx-4 my-4 md:mx-auto max-w-7xl flex justify-between items-center px-4 py-3 sm:px-6 sm:mx-6 lg:mx-auto">
+        {/* Logo */}
+        <Link to="/" className="flex items-center space-x-2">
+          <img src={logo} alt="Logo" className="w-10 h-10 rounded-full" />
+          <span className="text-xl font-bold hidden sm:block">Marco Niccolini</span>
+        </Link>
+
+        {/* Desktop Navigation Links */}
+        <div className="hidden md:flex items-center space-x-6">
+          <Link 
+            to="/" 
+            className={`nav-link ${location.pathname === '/' ? 'text-sunglow font-semibold' : 'hover:text-sunglow transition-colors'}`}
           >
-            <FaFileDownload size={24} />
-            <span className="text-sm mt-1">CV (IT)</span>
-          </a>
-          <a
-            href="https://www.dropbox.com/scl/fi/fl5mqi4fxaqrk76b9m4rq/Marco_Niccolini_CV-ENG.pdf?rlkey=4irakujhbx7x7lhk98cel3raz&st=g363iikd&dl=0"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-col items-center bg-flax text-white px-4 py-2 rounded-xl font-bold uppercase hover:bg-flax/80 transition w-full"
+            Home
+          </Link>
+          <Link 
+            to="/projects" 
+            className={`nav-link ${location.pathname === '/projects' || location.pathname.includes('/projects/') ? 'text-sunglow font-semibold' : 'hover:text-sunglow transition-colors'}`}
           >
-            <FaFileDownload size={24} />
-            <span className="text-sm mt-1">CV (EN)</span>
-          </a>
-          <a
-            href="https://github.com/Nicco6598"
-            className="flex flex-col items-center bg-rich-black text-white px-4 py-2 rounded-xl font-bold uppercase hover:bg-rich-black/80 transition w-full"
-            target="_blank"
-            rel="noopener noreferrer"
+            Progetti
+          </Link>
+          <Link 
+            to="/contact" 
+            className={`nav-link ${location.pathname === '/contact' ? 'text-sunglow font-semibold' : 'hover:text-sunglow transition-colors'}`}
           >
-            <FaGithub size={24} />
-            <span className="text-sm mt-1">GitHub</span>
-          </a>
+            Contatti
+          </Link>
+        </div>
+
+        {/* Right Side Controls */}
+        <div className="flex items-center space-x-4">
+          {/* Theme Toggle */}
+          <button 
+            onClick={toggleTheme} 
+            className="p-2 rounded-full hover:bg-white hover:bg-opacity-10 transition-colors"
+            aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+          >
+            {theme === 'light' ? <FaMoon size={20} /> : <FaSun size={20} />}
+          </button>
+
+          {/* Desktop Download Links */}
+          <div className="hidden md:flex items-center space-x-2">
+            <a
+              href="https://www.dropbox.com/scl/fi/j6fmtjtc4pz5tg0ym2ft5/Marco_Niccolini-CV-IT.pdf?rlkey=usg26nik24hays92zwodzum9v&st=qgjrzhgx&dl=0"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1 rounded-full bg-sunglow text-raisin-black font-medium text-sm hover:bg-opacity-90 transition-colors"
+            >
+              CV (IT)
+            </a>
+            <a
+              href="https://www.dropbox.com/scl/fi/fl5mqi4fxaqrk76b9m4rq/Marco_Niccolini_CV-ENG.pdf?rlkey=4irakujhbx7x7lhk98cel3raz&st=g363iikd&dl=0"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1 rounded-full bg-white bg-opacity-10 text-sm hover:bg-opacity-20 transition-colors"
+            >
+              CV (EN)
+            </a>
+            <a
+              href="https://github.com/Nicco6598"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-full bg-white bg-opacity-10 hover:bg-opacity-20 transition-colors"
+            >
+              <FaGithub size={18} />
+            </a>
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <button 
+            onClick={() => setIsMenuOpen(true)} 
+            className="md:hidden flex items-center gap-2 px-3 py-1 rounded-full bg-sunglow text-raisin-black font-medium text-sm"
+            aria-label="Open menu"
+          >
+            Menu
+          </button>
         </div>
       </nav>
-      <div className="fixed top-4 right-4 md:hidden z-50">
-        <button onClick={toggleMenu} className="text-gray-800 bg-gradient-to-r from-red-100 to-blue-100 rounded-xl border border-gray-200 p-4 focus:outline-none w-auto p-2 mx-auto justify-center flex">
-          {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-        </button>
-      </div>
+
+      {/* Mobile Menu Overlay */}
       {isMenuOpen && (
-        <>
-          <div className="fixed inset-0 bg-blue-50 bg-opacity-80 backdrop-blur-md z-40" onClick={closeMenu}></div>
-          <div className="fixed inset-0 flex justify-center items-center z-50" onClick={closeMenu}>
-            <div className="bg-gradient-to-r from-red-200/50 to-blue-200/50 border border-gray-200 text-gray-800 p-8 rounded-2xl shadow-lg space-y-4 w-11/12 max-w-md mx-auto" onClick={(e) => e.stopPropagation()}>
-              <div className="flex flex-col items-center space-y-4">
-                <Link to="/" className="flex flex-col items-center text-lg font-bold uppercase hover:text-dark-cyan transition">
-                  <FaHome size={24} />
-                  <span className="text-sm mt-1">Home</span>
+        <div className="fixed inset-0 z-50 md:hidden">
+          {/* Overlay Background */}
+          <div className={`absolute inset-0 backdrop-blur-md ${theme === 'light' ? 'bg-white bg-opacity-95' : 'bg-black bg-opacity-90'}`}></div>
+          
+          {/* Menu Content */}
+          <div className="relative h-full flex flex-col">
+            {/* Header with close button */}
+            <div className="flex items-center justify-between p-6">
+              <Link to="/" className="flex items-center space-x-2" onClick={() => setIsMenuOpen(false)}>
+                <img src={logo} alt="Logo" className="w-10 h-10 rounded-full" />
+                <span className={`text-xl font-bold ${theme === 'light' ? 'text-raisin-black' : 'text-white'}`}>Marco Niccolini</span>
+              </Link>
+              <button 
+                onClick={() => setIsMenuOpen(false)}
+                className={`p-2 rounded-full hover:bg-opacity-10 transition-colors ${theme === 'light' ? 'text-raisin-black hover:bg-black' : 'text-white hover:bg-white'}`}
+                aria-label="Close menu"
+              >
+                <FaTimes size={24} />
+              </button>
+            </div>
+            
+            {/* Main Navigation */}
+            <div className="flex-grow px-6 py-8">
+              <div className="grid grid-cols-1 gap-2">
+                <Link
+                  to="/"
+                  className={`block p-4 rounded-xl text-center text-lg font-medium transition-colors ${
+                    location.pathname === '/'
+                      ? 'bg-sunglow text-raisin-black'
+                      : theme === 'light'
+                        ? 'hover:bg-black hover:bg-opacity-10 text-raisin-black'
+                        : 'hover:bg-white hover:bg-opacity-10 text-white'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Home
                 </Link>
-                <Link to="/projects" className="flex flex-col items-center text-lg font-bold uppercase hover:text-dark-cyan transition">
-                  <FaProjectDiagram size={24} />
-                  <span className="text-sm mt-1">Progetti</span>
+                <Link
+                  to="/projects"
+                  className={`block p-4 rounded-xl text-center text-lg font-medium transition-colors ${
+                    location.pathname === '/projects' || location.pathname.includes('/projects/')
+                      ? 'bg-sunglow text-raisin-black'
+                      : theme === 'light'
+                        ? 'hover:bg-black hover:bg-opacity-10 text-raisin-black'
+                        : 'hover:bg-white hover:bg-opacity-10 text-white'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Progetti
                 </Link>
-                <Link to="/contact" className="flex flex-col items-center text-lg font-bold uppercase hover:text-dark-cyan transition">
-                  <FaEnvelope size={24} />
-                  <span className="text-sm mt-1">Contatti</span>
+                <Link
+                  to="/contact"
+                  className={`block p-4 rounded-xl text-center text-lg font-medium transition-colors ${
+                    location.pathname === '/contact'
+                      ? 'bg-sunglow text-raisin-black'
+                      : theme === 'light'
+                        ? 'hover:bg-black hover:bg-opacity-10 text-raisin-black'
+                        : 'hover:bg-white hover:bg-opacity-10 text-white'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Contatti
                 </Link>
+              </div>
+            </div>
+            
+            {/* Additional Links */}
+            <div className="px-6 py-8 space-y-4">
+              <h3 className="text-sunglow text-center font-medium mb-4">Download e Collegamenti</h3>
+              <div className="grid grid-cols-2 gap-3">
                 <a
-                  href="https://www.dropbox.com/scl/fi/qq0zfpybd8fh1mf8869jm/Marco_Niccolini_CV-IT.pdf?rlkey=p6ke8o7aoafw1o58prs9p1oal&st=w7vok4o5&dl=0"
+                  href="https://www.dropbox.com/scl/fi/j6fmtjtc4pz5tg0ym2ft5/Marco_Niccolini-CV-IT.pdf?rlkey=usg26nik24hays92zwodzum9v&st=qgjrzhgx&dl=0"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex flex-col items-center bg-flax text-white px-4 py-2 rounded-xl font-bold uppercase hover:bg-flax/80 transition w-full"
+                  className={`flex items-center justify-center gap-2 p-3 rounded-xl transition-colors ${
+                    theme === 'light'
+                      ? 'bg-black bg-opacity-10 hover:bg-opacity-20 text-raisin-black'
+                      : 'bg-white bg-opacity-10 hover:bg-opacity-20 text-white'
+                  }`}
                 >
-                  <FaFileDownload size={24} />
-                  <span className="text-sm mt-1">CV (IT)</span>
+                  <FaFileDownload />
+                  <span>CV (IT)</span>
                 </a>
                 <a
-                  href="https://www.dropbox.com/scl/fi/aijt4s3d9q5qxuhb5guw7/Marco_Niccolini_CV-ENG.pdf?rlkey=0aobe9miqapzscftl2935xg1q&st=200e060b&dl=0"
+                  href="https://www.dropbox.com/scl/fi/fl5mqi4fxaqrk76b9m4rq/Marco_Niccolini_CV-ENG.pdf?rlkey=4irakujhbx7x7lhk98cel3raz&st=g363iikd&dl=0"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex flex-col items-center bg-flax text-white px-4 py-2 rounded-xl font-bold uppercase hover:bg-flax/80 transition w-full"
+                  className={`flex items-center justify-center gap-2 p-3 rounded-xl transition-colors ${
+                    theme === 'light'
+                      ? 'bg-black bg-opacity-10 hover:bg-opacity-20 text-raisin-black'
+                      : 'bg-white bg-opacity-10 hover:bg-opacity-20 text-white'
+                  }`}
                 >
-                  <FaFileDownload size={24} />
-                  <span className="text-sm mt-1">CV (EN)</span>
+                  <FaFileDownload />
+                  <span>CV (EN)</span>
                 </a>
                 <a
                   href="https://github.com/Nicco6598"
-                  className="flex flex-col items-center bg-rich-black text-white px-4 py-2 rounded-xl font-bold uppercase hover:bg-rich-black/80 transition w-full"
                   target="_blank"
                   rel="noopener noreferrer"
+                  className={`flex items-center justify-center gap-2 p-3 rounded-xl transition-colors col-span-2 ${
+                    theme === 'light'
+                      ? 'bg-black bg-opacity-10 hover:bg-opacity-20 text-raisin-black'
+                      : 'bg-white bg-opacity-10 hover:bg-opacity-20 text-white'
+                  }`}
                 >
-                  <FaGithub size={24} />
-                  <span className="text-sm mt-1">GitHub</span>
+                  <FaGithub size={20} />
+                  <span>GitHub</span>
                 </a>
               </div>
+              
+              {/* Theme Toggle */}
+              <button
+                onClick={() => {
+                  toggleTheme();
+                  setIsMenuOpen(false);
+                }}
+                className={`flex items-center justify-center gap-2 p-3 w-full rounded-xl transition-colors mt-6 ${
+                  theme === 'light'
+                    ? 'bg-black bg-opacity-10 hover:bg-opacity-20 text-raisin-black'
+                    : 'bg-white bg-opacity-10 hover:bg-opacity-20 text-white'
+                }`}
+              >
+                {theme === 'light' ? <FaMoon size={18} /> : <FaSun size={18} />}
+                <span>Cambia tema</span>
+              </button>
             </div>
           </div>
-        </>
+        </div>
       )}
-    </>
+    </header>
   );
 };
 

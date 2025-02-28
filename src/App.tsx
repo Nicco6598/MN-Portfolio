@@ -8,7 +8,10 @@ import Contact from './pages/Contact';
 import ProjectDetail from './pages/ProjectDetail';
 import Footer from './components/Footer';
 import { LoadingProvider, LoadingContext } from './context/LoadingContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { InfinitySpin } from 'react-loader-spinner';
+import './styles/theme.css';
+import BackgroundShapes from './components/BackgroundShapes';
 
 const getRouteName = (pathname: string) => {
   switch (pathname) {
@@ -39,22 +42,23 @@ const AppContent: React.FC = () => {
       // Simulate loading time
       const timer = setTimeout(() => {
         setLoading(false);
-      }, 1000); // Adjust the timeout duration as needed
+      }, 800);
 
       return () => clearTimeout(timer);
     }
   }, [location, navigationType, setLoading, setDestination]);
 
   return (
-    <div>
+    <div className="min-h-screen relative">
+      <BackgroundShapes />
       <Navbar />
       {loading ? (
         <div className="flex flex-col items-center justify-center min-h-screen space-y-4">
           <InfinitySpin 
             width='200'
-            color="#00BFFF"
+            color="var(--color-accent)"
           />
-          <p className="text-lg font-semibold text-gray-700 animate-pulse">Caricamento {destination}...</p>
+          <p className="text-lg font-semibold animate-pulse">Caricamento {destination}...</p>
         </div>
       ) : (
         <div>
@@ -73,11 +77,13 @@ const AppContent: React.FC = () => {
 
 const App: React.FC = () => {
   return (
-    <LoadingProvider>
-      <Router>
-        <AppContent />
-      </Router>
-    </LoadingProvider>
+    <ThemeProvider>
+      <LoadingProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </LoadingProvider>
+    </ThemeProvider>
   );
 };
 

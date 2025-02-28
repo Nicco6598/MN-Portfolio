@@ -3,23 +3,76 @@ module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        'murrey': '#1F2937',      // Un grigio antracite
-        'dark-cyan': '#3B82F6',   // Un blu vivace
-        'flax': '#10B981',        // Un verde smeraldo
-        'alice-blue': '#F3F4F6',  // Un grigio molto chiaro
-        'rich-black': '#111827',  // Un nero intenso
+        // Your specified colors
+        'sunglow': '#ffd13e',
+        'battle-gray': '#7c786b',
+        'raisin-black': '#252121',
+        
+        // Light theme colors
+        'light-primary': '#ffffff',
+        'light-secondary': '#f5f5f5',
+        'light-text': '#252121',
+        'light-accent': '#ffd13e',
+        'light-muted': '#7c786b',
+
+        // Dark theme colors
+        'dark-primary': '#252121',
+        'dark-secondary': '#333030',
+        'dark-text': '#ffffff',
+        'dark-accent': '#ffd13e',
+        'dark-muted': '#a09b8c',
       },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],
         modern: ['Roboto', 'sans-serif'],
       },
-      backdropBlur: {
-        xs: '2px',
+      backdropFilter: {
+        'none': 'none',
+        'xs': 'blur(2px)',
+        'sm': 'blur(4px)',
+        'md': 'blur(8px)',
+        'lg': 'blur(12px)',
+        'xl': 'blur(16px)',
+        '2xl': 'blur(24px)',
       },
+      animation: {
+        'float': 'float 6s ease-in-out infinite',
+        'ping-slow': 'ping 3s cubic-bezier(0, 0, 0.2, 1) infinite',
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' },
+        }
+      }
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.glassmorphism': {
+          'background': 'rgba(255, 255, 255, 0.15)',
+          'backdrop-filter': 'blur(12px)',
+          'border': '1px solid rgba(255, 255, 255, 0.18)',
+          'box-shadow': '0 8px 32px 0 rgba(31, 38, 135, 0.2)',
+        },
+        '.glassmorphism-dark': {
+          'background': 'rgba(37, 33, 33, 0.75)',
+          'backdrop-filter': 'blur(12px)',
+          'border': '1px solid rgba(122, 120, 107, 0.18)',
+          'box-shadow': '0 8px 32px 0 rgba(0, 0, 0, 0.35)',
+        },
+        '.text-shadow': {
+          'text-shadow': '0 2px 4px rgba(0, 0, 0, 0.1)',
+        },
+        '.text-shadow-lg': {
+          'text-shadow': '0 4px 8px rgba(0, 0, 0, 0.25)',
+        },
+      });
+    },
+  ],
 }
