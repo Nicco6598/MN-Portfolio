@@ -1,7 +1,8 @@
 // src/components/PortfolioLoader.tsx
 import React, { useEffect, useState, useContext } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeContext } from '../context/ThemeContext';
+import logo from '../assets/logo.png';
 
 interface PortfolioLoaderProps {
   destination: string;
@@ -12,58 +13,55 @@ interface PortfolioLoaderProps {
 const PortfolioLoader: React.FC<PortfolioLoaderProps> = ({ 
   destination, 
   onLoadingComplete,
-  minDisplayTime = 400 
+  minDisplayTime = 600 
 }) => {
   const { theme } = useContext(ThemeContext);
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
 
-  // Rilevamento dispositivo iOS
+  // Rilevamento iOS
   useEffect(() => {
     setIsIOS(/iPhone|iPad|iPod/i.test(navigator.userAgent));
   }, []);
 
-  // Simulazione di caricamento con progresso accelerato
+  // Simulazione di caricamento con progresso automatico
   useEffect(() => {
     const startTime = Date.now();
     let timeoutId: NodeJS.Timeout | null = null;
 
-    // Funzione per aumentare il progresso - versione super accelerata per iOS
+    // Funzione per aumentare gradualmente il progresso
     const incrementProgress = () => {
       const elapsedTime = Date.now() - startTime;
-      // Usa un'equazione più veloce per dispositivi iOS
-      const timeProgress = isIOS 
-        ? Math.min(99, (elapsedTime / minDisplayTime) * 100 * 2.5)
-        : Math.min(99, (elapsedTime / minDisplayTime) * 100 * 1.8);
+      const timeProgress = Math.min(99, (elapsedTime / minDisplayTime) * 100 * 1.5);
       
-      // Calcolo incremento rapido
+      // Calcolo del prossimo incremento basato sul progresso attuale
+      // All'inizio aumenta più velocemente, poi rallenta verso la fine
       const nextProgress = () => {
-        if (isIOS) {
-          if (progress < 60) return progress + 10;
-          if (progress < 90) return progress + 5;
-          return progress + 1;
-        } else {
-          if (progress < 60) return progress + 6;
-          if (progress < 80) return progress + 3;
-          if (progress < 95) return progress + 1.5;
-          return progress + 0.8;
-        }
+        if (progress < 60) return progress + 4;
+        if (progress < 80) return progress + 2;
+        if (progress < 95) return progress + 1;
+        return progress + 0.5;
       };
       
+      // Prendi il massimo tra progresso basato sul tempo e prossimo incremento
       const newProgress = Math.min(Math.max(timeProgress, nextProgress()), 99);
+      
       setProgress(newProgress);
 
       // Continua ad incrementare finché non raggiungiamo 99%
       if (newProgress < 99) {
-        // Ritardo molto ridotto per iOS
-        const delay = isIOS ? 5 : (newProgress > 90 ? 30 : 10);
+        // Calcola il ritardo in base al progresso (più veloce per iOS)
+        let delay = isIOS ? 10 : 20; // Più veloce su iOS
+        if (newProgress > 80) delay = isIOS ? 20 : 40;
+        if (newProgress > 90) delay = isIOS ? 30 : 50;
+        
         timeoutId = setTimeout(incrementProgress, delay);
       }
     };
 
     // Avvia l'incremento
-    timeoutId = setTimeout(incrementProgress, isIOS ? 0 : 10);
+    timeoutId = setTimeout(incrementProgress, isIOS ? 10 : 20);
 
     // Gestione del completamento
     const completeTimeout = setTimeout(() => {
@@ -72,16 +70,13 @@ const PortfolioLoader: React.FC<PortfolioLoaderProps> = ({
       // Simula il caricamento completo
       setProgress(100);
       
-      // Completa immediatamente su iOS o dopo breve ritardo su altri dispositivi
-      if (isIOS) {
+      // Piccolo ritardo per mostrare 100% prima di completare (ridotto su iOS)
+      setTimeout(() => {
         if (onLoadingComplete) onLoadingComplete();
-        setIsComplete(true);
-      } else {
-        setTimeout(() => {
-          if (onLoadingComplete) onLoadingComplete();
-          setTimeout(() => setIsComplete(true), 100);
-        }, 50);
-      }
+        
+        // Aspetta ancora un po' prima di chiudere per mostrare 100%
+        setTimeout(() => setIsComplete(true), isIOS ? 150 : 300);
+      }, isIOS ? 100 : 200);
     }, minDisplayTime);
 
     return () => {
@@ -92,98 +87,223 @@ const PortfolioLoader: React.FC<PortfolioLoaderProps> = ({
 
   // Colors based on theme
   const colors = {
-    primary: theme === 'dark' ? '#6D28D9' : '#8B5CF6',
-    secondary: theme === 'dark' ? '#4F46E5' : '#6366F1',
-    text: theme === 'dark' ? '#F9FAFB' : '#1F2937'
+    primary: theme === 'dark' ? '#6D28D9' : '#8B5CF6', // violet-700/500
+    secondary: theme === 'dark' ? '#4F46E5' : '#6366F1', // indigo-700/500
+    accent: theme === 'dark' ? '#EC4899' : '#F472B6', // pink-600/400
+    neutral: theme === 'dark' ? '#1F2937' : '#F9FAFB', // gray-800/gray-50
+    text: theme === 'dark' ? '#F9FAFB' : '#1F2937' // gray-50/gray-800
   };
 
-  // Se il caricamento è completo, non renderizzare nulla
-  if (isComplete) return null;
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { 
+        duration: 0.5,
+        when: "beforeChildren", 
+        staggerChildren: 0.1 
+      }
+    },
+    exit: { 
+      opacity: 0,
+      transition: { 
+        duration: 0.5,
+        when: "afterChildren",
+        staggerChildren: 0.1,
+        staggerDirection: -1
+      }
+    }
+  };
   
-  // Versione super semplificata per iOS
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.4 }
+    },
+    exit: {
+      opacity: 0,
+      y: -20,
+      transition: { duration: 0.3 }
+    }
+  };
+  
+  // Pulse animation for logo
+  const pulseVariants = {
+    hidden: { scale: 0.8, opacity: 0.5 },
+    visible: {
+      scale: [1, 1.05, 1],
+      opacity: [0.7, 1, 0.7],
+      transition: {
+        duration: 2,
+        repeat: Infinity,
+        repeatType: "loop" as const
+      }
+    }
+  };
+  
+  // Versione semplificata per iOS per evitare jank
   if (isIOS) {
     return (
       <div 
         className="fixed inset-0 flex items-center justify-center z-50"
         style={{ backgroundColor: theme === 'dark' ? 'rgba(15, 23, 42, 0.9)' : 'rgba(255, 255, 255, 0.9)' }}
       >
-        <div className="flex flex-col items-center justify-center px-4 py-6 text-center">
-          <div className="w-16 h-16 mb-4">
-            <div className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-              <div 
-                className="h-full rounded-full transition-all duration-300 ease-out"
-                style={{ 
-                  backgroundColor: colors.primary, 
-                  width: `${progress}%` 
-                }}
-              />
+        <div className="flex flex-col items-center justify-center px-6 py-8 text-center">
+          <div className="mb-6">
+            <div className="w-20 h-20 rounded-full flex items-center justify-center bg-white dark:bg-gray-800 shadow-lg">
+              <img src={logo} alt="Logo" className="w-16 h-16 rounded-full" />
             </div>
           </div>
-          <p 
-            className="text-base font-medium"
+          
+          <h2 
+            className="text-2xl font-bold mb-4"
             style={{ color: colors.text }}
           >
-            {destination}
+            Caricamento <span style={{ color: colors.primary }}>{destination}</span>
+          </h2>
+          
+          <div className="w-full max-w-md h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden mb-3">
+            <div 
+              className="h-full rounded-full transition-all duration-300 ease-out"
+              style={{ 
+                background: `linear-gradient(to right, ${colors.primary}, ${colors.secondary})`,
+                width: `${progress}%` 
+              }}
+            />
+          </div>
+          
+          <p 
+            className="text-sm font-medium"
+            style={{ color: colors.text }}
+          >
+            {Math.round(progress)}%
           </p>
         </div>
       </div>
     );
   }
   
-  // Versione standard per altri dispositivi
   return (
-    <motion.div
-      className="fixed inset-0 flex items-center justify-center z-50 bg-opacity-80"
-      style={{ backgroundColor: theme === 'dark' ? 'rgba(15, 23, 42, 0.8)' : 'rgba(255, 255, 255, 0.8)' }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
-    >
-      <div className="flex flex-col items-center justify-center max-w-lg px-6 py-8 text-center">
-        <div className="mb-8">
-          <div className="w-16 h-16 rounded-full border-4 border-t-transparent" 
-            style={{ borderColor: `${colors.primary}33`, borderTopColor: colors.primary }}
-          >
-            <motion.div 
-              className="w-full h-full"
-              animate={{ rotate: 360 }}
-              transition={{ 
-                duration: 1, 
-                repeat: Infinity, 
-                ease: "linear" 
-              }}
-            />
-          </div>
-        </div>
-        
-        <h2 
-          className="text-2xl font-bold mb-2"
-          style={{ color: colors.text }}
+    <AnimatePresence>
+      {!isComplete && (
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
         >
-          {destination}
-        </h2>
-        
-        <div 
-          className="w-full max-w-md h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden mb-3"
-        >
+          {/* Background with blur and gradient */}
           <motion.div 
-            className="h-full rounded-full"
-            style={{ backgroundColor: colors.primary }}
-            initial={{ width: "0%" }}
-            animate={{ width: `${progress}%` }}
-            transition={{ duration: 0.3 }}
-          />
-        </div>
-        
-        <p 
-          className="text-sm font-medium"
-          style={{ color: colors.text }}
-        >
-          {Math.round(progress)}%
-        </p>
-      </div>
-    </motion.div>
+            className="absolute inset-0" 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            style={{ 
+              backgroundColor: theme === 'dark' ? 'rgba(17, 24, 39, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+              backdropFilter: 'blur(8px)'
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 via-transparent to-indigo-500/10" />
+          </motion.div>
+
+          {/* Main content container */}
+          <motion.div 
+            className="relative z-10 flex flex-col items-center justify-center p-8 max-w-md w-full"
+            variants={itemVariants}
+          >
+            {/* Logo */}
+            <motion.div
+              className="mb-8 p-4 rounded-full"
+              variants={pulseVariants}
+            >
+              <div className="w-24 h-24 relative">
+                <div 
+                  className="absolute inset-0 rounded-full opacity-30"
+                  style={{ 
+                    background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
+                    filter: 'blur(8px)'
+                  }}
+                />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-20 h-20 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg">
+                    <img src={logo} alt="Logo" className="w-16 h-16 rounded-full" />
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+            
+            {/* Destination text */}
+            <motion.h2 
+              className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-gray-100"
+              variants={itemVariants}
+            >
+              Caricamento <span 
+                className="text-transparent bg-clip-text"
+                style={{ 
+                  backgroundImage: `linear-gradient(to right, ${colors.primary}, ${colors.secondary})`
+                }}
+              >
+                {destination}
+              </span>
+            </motion.h2>
+            
+            {/* Animated indicator */}
+            <motion.div 
+              className="flex space-x-1 mb-8"
+              variants={itemVariants}
+            >
+              {[...Array(3)].map((_, i) => (
+                <motion.div 
+                  key={i}
+                  className="w-2 h-2 rounded-full"
+                  style={{ 
+                    backgroundColor: i === 0 ? colors.primary : i === 1 ? colors.secondary : colors.accent 
+                  }}
+                  animate={{
+                    y: [0, -6, 0],
+                    opacity: [0.6, 1, 0.6]
+                  }}
+                  transition={{
+                    duration: 0.6,
+                    delay: i * 0.15,
+                    repeat: Infinity,
+                    repeatType: "loop"
+                  }}
+                />
+              ))}
+            </motion.div>
+            
+            {/* Progress container */}
+            <motion.div 
+              className="w-full flex flex-col items-center"
+              variants={itemVariants}
+            >
+              {/* Progress bar with background */}
+              <div className="w-full h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden mb-2 relative">
+                <motion.div
+                  className="h-full rounded-full"
+                  style={{ 
+                    background: `linear-gradient(to right, ${colors.primary}, ${colors.secondary})` 
+                  }}
+                  initial={{ width: "0%" }}
+                  animate={{ width: `${Math.min(Math.round(progress), 100)}%` }}
+                  transition={{ duration: 0.3 }}
+                />
+              </div>
+
+              {/* Percentage text */}
+              <div className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                {Math.min(Math.round(progress), 100)}%
+              </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 

@@ -1,31 +1,46 @@
 /* src/styles/home-animations.css - Complements framer-motion animations */
 
-/* Rilevamento iOS per disabilitare le animazioni */
+/* Rilevamento iOS per controllare animazioni pesanti */
 @supports (-webkit-touch-callout: none) {
-  /* CSS specifico per iOS */
-  * {
-    animation-duration: 0ms !important;
-    animation: none !important;
-    transition: none !important;
-    transform: none !important;
+  /* CSS specifico per iOS - manteniamo alcune animazioni ma a frequenza ridotta */
+  body {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
   }
   
-  /* Disabilita animazioni specifiche in iOS */
+  /* Limitare le animazioni senza disabilitarle completamente */
   .animate-pulse, 
   .animate-shimmer, 
   .animate-float, 
   .animate-spin, 
-  .animate-bounce,
-  .hover-lift,
-  .hover-scale,
-  .hover-rotate,
-  .stagger-children {
-    animation: none !important;
-    transition: none !important;
-    transform: none !important;
+  .animate-bounce {
+    animation-duration: 4s !important;
+    animation-delay: 0s !important;
+    animation-timing-function: linear !important;
+    transition-duration: 0.5s !important;
   }
   
-  /* Disabilita effetti hover in iOS */
+  /* Animazioni importanti da mantenere (es. navbar e loader) */
+  .page-transition,
+  .fixed,
+  nav,
+  header,
+  .glassmorphism {
+    animation: inherit !important;
+    transition: inherit !important;
+  }
+  
+  /* Mantenere i blur effects */
+  .blur-\[40px\],
+  .blur-\[50px\],
+  .blur-\[60px\],
+  .blur-\[70px\],
+  .blur-\[80px\] {
+    -webkit-backdrop-filter: blur(16px) !important;
+    backdrop-filter: blur(16px) !important;
+  }
+  
+  /* Semplificare le trasformazioni per gli elementi non essenziali */
   .hover-lift:hover,
   .hover-scale:hover,
   .hover-rotate:hover {

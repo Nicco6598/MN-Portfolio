@@ -255,7 +255,7 @@ const Navbar: React.FC = () => {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div 
-            className="fixed inset-0 z-50 md:hidden"
+            className="fixed inset-0 z-50 md:hidden overflow-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -263,7 +263,7 @@ const Navbar: React.FC = () => {
           >
             {/* Overlay Background con blur più sottile e gradiente */}
             <motion.div 
-              className="absolute inset-0 backdrop-blur-md"
+              className="fixed inset-0 backdrop-blur-md"
               style={{
                 background: theme === 'dark' 
                   ? 'radial-gradient(circle at center, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%)' 
@@ -277,16 +277,16 @@ const Navbar: React.FC = () => {
             
             {/* Menu Content */}
             <motion.div 
-              className="relative h-full flex flex-col"
+              className="relative min-h-full flex flex-col overflow-y-auto pb-20"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
               {/* Container bento-style */}
-              <div className="h-full p-6 flex flex-col">
+              <div className="min-h-full p-6 flex flex-col">
                 {/* Header con design bento */}
                 <motion.div 
-                  className="glassmorphism mb-6 rounded-2xl p-4 flex items-center justify-between"
+                  className="glassmorphism mb-6 rounded-2xl p-4 flex items-center justify-between sticky top-0 z-10"
                   initial={{ y: -20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.1 }}
@@ -439,7 +439,7 @@ const Navbar: React.FC = () => {
                     toggleTheme();
                     setIsMenuOpen(false);
                   }}
-                  className="glassmorphism py-4 w-full rounded-2xl mt-6 flex items-center justify-center gap-3"
+                  className="glassmorphism py-4 w-full rounded-2xl mt-6 mb-10 flex items-center justify-center gap-3"
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ 
                     y: 0, 

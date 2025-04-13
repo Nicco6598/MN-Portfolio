@@ -104,7 +104,7 @@ const AppContent: React.FC = () => {
         <PortfolioLoader 
           destination={destination} 
           onLoadingComplete={handleLoadingComplete}
-          minDisplayTime={isIOS ? 300 : (isMobile ? 400 : 600)} // Ridotto ancora di più per iOS
+          minDisplayTime={isMobile ? 400 : 600} // Ridotto per tutti i dispositivi mobili uniformemente
         />
       ) : (
         <div className="page-transition pt-24">

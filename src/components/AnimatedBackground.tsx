@@ -29,10 +29,10 @@ const AnimatedBackground: React.FC = () => {
     dark: ['#8B5CF6', '#6366F1', '#34D399', '#FBBF24', '#F472B6']
   };
   
-  // Riduzione drastica per iOS - solo 1 elemento statico
-  const blobCount = isIOS ? 1 : (isMobile ? 2 : 4);
+  // Riduzione: più blob per desktop, meno per mobile
+  const blobCount = isMobile ? 2 : 4;
 
-  // Per iOS, invece delle animazioni, usa un semplice gradiente statico
+  // Per iOS, versione semplificata ma più elegante
   if (isIOS) {
     return (
       <div className="fixed inset-0 overflow-hidden -z-10">
@@ -44,30 +44,67 @@ const AnimatedBackground: React.FC = () => {
           }}
         />
         
-        {/* Singolo blob statico per iOS */}
+        {/* Blobs statici ma sfocati per iOS - versione elegante */}
         <div 
-          className="absolute rounded-full opacity-30"
+          className="absolute rounded-full blur-[70px]"
           style={{
             background: theme === 'dark' ? '#6366F1' : '#4F46E5',
-            width: '300px',
-            height: '300px',
+            width: '500px',
+            height: '500px',
             left: '50%',
             top: '30%',
-            transform: 'translate(-50%, -50%)'
+            transform: 'translate(-50%, -50%)',
+            opacity: 0.4
+          }}
+        />
+        
+        <div 
+          className="absolute rounded-full blur-[60px]"
+          style={{
+            background: theme === 'dark' ? '#8B5CF6' : '#7C3AED',
+            width: '300px',
+            height: '300px',
+            left: '25%',
+            top: '60%',
+            transform: 'translate(-50%, -50%)',
+            opacity: 0.3
+          }}
+        />
+        
+        <div 
+          className="absolute rounded-full blur-[80px]"
+          style={{
+            background: theme === 'dark' ? '#34D399' : '#10B981',
+            width: '350px',
+            height: '350px',
+            left: '75%',
+            top: '40%',
+            transform: 'translate(-50%, -50%)',
+            opacity: 0.25
+          }}
+        />
+        
+        {/* Radial gradient overlay */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: theme === 'dark' 
+              ? 'radial-gradient(circle at center, rgba(15, 15, 15, 0) 0%, rgba(15, 15, 15, 0.8) 70%)' 
+              : 'radial-gradient(circle at center, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.85) 75%)'
           }}
         />
       </div>
     );
   }
 
-  // Versione standard per dispositivi non iOS
+  // Versione animata per altri dispositivi
   return (
     <div className="fixed inset-0 overflow-hidden -z-10">
-      {/* Large colorful blobs with motion - versione semplificata */}
+      {/* Large colorful blobs with motion - versione ottimizzata */}
       {[...Array(blobCount)].map((_, i) => (
         <motion.div
           key={i}
-          className={`absolute rounded-full ${isMobile ? 'blur-[30px]' : 'blur-[50px]'}`}
+          className={`absolute rounded-full ${isMobile ? 'blur-[40px]' : 'blur-[50px]'}`}
           initial={{ opacity: 0, scale: 1 }}
           animate={{ 
             opacity: 0.4,
@@ -76,8 +113,8 @@ const AnimatedBackground: React.FC = () => {
           transition={{ 
             opacity: { delay: i * 0.2, duration: 1 },
             scale: { 
-              duration: isMobile ? 0 : 6, 
-              repeat: isMobile ? 0 : Infinity,
+              duration: 6, 
+              repeat: Infinity,
               repeatType: "reverse" as const
             } 
           }}
@@ -85,8 +122,8 @@ const AnimatedBackground: React.FC = () => {
             background: theme === 'dark' 
               ? blobColors.dark[i % blobColors.dark.length]
               : blobColors.light[i % blobColors.light.length],
-            width: `${150 + i * 40}px`,
-            height: `${150 + i * 40}px`,
+            width: `${200 + i * 50}px`,
+            height: `${200 + i * 50}px`,
             left: `${25 + i * 20}%`,
             top: `${20 + i * 15}%`,
             transform: 'translate(-50%, -50%)',

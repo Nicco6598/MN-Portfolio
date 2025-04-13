@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#6D28D9" />
     
     <!-- Primary Meta Tags -->
@@ -15,28 +15,24 @@
     
     <!-- iOS Performance Optimizations -->
     <meta name="apple-mobile-web-app-title" content="MN Portfolio" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="format-detection" content="telephone=no" />
     
-    <!-- Disabilita lo smooth scrolling su iOS Safari -->
+    <!-- Ottimizzazione mobile scrolling -->
     <style>
       @supports (-webkit-touch-callout: none) {
         /* Solo per dispositivi iOS */
         html, body {
           overflow-x: hidden;
-          -webkit-overflow-scrolling: auto !important;
-          overscroll-behavior: none;
+          -webkit-overflow-scrolling: touch !important;
           position: relative;
         }
-        .page-transition {
-          transition: none !important;
-          animation: none !important;
-        }
         
-        /* Disabilita il pinch-zoom su iOS */
-        body {
-          touch-action: pan-x pan-y;
+        /* Base transition fix */
+        .page-transition {
+          transition: opacity 0.3s ease !important;
+          animation: none !important;
         }
       }
     </style>
@@ -81,29 +77,6 @@
     <!-- Carica solo il subset necessario di font per migliorare le performance -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" as="style" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" />
-    
-    <!-- Disabilita alcune funzionalità di iOS e script di terze parti non essenziali -->
-    <script>
-      // Disabilita alcuni eventi touch su Safari per migliorare le performance
-      if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-        document.addEventListener('DOMContentLoaded', function() {
-          // Disabilita il pinch zoom
-          document.addEventListener('gesturestart', function(e) {
-            e.preventDefault();
-          });
-          
-          // Disabilita il doppio tap per zoom
-          var lastTouchEnd = 0;
-          document.addEventListener('touchend', function(e) {
-            var now = Date.now();
-            if (now - lastTouchEnd <= 300) {
-              e.preventDefault();
-            }
-            lastTouchEnd = now;
-          }, false);
-        });
-      }
-    </script>
   </head>
   <body>
     <noscript>È necessario abilitare JavaScript per visualizzare questo sito.</noscript>
