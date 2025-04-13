@@ -1,5 +1,39 @@
 /* src/styles/home-animations.css - Complements framer-motion animations */
 
+/* Rilevamento iOS per disabilitare le animazioni */
+@supports (-webkit-touch-callout: none) {
+  /* CSS specifico per iOS */
+  * {
+    animation-duration: 0ms !important;
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+  
+  /* Disabilita animazioni specifiche in iOS */
+  .animate-pulse, 
+  .animate-shimmer, 
+  .animate-float, 
+  .animate-spin, 
+  .animate-bounce,
+  .hover-lift,
+  .hover-scale,
+  .hover-rotate,
+  .stagger-children {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+  
+  /* Disabilita effetti hover in iOS */
+  .hover-lift:hover,
+  .hover-scale:hover,
+  .hover-rotate:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
 /* Define keyframes that can be used with framer-motion or CSS */
 @keyframes pulse {
   0%, 100% { opacity: 0.9; transform: scale(1); }
@@ -103,6 +137,52 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Versione potenziata della regola per prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+  
+  /* Disabilita tutte le animazioni */
+  .animate-pulse, 
+  .animate-shimmer, 
+  .animate-float, 
+  .animate-spin, 
+  .animate-bounce,
+  .hover-lift,
+  .hover-scale,
+  .hover-rotate,
+  .stagger-children,
+  .page-transition {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+  
+  /* Disabilita effetti hover */
+  .hover-lift:hover,
+  .hover-scale:hover,
+  .hover-rotate:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  
+  /* Disabilita backdrop filter */
+  .glassmorphism,
+  .glassmorphism-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 }
 
