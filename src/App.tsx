@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, useNavigationType } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
@@ -9,9 +10,9 @@ import Footer from './components/Footer';
 import { LoadingProvider, LoadingContext } from './context/LoadingContext';
 import { ThemeProvider } from './context/ThemeContext';
 import PortfolioLoader from './components/PortfolioLoader';
+import AnimatedBackground from './components/AnimatedBackground';
 import './styles/theme.css';
 import './styles/home-animations.css'; // Importa le animazioni per la home
-import BackgroundShapes from './components/BackgroundShapes';
 
 const getRouteName = (pathname: string) => {
   switch (pathname) {
@@ -50,20 +51,22 @@ const AppContent: React.FC = () => {
   }, [location, navigationType, setLoading, setDestination]);
 
   return (
-    <div className="min-h-screen relative">
-      <BackgroundShapes />
+    <div className="min-h-screen relative overflow-x-hidden">
+      <AnimatedBackground />
       <Navbar />
       {loading ? (
         <PortfolioLoader destination={destination} />
       ) : (
         // Aggiungi padding-top per compensare la navbar
         <div className="page-transition pt-24">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/projects/:id" element={<ProjectDetail />} />
-          </Routes>
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<Home />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/projects/:id" element={<ProjectDetail />} />
+            </Routes>
+          </AnimatePresence>
           <Footer />
         </div>
       )}
