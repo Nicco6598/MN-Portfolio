@@ -1,8 +1,9 @@
 // src/pages/Contact.tsx
 import React, { useState, useContext } from 'react';
+import { motion } from 'framer-motion';
 import { projects } from '../data/projectData';
 import { ThemeContext } from '../context/ThemeContext';
-import { FaEnvelope, FaMapMarkerAlt, FaGithub, FaLinkedin, FaCheckCircle } from 'react-icons/fa';
+import { FaEnvelope, FaMapMarkerAlt, FaGithub, FaLinkedin, FaCheckCircle, FaPaperPlane, FaFileDownload } from 'react-icons/fa';
 
 const Contact: React.FC = () => {
   const { theme } = useContext(ThemeContext);
@@ -56,119 +57,232 @@ const Contact: React.FC = () => {
 
   const selectedProjectData = projects.find(project => project.id === selectedProject);
 
+  // Animazioni
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
   return (
-    <div className="container mx-auto px-4 pt-24 pb-16">
+    <motion.div 
+      className="container mx-auto px-4 pt-24 pb-16"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
       <div className="max-w-6xl mx-auto">
         {/* Header Section */}
-        <div className="text-center mb-12">
+        <motion.div 
+          className="text-center mb-12"
+          variants={itemVariants}
+        >
           <h1 className="text-4xl md:text-5xl font-bold mb-4">CONTATTAMI</h1>
-          <div className="h-1 w-20 bg-sunglow mx-auto mb-6"></div>
-          <p className="max-w-2xl mx-auto text-battle-gray text-lg">
+          <div className="accent-bar mx-auto"></div>
+          <p className="section-subtitle max-w-2xl mx-auto">
             Hai un progetto in mente o vuoi saperne di più sul mio lavoro? Contattami!
           </p>
-        </div>
+        </motion.div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Contact Information */}
-          <div className="lg:col-span-1">
-            <div className="glassmorphism p-8 h-full">
+          <motion.div 
+            className="lg:col-span-1"
+            variants={itemVariants}
+          >
+            <div className="glassmorphism p-8 h-full rounded-2xl">
               <h2 className="text-2xl font-bold mb-6">Informazioni di contatto</h2>
               
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="bg-sunglow p-3 rounded-full text-raisin-black">
-                    <FaMapMarkerAlt size={20} />
+              <div className="space-y-8">
+                <motion.div 
+                  className="flex items-start space-x-4"
+                  whileHover={{ x: 5 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 flex items-center justify-center text-white">
+                    <FaMapMarkerAlt size={18} />
                   </div>
                   <div>
                     <h3 className="text-lg font-medium mb-1">Posizione</h3>
-                    <p className="text-battle-gray">Pioltello (MI), Italia</p>
+                    <p className="text-secondary">Pioltello (MI), Italia</p>
                   </div>
-                </div>
+                </motion.div>
                 
-                <div className="flex items-start space-x-4">
-                  <div className="bg-sunglow p-3 rounded-full text-raisin-black">
-                    <FaEnvelope size={20} />
+                <motion.div 
+                  className="flex items-start space-x-4"
+                  whileHover={{ x: 5 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-r from-violet-500 to-purple-500 flex items-center justify-center text-white">
+                    <FaEnvelope size={18} />
                   </div>
                   <div>
                     <h3 className="text-lg font-medium mb-1">Email</h3>
-                    <a href="mailto:contact@marconiccolini.com" className="text-battle-gray hover:text-sunglow transition-colors">
+                    <a href="mailto:contact@marconiccolini.com" className="text-secondary hover:text-accent transition-colors">
                       contact@marconiccolini.com
                     </a>
                   </div>
-                </div>
+                </motion.div>
                 
                 <div className="space-y-4 pt-6">
                   <h3 className="text-lg font-medium">Social</h3>
                   <div className="flex space-x-4">
-                    <a 
+                    <motion.a 
                       href="https://github.com/Nicco6598" 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="glassmorphism-card bg-opacity-20 p-3 rounded-full hover:bg-sunglow hover:text-raisin-black transition-colors"
+                      className="w-12 h-12 glassmorphism rounded-full flex items-center justify-center"
+                      whileHover={{ y: -5, boxShadow: "0 10px 25px -5px rgba(99, 102, 241, 0.4)" }}
+                      whileTap={{ scale: 0.95 }}
                     >
-                      <FaGithub size={24} />
-                    </a>
-                    <a 
+                      <FaGithub size={22} className="text-accent" />
+                    </motion.a>
+                    <motion.a 
                       href="https://www.linkedin.com/in/marconiccolini-/" 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="glassmorphism-card bg-opacity-20 p-3 rounded-full hover:bg-sunglow hover:text-raisin-black transition-colors"
+                      className="w-12 h-12 glassmorphism rounded-full flex items-center justify-center"
+                      whileHover={{ y: -5, boxShadow: "0 10px 25px -5px rgba(99, 102, 241, 0.4)" }}
+                      whileTap={{ scale: 0.95 }}
                     >
-                      <FaLinkedin size={24} />
-                    </a>
+                      <FaLinkedin size={22} className="text-accent" />
+                    </motion.a>
+                  </div>
+                </div>
+                
+                {/* Sezione Download CV */}
+                <div className="space-y-4 pt-6">
+                  <h3 className="text-lg font-medium">Curriculum</h3>
+                  <div className="flex flex-col space-y-3">
+                    <motion.a
+                      href="/assets/cv/Marco_Niccolini_CV(IT).pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      download="Marco_Niccolini_CV_IT.pdf"
+                      className="glassmorphism py-3 px-4 rounded-xl flex items-center justify-between group hover:bg-accent hover:text-white transition-all"
+                      whileHover={{ x: 5 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <div className="flex items-center">
+                        <FaFileDownload className="mr-3 text-accent group-hover:text-white" />
+                        <span>Curriculum Vitae (IT)</span>
+                      </div>
+                      <span className="text-xs bg-subtle px-2 py-1 rounded group-hover:bg-white group-hover:text-accent">IT</span>
+                    </motion.a>
+                    
+                    <motion.a
+                      href="/assets/cv/Marco_Niccolini_CV(ENG).pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      download="Marco_Niccolini_CV_ENG.pdf"
+                      className="glassmorphism py-3 px-4 rounded-xl flex items-center justify-between group hover:bg-accent hover:text-white transition-all"
+                      whileHover={{ x: 5 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <div className="flex items-center">
+                        <FaFileDownload className="mr-3 text-accent group-hover:text-white" />
+                        <span>Resume (ENG)</span>
+                      </div>
+                      <span className="text-xs bg-subtle px-2 py-1 rounded group-hover:bg-white group-hover:text-accent">EN</span>
+                    </motion.a>
+                  </div>
+                </div>
+                
+                {/* Aggiungiamo un elemento decorativo */}
+                <div className="mt-12 relative">
+                  <div className="bg-gradient-to-r from-indigo-500/10 via-violet-500/10 to-purple-500/10 rounded-xl p-6 relative overflow-hidden">
+                    <div className="absolute -right-8 -bottom-8 w-32 h-32 rounded-full opacity-10 blur-xl" 
+                      style={{ backgroundColor: '#6366F1' }}
+                    />
+                    <p className="text-sm italic text-secondary mb-4">
+                      "Sono sempre interessato a nuovi progetti e collaborazioni. Non esitare a contattarmi per discutere della tua idea."
+                    </p>
+                    <p className="text-accent font-medium">Marco Niccolini</p>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
           
           {/* Contact Form */}
-          <div className="lg:col-span-2">
-            <div className="glassmorphism p-8">
+          <motion.div 
+            className="lg:col-span-2"
+            variants={itemVariants}
+          >
+            <div className="glassmorphism p-8 rounded-2xl">
               <h2 className="text-2xl font-bold mb-6">Inviami un messaggio</h2>
               
               {isSubmitted ? (
-                <div className="bg-green-100 border border-green-200 text-green-800 p-6 rounded-xl flex items-center">
-                  <FaCheckCircle className="text-green-500 mr-4" size={24} />
-                  <div>
-                    <h3 className="font-semibold text-lg">Messaggio inviato!</h3>
-                    <p>Grazie per avermi contattato. Ti risponderò al più presto.</p>
+                <motion.div 
+                  className="p-8 rounded-xl flex items-center"
+                  style={{ 
+                    background: "linear-gradient(135deg, rgba(74, 222, 128, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%)" 
+                  }}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mr-6">
+                    <FaCheckCircle className="text-green-500" size={24} />
                   </div>
-                </div>
+                  <div>
+                    <h3 className="font-semibold text-lg mb-1">Messaggio inviato!</h3>
+                    <p className="text-secondary">Grazie per avermi contattato. Ti risponderò al più presto.</p>
+                  </div>
+                </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
+                  <motion.div
+                    variants={itemVariants}
+                  >
                     <label className="block mb-2 font-medium">Email</label>
                     <input
                       type="email"
                       required
                       value={email}
                       onChange={e => setEmail(e.target.value)}
-                      className={`w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-sunglow bg-opacity-10 bg-battle-gray ${errors.email ? 'border-2 border-red-500' : ''}`}
+                      className={`w-full p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent bg-subtle ${errors.email ? 'border border-red-500' : ''}`}
                       placeholder="Il tuo indirizzo email"
                     />
                     {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-                  </div>
+                  </motion.div>
                   
-                  <div>
+                  <motion.div
+                    variants={itemVariants}
+                  >
                     <label className="block mb-2 font-medium">Messaggio</label>
                     <textarea
                       required
                       value={message}
                       onChange={e => setMessage(e.target.value)}
-                      className={`w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-sunglow bg-opacity-10 bg-battle-gray ${errors.message ? 'border-2 border-red-500' : ''}`}
+                      className={`w-full p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent bg-subtle ${errors.message ? 'border border-red-500' : ''}`}
                       rows={5}
                       placeholder="Descrivi il tuo progetto o la tua richiesta"
                     />
                     {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
-                  </div>
+                  </motion.div>
                   
-                  <div>
+                  <motion.div
+                    variants={itemVariants}
+                  >
                     <label className="block mb-2 font-medium">Progetto Specifico (Opzionale)</label>
                     <select
                       value={selectedProject || ''}
                       onChange={e => setSelectedProject(e.target.value ? parseInt(e.target.value) : null)}
-                      className="w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-sunglow bg-opacity-10 bg-battle-gray"
+                      className="w-full p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent bg-subtle"
                     >
                       <option value="">Seleziona un progetto</option>
                       {projects.map((project) => (
@@ -177,47 +291,69 @@ const Contact: React.FC = () => {
                     </select>
                     
                     {selectedProjectData && (
-                      <div className="mt-4 glassmorphism-card p-4">
+                      <motion.div 
+                        className="mt-4 glassmorphism p-4 rounded-xl"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
                         <div className="flex flex-col sm:flex-row gap-4">
-                          <img 
-                            src={selectedProjectData.imageUrl} 
-                            alt={selectedProjectData.title} 
-                            className="w-20 h-20 object-cover rounded-lg sm:self-start mx-auto sm:mx-0" 
-                          />
+                          <div className="w-20 h-20 relative rounded-lg overflow-hidden">
+                            <div className="absolute inset-0 blur-md opacity-20"
+                              style={{ backgroundColor: '#6366F1' }}
+                            />
+                            <img 
+                              src={selectedProjectData.imageUrl} 
+                              alt={selectedProjectData.title} 
+                              className="w-20 h-20 object-contain relative z-10 rounded-lg mx-auto sm:mx-0" 
+                            />
+                          </div>
                           <div>
                             <h3 className="text-lg font-medium mb-1">{selectedProjectData.title}</h3>
-                            <p className="text-sm text-battle-gray mb-2">{selectedProjectData.shortDescription}</p>
+                            <p className="text-sm text-secondary mb-2">{selectedProjectData.shortDescription}</p>
                             <div className="flex flex-wrap gap-2">
-                              {selectedProjectData.languages.map((lang, index) => (
+                              {selectedProjectData.languages.slice(0, 3).map((lang, index) => (
                                 <span 
                                   key={index} 
-                                  className="text-xs bg-sunglow bg-opacity-20 px-2 py-1 rounded-full"
+                                  className="text-xs py-1 px-2 bg-subtle rounded-md font-medium"
                                 >
                                   {lang}
                                 </span>
                               ))}
+                              {selectedProjectData.languages.length > 3 && (
+                                <span className="text-xs py-1 px-2 bg-subtle rounded-md font-medium">
+                                  +{selectedProjectData.languages.length - 3}
+                                </span>
+                              )}
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </motion.div>
                     )}
-                  </div>
+                  </motion.div>
                   
-                  <button 
+                  <motion.button 
                     type="submit" 
-                    className="bg-sunglow text-raisin-black w-full py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors transform hover:scale-[0.99]"
+                    className="btn btn-primary w-full py-3 flex items-center justify-center gap-2"
+                    variants={itemVariants}
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.98 }}
                   >
-                    Invia Messaggio
-                  </button>
+                    <span>Invia Messaggio</span>
+                    <FaPaperPlane size={14} />
+                  </motion.button>
                 </form>
               )}
             </div>
-          </div>
+          </motion.div>
         </div>
         
         {/* Google Maps */}
-        <div className="mt-16">
-          <div className="glassmorphism p-4">
+        <motion.div 
+          className="mt-16"
+          variants={itemVariants}
+        >
+          <div className="glassmorphism p-4 rounded-2xl overflow-hidden">
             <iframe 
               src="https://maps.google.com/maps?width=100%&amp;height=100%&amp;hl=en&amp;q=pioltello&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" 
               width="100%" 
@@ -230,9 +366,9 @@ const Contact: React.FC = () => {
               className="rounded-lg"
             ></iframe>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

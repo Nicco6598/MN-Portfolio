@@ -264,9 +264,9 @@ const HeroSection: React.FC = () => {
           {/* Statistiche in stile "bento grid" */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { numero: "5+", testo: "Anni di esperienza", colore: "from-indigo-500/10 to-violet-500/10", delay: 0.1 },
-              { numero: "20+", testo: "Progetti completati", colore: "from-violet-500/10 to-purple-500/10", delay: 0.2 },
-              { numero: "10+", testo: "Smart Contract", colore: "from-purple-500/10 to-pink-500/10", delay: 0.3 },
+              { numero: "1.5+", testo: "Anni di esperienza", colore: "from-indigo-500/10 to-violet-500/10", delay: 0.1 },
+              { numero: "5+", testo: "Progetti completati", colore: "from-violet-500/10 to-purple-500/10", delay: 0.2 },
+              { numero: "7+", testo: "Smart Contract", colore: "from-purple-500/10 to-pink-500/10", delay: 0.3 },
               { numero: "100%", testo: "Soddisfazione clienti", colore: "from-pink-500/10 to-indigo-500/10", delay: 0.4 }
             ].map((stat, index) => (
               <motion.div 

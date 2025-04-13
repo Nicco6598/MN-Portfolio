@@ -35,27 +35,29 @@ const AppContent: React.FC = () => {
   const navigationType = useNavigationType();
   const { loading, setLoading, destination, setDestination } = useContext(LoadingContext);
 
+  // Notifica al loader la destinazione quando cambia la route
   useEffect(() => {
     if (navigationType !== 'POP') {
       setLoading(true);
       setDestination(getRouteName(location.pathname));
-
-      // Simulate loading time with a variable duration for a more natural feel
-      const loadingTime = Math.random() * 300 + 700; // Between 700ms and 1000ms
-      const timer = setTimeout(() => {
-        setLoading(false);
-      }, loadingTime);
-
-      return () => clearTimeout(timer);
     }
   }, [location, navigationType, setLoading, setDestination]);
+
+  // Funzione callback chiamata quando il loader completa il caricamento
+  const handleLoadingComplete = () => {
+    setLoading(false);
+  };
 
   return (
     <div className="min-h-screen relative overflow-x-hidden">
       <AnimatedBackground />
       <Navbar />
       {loading ? (
-        <PortfolioLoader destination={destination} />
+        <PortfolioLoader 
+          destination={destination} 
+          onLoadingComplete={handleLoadingComplete}
+          minDisplayTime={800} // Tempo minimo di visualizzazione
+        />
       ) : (
         // Aggiungi padding-top per compensare la navbar
         <div className="page-transition pt-24">

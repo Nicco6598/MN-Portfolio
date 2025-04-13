@@ -83,11 +83,11 @@ const Navbar: React.FC = () => {
   const cvLinks = [
     { 
       name: "CV (IT)", 
-      url: "https://www.dropbox.com/scl/fi/8s8vlg5i47u9v99k78u4m/Marco_Niccolini-CV-IT-2.pdf?rlkey=aotn6uq6rab75ml8e6fhou4sl&st=ucr4z9lh&dl=0" 
+      url: "/assets/cv/Marco_Niccolini_CV(IT).pdf" 
     },
     { 
       name: "RESUME", 
-      url: "https://www.dropbox.com/scl/fi/683lfqrtxnu59rk7a4lll/Marco_Niccolini-CV-EN-1.pdf?rlkey=4xupp70mjwurxpnmh2zmxe3jh&st=9gbpevxy&dl=0" 
+      url: "/assets/cv/Marco_Niccolini_CV(ENG).pdf" 
     }
   ];
 
@@ -202,8 +202,9 @@ const Navbar: React.FC = () => {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
+                  download={link.name === "CV (IT)" ? "Marco_Niccolini_CV_IT.pdf" : "Marco_Niccolini_CV_ENG.pdf"}
                   className={`
-                    px-4 py-2 rounded-full text-sm font-medium transition-colors
+                    px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center gap-2
                     ${index === 0 
                       ? 'bg-accent text-white hover:bg-accent-secondary' 
                       : `border border-accent text-accent ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`
@@ -213,7 +214,8 @@ const Navbar: React.FC = () => {
                   whileHover="hover"
                   whileTap={{ scale: 0.95 }}
                 >
-                  {link.name}
+                  <FaFileDownload size={14} />
+                  <span>{link.name}</span>
                 </motion.a>
               ))}
               
@@ -384,6 +386,7 @@ const Navbar: React.FC = () => {
                             href={link.url}
                             target="_blank"
                             rel="noopener noreferrer"
+                            download={link.name === "CV (IT)" ? "Marco_Niccolini_CV_IT.pdf" : "Marco_Niccolini_CV_ENG.pdf"}
                             className="flex flex-col items-center gap-2 p-4 rounded-xl bg-subtle hover:bg-accent hover:text-white transition-all group"
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ 

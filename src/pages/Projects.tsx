@@ -1,8 +1,9 @@
 // src/pages/Projects.tsx
 import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { projects } from '../data/projectData';
-import { FaExternalLinkAlt, FaGithub, FaSearch, FaTimes } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaGithub, FaSearch, FaTimes, FaFilter, FaArrowRight } from 'react-icons/fa';
 import { ThemeContext } from '../context/ThemeContext';
 
 const Projects: React.FC = () => {
@@ -53,28 +54,59 @@ const Projects: React.FC = () => {
     };
   }, [isFilterOpen]);
 
+  // Animazioni per i componenti
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
   return (
-    <div className="container mx-auto px-4 pt-24 pb-16">
+    <motion.div 
+      className="container mx-auto px-4 pt-24 pb-16"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
       <div className="max-w-6xl mx-auto">
         {/* Header Section */}
-        <div className="text-center mb-10">
+        <motion.div 
+          className="text-center mb-10"
+          variants={itemVariants}
+        >
           <h1 className="text-4xl md:text-5xl font-bold mb-4">I MIEI PROGETTI</h1>
-          <div className="h-1 w-20 bg-sunglow mx-auto mb-6"></div>
-          <p className="max-w-2xl mx-auto text-current text-lg font-medium">
+          <div className="accent-bar mx-auto"></div>
+          <p className="section-subtitle max-w-2xl mx-auto">
             Esplora la mia collezione di progetti nel campo dello sviluppo blockchain e web.
           </p>
-        </div>
+        </motion.div>
         
         {/* Search and Filter - Desktop */}
-        <div className="hidden md:flex glassmorphism p-6 mb-8 rounded-xl items-center gap-4">
+        <motion.div 
+          className="hidden md:flex glassmorphism p-6 mb-8 rounded-xl items-center gap-4"
+          variants={itemVariants}
+        >
           <div className="relative flex-grow">
             <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-              <FaSearch className="text-battle-gray" />
+              <FaSearch className="text-secondary" />
             </div>
             <input
               type="text"
               placeholder="Cerca progetti..."
-              className="w-full pl-10 pr-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-sunglow bg-opacity-10 bg-battle-gray"
+              className="w-full pl-10 pr-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent bg-subtle"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -83,7 +115,7 @@ const Projects: React.FC = () => {
                 onClick={() => setSearchTerm('')}
                 className="absolute inset-y-0 right-3 flex items-center"
               >
-                <FaTimes className="text-battle-gray hover:text-sunglow transition-colors" />
+                <FaTimes className="text-secondary hover:text-accent transition-colors" />
               </button>
             )}
           </div>
@@ -92,7 +124,7 @@ const Projects: React.FC = () => {
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-sunglow bg-opacity-10 bg-battle-gray min-w-[180px]"
+              className="p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent bg-subtle min-w-[180px]"
             >
               <option value="">Tutti i tipi</option>
               {projectTypes.slice(1).map((type) => (
@@ -103,7 +135,7 @@ const Projects: React.FC = () => {
             <select
               value={selectedLanguage}
               onChange={(e) => setSelectedLanguage(e.target.value)}
-              className="p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-sunglow bg-opacity-10 bg-battle-gray min-w-[180px]"
+              className="p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent bg-subtle min-w-[180px]"
             >
               <option value="">Tutti i linguaggi</option>
               {allLanguages.map((lang) => (
@@ -114,24 +146,27 @@ const Projects: React.FC = () => {
             {(selectedType || selectedLanguage || searchTerm) && (
               <button
                 onClick={resetFilters}
-                className="px-4 py-2 rounded-lg bg-sunglow text-raisin-black font-medium hover:bg-opacity-90 transition-colors"
+                className="px-4 py-2 rounded-xl bg-accent text-white font-medium hover:bg-accent-secondary transition-colors"
               >
                 Reset
               </button>
             )}
           </div>
-        </div>
+        </motion.div>
         
         {/* Search and Filter - Mobile */}
-        <div className="md:hidden mb-8 space-y-3">
+        <motion.div 
+          className="md:hidden mb-8 space-y-3"
+          variants={itemVariants}
+        >
           <div className="relative">
             <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-              <FaSearch className="text-battle-gray" />
+              <FaSearch className="text-secondary" />
             </div>
             <input
               type="text"
               placeholder="Cerca progetti..."
-              className="w-full pl-10 pr-10 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-sunglow bg-opacity-10 bg-battle-gray glassmorphism"
+              className="w-full pl-10 pr-10 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent bg-subtle glassmorphism"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -140,28 +175,33 @@ const Projects: React.FC = () => {
                 onClick={() => setSearchTerm('')}
                 className="absolute inset-y-0 right-3 flex items-center"
               >
-                <FaTimes className="text-battle-gray" />
+                <FaTimes className="text-secondary" />
               </button>
             ) : (
               <button 
                 onClick={() => setIsFilterOpen(!isFilterOpen)}
                 className="absolute inset-y-0 right-3 flex items-center"
               >
-                <div className="flex flex-col items-center justify-center w-6 h-6 space-y-1">
-                  <span className={`block w-5 h-0.5 bg-current transition-transform duration-300 ${isFilterOpen ? 'rotate-45 translate-y-1.5' : ''}`}></span>
-                  <span className={`block w-5 h-0.5 bg-current transition-opacity duration-300 ${isFilterOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-                  <span className={`block w-5 h-0.5 bg-current transition-transform duration-300 ${isFilterOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
+                <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center">
+                  <FaFilter size={14} />
                 </div>
               </button>
             )}
           </div>
           
           {isFilterOpen && (
-            <div className="glassmorphism p-4 rounded-lg space-y-3 filter-container w-full left-0 right-0">
+            <motion.div 
+              className="glassmorphism p-5 rounded-xl space-y-4 filter-container w-full left-0 right-0"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <h4 className="text-sm font-medium mb-2 text-secondary">FILTRI</h4>
               <select
                 value={selectedType}
                 onChange={(e) => setSelectedType(e.target.value)}
-                className="w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-sunglow bg-opacity-10 bg-battle-gray"
+                className="w-full p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent bg-subtle"
               >
                 <option value="">Tutti i tipi</option>
                 {projectTypes.slice(1).map((type) => (
@@ -172,7 +212,7 @@ const Projects: React.FC = () => {
               <select
                 value={selectedLanguage}
                 onChange={(e) => setSelectedLanguage(e.target.value)}
-                className="w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-sunglow bg-opacity-10 bg-battle-gray"
+                className="w-full p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent bg-subtle"
               >
                 <option value="">Tutti i linguaggi</option>
                 {allLanguages.map((lang) => (
@@ -183,176 +223,180 @@ const Projects: React.FC = () => {
               {(selectedType || selectedLanguage || searchTerm) && (
                 <button
                   onClick={resetFilters}
-                  className="w-full px-4 py-2 rounded-lg bg-sunglow text-raisin-black font-medium hover:bg-opacity-90 transition-colors"
+                  className="w-full px-4 py-3 rounded-xl bg-accent text-white font-medium hover:bg-accent-secondary transition-colors flex items-center justify-center gap-2"
                 >
                   Reset filtri
                 </button>
               )}
-            </div>
+            </motion.div>
           )}
-        </div>
+        </motion.div>
         
         {/* Active Filters */}
         {(selectedType || selectedLanguage) && (
-          <div className="flex flex-wrap gap-2 mb-4">
+          <motion.div 
+            className="flex flex-wrap gap-2 mb-6"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
             {selectedType && (
-              <div className="flex items-center px-3 py-1 bg-sunglow text-raisin-black rounded-full text-sm">
+              <div className="flex items-center px-4 py-2 bg-gradient-to-r from-accent/10 to-violet-500/10 text-accent rounded-full text-sm">
                 <span>Tipo: {selectedType}</span>
                 <button 
                   onClick={() => setSelectedType('')} 
-                  className="ml-2"
+                  className="ml-2 w-5 h-5 rounded-full bg-subtle flex items-center justify-center"
                 >
-                  <FaTimes size={12} />
+                  <FaTimes size={10} />
                 </button>
               </div>
             )}
             
             {selectedLanguage && (
-              <div className="flex items-center px-3 py-1 bg-sunglow text-raisin-black rounded-full text-sm">
+              <div className="flex items-center px-4 py-2 bg-gradient-to-r from-accent/10 to-violet-500/10 text-accent rounded-full text-sm">
                 <span>Linguaggio: {selectedLanguage}</span>
                 <button 
                   onClick={() => setSelectedLanguage('')} 
-                  className="ml-2"
+                  className="ml-2 w-5 h-5 rounded-full bg-subtle flex items-center justify-center"
                 >
-                  <FaTimes size={12} />
+                  <FaTimes size={10} />
                 </button>
               </div>
             )}
-          </div>
+          </motion.div>
         )}
         
-        {/* Projects Grid */}
-        <div className="mb-8">
-          <p className="text-current font-medium mb-4">{filteredProjects.length} progetti trovati</p>
-        </div>
+        {/* Projects count */}
+        <motion.div 
+          className="mb-8"
+          variants={itemVariants}
+        >
+          <p className="text-secondary font-medium">{filteredProjects.length} progetti trovati</p>
+        </motion.div>
         
         {filteredProjects.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProjects.map((project) => (
-              <div 
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {filteredProjects.map((project, index) => (
+              <motion.div 
                 key={project.id} 
-                className="glassmorphism-card rounded-xl overflow-hidden group transition-all duration-300 hover:translate-y-[-5px] hover:shadow-lg flex flex-col project-card"
+                className="glassmorphism overflow-hidden rounded-2xl flex flex-col h-full group"
+                variants={itemVariants}
+                custom={index}
+                whileHover={{ y: -8, transition: { duration: 0.3 } }}
               >
                 {/* Project Image */}
                 <div className="relative h-48 overflow-hidden">
+                  {/* Background gradient blur for image */}
                   <div 
-                    className="absolute inset-0 opacity-30 group-hover:opacity-50 transition-opacity duration-300"
+                    className="absolute inset-0 z-0 blur-xl opacity-30"
                     style={{ 
-                      backgroundColor: theme === 'dark' ? '#ffd13e' : '#ffd13e',
-                      filter: 'blur(20px)',
-                      transform: 'translateY(10px) scale(0.9)'
+                      backgroundColor: index % 3 === 0 ? '#6366F1' : index % 3 === 1 ? '#8B5CF6' : '#10B981',
+                      transform: 'scale(1.5)',
                     }}
-                  ></div>
+                  />
                   
                   <img 
                     src={project.imageUrl} 
                     alt={project.title} 
-                    className="w-full h-full object-contain object-center bg-battle-gray bg-opacity-10 relative z-10 transition-transform duration-500 group-hover:scale-110 p-2" 
+                    className="w-full h-full object-contain relative z-10 p-4" 
                   />
                   
-                  {/* Overlay with links */}
-                  <div className="absolute inset-0 z-20 bg-raisin-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <Link
-                      to={`/projects/${project.id}`}
-                      className="bg-sunglow text-raisin-black px-4 py-2 rounded-full font-medium transform -translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
-                    >
-                      Visualizza progetto
-                    </Link>
+                  {/* Project type badge */}
+                  <div className="absolute top-3 left-3 badge badge-primary z-20">
+                    {project.type}
                   </div>
                 </div>
                 
                 {/* Project Info */}
-                <div className="p-5 flex-grow flex flex-col">
+                <div className="p-6 flex-grow flex flex-col">
                   <div className="mb-2 flex justify-between items-center">
-                    <span className="px-3 py-1 text-xs rounded-full bg-sunglow font-medium text-raisin-black">
-                      {project.type}
-                    </span>
-                    <span className="text-sm text-battle-gray">
+                    <span className="text-sm text-secondary">
                       {project.year}
                     </span>
                   </div>
                   
                   <h3 className="text-xl font-bold mb-2">{project.title}</h3>
                   
-                  <p className="text-current font-medium mb-4 flex-grow">{project.shortDescription}</p>
+                  <p className="text-secondary mb-4 flex-grow line-clamp-3">{project.shortDescription}</p>
                   
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {project.languages.map((lang, index) => (
+                    {project.languages.slice(0, 3).map((lang, index) => (
                       <span 
                         key={index} 
-                        className="px-3 py-1 text-xs rounded-full bg-sunglow bg-opacity-90 text-raisin-black font-medium"
+                        className="text-xs py-1 px-2 bg-subtle rounded-md font-medium"
                       >
                         {lang}
                       </span>
                     ))}
+                    {project.languages.length > 3 && (
+                      <span className="text-xs py-1 px-2 bg-subtle rounded-md font-medium">
+                        +{project.languages.length - 3}
+                      </span>
+                    )}
                   </div>
                   
                   <div className="flex justify-between items-center mt-auto">
                     <Link
                       to={`/projects/${project.id}`}
-                      className="text-sunglow font-medium hover:underline flex items-center gap-1"
+                      className="inline-flex items-center gap-1 font-semibold text-accent hover:underline"
                     >
-                      Dettagli
-                      <FaExternalLinkAlt size={12} />
+                      <span>Scopri di più</span>
+                      <FaArrowRight size={12} />
                     </Link>
                     
-                    <div className="flex gap-2">
+                    <div className="flex gap-3">
                       {project.githubLink !== '#' && (
-                        <a
+                        <motion.a
                           href={project.githubLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="w-8 h-8 rounded-full bg-raisin-black text-white flex items-center justify-center"
+                          className="w-9 h-9 rounded-full bg-primary text-accent flex items-center justify-center border border-accent"
                           aria-label="GitHub Repository"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.97 }}
                         >
                           <FaGithub size={16} />
-                        </a>
+                        </motion.a>
                       )}
                       
                       {project.vercelLink !== '#' && (
-                        <a
+                        <motion.a
                           href={project.vercelLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="w-8 h-8 rounded-full bg-battle-gray bg-opacity-20 flex items-center justify-center"
+                          className="w-9 h-9 rounded-full bg-subtle flex items-center justify-center"
                           aria-label="Live Demo"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.97 }}
                         >
                           <FaExternalLinkAlt size={12} />
-                        </a>
+                        </motion.a>
                       )}
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         ) : (
-          <div className="glassmorphism p-10 text-center">
-            <p className="text-xl mb-4">Nessun progetto trovato con i criteri di ricerca specificati.</p>
+          <motion.div 
+            className="glassmorphism p-10 text-center rounded-2xl"
+            variants={itemVariants}
+          >
+            <p className="text-xl mb-6">Nessun progetto trovato con i criteri di ricerca specificati.</p>
             <button 
               onClick={resetFilters}
-              className="bg-sunglow text-raisin-black px-6 py-2 rounded-full font-semibold"
+              className="btn btn-primary px-6 py-2 inline-flex items-center justify-center gap-2"
             >
-              Mostra tutti i progetti
+              <span>Mostra tutti i progetti</span>
+              <FaArrowRight size={12} />
             </button>
-          </div>
+          </motion.div>
         )}
       </div>
-      
-      <style>{`
-        .project-card {
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        @media (max-width: 768px) {
-          .filter-container {
-            position: absolute;
-            z-index: 30;
-            width: 100%;
-          }
-        }
-      `}</style>
-    </div>
+    </motion.div>
   );
 };
 
