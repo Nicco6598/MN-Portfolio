@@ -12,13 +12,15 @@ import {
   FaBars, 
   FaHome, 
   FaLaptopCode, 
-  FaEnvelope 
+  FaEnvelope,
+  FaEllipsisV
 } from 'react-icons/fa';
 import logo from '../assets/logo.png';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const location = useLocation();
   const { theme, toggleTheme } = useContext(ThemeContext);
 
@@ -39,6 +41,7 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     setIsMenuOpen(false);
+    setIsDropdownOpen(false);
   }, [location]);
 
   // Disabilita lo scroll quando il menu è aperto
@@ -53,6 +56,21 @@ const Navbar: React.FC = () => {
       document.body.style.overflow = 'auto';
     };
   }, [isMenuOpen]);
+
+  // Chiudi dropdown quando si clicca fuori
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (isDropdownOpen && !target.closest('.dropdown-container')) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isDropdownOpen]);
 
   // Animazioni
   const navItemVariants = {
@@ -154,7 +172,7 @@ const Navbar: React.FC = () => {
                   <Link 
                     to={item.path} 
                     className={`
-                      px-4 py-2 rounded-xl mx-1 flex items-center gap-2 transition-colors
+                      px-4 py-2 rounded-xl mx-1 transition-colors
                       ${location.pathname === item.path || 
                         (item.path === '/projects' && location.pathname.includes('/projects/')) 
                           ? 'text-accent font-medium'
@@ -162,7 +180,6 @@ const Navbar: React.FC = () => {
                       }
                     `}
                   >
-                    <span className="text-current">{item.icon}</span>
                     <span>{item.name}</span>
                   </Link>
                 </motion.div>
@@ -194,46 +211,70 @@ const Navbar: React.FC = () => {
               }
             </motion.button>
 
-            {/* Desktop Download Links */}
-            <div className="hidden md:flex items-center gap-2">
-              {cvLinks.map((link, index) => (
-                <motion.a
-                  key={link.name}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  download={link.name === "CV (IT)" ? "Marco_Niccolini_CV_IT.pdf" : "Marco_Niccolini_CV_ENG.pdf"}
-                  className={`
-                    px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center gap-2
-                    ${index === 0 
-                      ? 'bg-accent text-white hover:bg-accent-secondary' 
-                      : `border border-accent text-accent ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}`
-                    }
-                  `}
-                  variants={navItemVariants}
-                  whileHover="hover"
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <FaFileDownload size={14} />
-                  <span>{link.name}</span>
-                </motion.a>
-              ))}
-              
-              <motion.a
-                href="https://github.com/Nicco6598"
-                target="_blank"
-                rel="noopener noreferrer"
+            {/* Dropdown Menu per CV e GitHub */}
+            <div className="hidden md:block dropdown-container relative">
+              <motion.button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className={`
                   w-10 h-10 flex items-center justify-center rounded-full
                   ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}
+                  ${isDropdownOpen ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100') : ''}
                   transition-colors
                 `}
+                aria-label="Opzioni"
                 variants={navItemVariants}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <FaGithub size={18} />
-              </motion.a>
+                <FaEllipsisV size={16} />
+              </motion.button>
+              
+              {/* Dropdown Content */}
+              <AnimatePresence>
+                {isDropdownOpen && (
+                  <motion.div 
+                    className={`absolute right-0 mt-4 w-48 rounded-xl overflow-hidden shadow-lg z-50 glassmorphism ${theme === 'dark' ? 'border border-gray-800' : 'border border-gray-200'}`}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <div className="py-1">
+                      {/* CV Links */}
+                      <div className="px-3 py-2 text-xs font-semibold text-secondary">Curriculum</div>
+                      {cvLinks.map((link) => (
+                        <a
+                          key={link.name}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          download={link.name === "CV (IT)" ? "Marco_Niccolini_CV_IT.pdf" : "Marco_Niccolini_CV_ENG.pdf"}
+                          className={`block px-4 py-2 text-sm transition-colors flex items-center gap-2 ${theme === 'dark' ? 'hover:bg-accent hover:text-white' : 'hover:bg-accent hover:text-white text-gray-700'}`}
+                          onClick={() => setIsDropdownOpen(false)}
+                        >
+                          <FaFileDownload size={14} />
+                          <span>{link.name}</span>
+                        </a>
+                      ))}
+                      
+                      {/* Divider */}
+                      <div className="border-t border-gray-200 dark:border-gray-700 my-1"></div>
+                      
+                      {/* GitHub Link */}
+                      <a
+                        href="https://github.com/Nicco6598"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`block px-4 py-2 text-sm transition-colors flex items-center gap-2 ${theme === 'dark' ? 'hover:bg-accent hover:text-white' : 'hover:bg-accent hover:text-white text-gray-700'}`}
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
+                        <FaGithub size={14} />
+                        <span>GitHub</span>
+                      </a>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             {/* Mobile Menu Toggle */}
