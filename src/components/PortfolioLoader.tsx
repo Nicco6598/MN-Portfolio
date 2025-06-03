@@ -241,7 +241,7 @@ const PortfolioLoader: React.FC<PortfolioLoaderProps> = ({
               className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-gray-100"
               variants={itemVariants}
             >
-              Caricamento <span 
+               <span 
                 className="text-transparent bg-clip-text"
                 style={{ 
                   backgroundImage: `linear-gradient(to right, ${colors.primary}, ${colors.secondary})`

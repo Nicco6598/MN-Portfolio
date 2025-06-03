@@ -9,6 +9,8 @@ import PortfolioLoader from './components/PortfolioLoader';
 import AnimatedBackground from './components/AnimatedBackground';
 import './styles/theme.css';
 import './styles/home-animations.css'; // Importa le animazioni per la home
+import { projects } from './data/projectData'; // Importa i dati dei progetti
+
 
 // Precaricamento pagina Home per un'esperienza più fluida
 import HomeComponent from './pages/Home';
@@ -17,7 +19,6 @@ const Home = () => <HomeComponent />;
 const Projects = lazy(() => import('./pages/Projects'));
 const Contact = lazy(() => import('./pages/Contact'));
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
-
 const getRouteName = (pathname: string) => {
   switch (pathname) {
     case '/':
@@ -28,7 +29,12 @@ const getRouteName = (pathname: string) => {
       return 'Contatti';
     default:
       if (pathname.startsWith('/projects/')) {
-        return 'Dettaglio Progetto';
+        const projectId = pathname.split('/projects/')[1];
+        const project = projects.find(p => p.id.toString() === projectId);
+        if (project) {
+          return `Caricamento ${project.title}`;
+        }
+        return 'Dettaglio Progetto'; // Fallback se il progetto non viene trovato
       }
       return 'Pagina';
   }
