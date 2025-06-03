@@ -121,22 +121,6 @@ const Contact: React.FC = () => {
                   </div>
                 </motion.div>
                 
-                <motion.div 
-                  className="flex items-start space-x-4"
-                  whileHover={{ x: 5 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-r from-violet-500 to-purple-500 flex items-center justify-center text-white">
-                    <FaEnvelope size={18} />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-medium mb-1">Email</h3>
-                    <a href="mailto:contact@marconiccolini.com" className="text-secondary hover:text-accent transition-colors">
-                      contact@marconiccolini.com
-                    </a>
-                  </div>
-                </motion.div>
-                
                 <div className="space-y-4 pt-6">
                   <h3 className="text-lg font-medium">Social</h3>
                   <div className="flex space-x-4">
@@ -172,12 +156,12 @@ const Contact: React.FC = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       download="Marco_Niccolini_CV_IT.pdf"
-                      className="glassmorphism py-3 px-4 rounded-xl flex items-center justify-between group hover:bg-accent hover:text-white transition-all"
+                      className="glassmorphism py-3 px-4 rounded-xl flex items-center justify-between group hover:bg-accent dark:hover:text-white hover:text-gray-900 transition-all"
                       whileHover={{ x: 5 }}
                       whileTap={{ scale: 0.98 }}
                     >
                       <div className="flex items-center">
-                        <FaFileDownload className="mr-3 text-accent group-hover:text-white" />
+                        <FaFileDownload className="mr-3 text-accent group-hover:text-white dark:group-hover:text-white group-hover:text-gray-900" />
                         <span>Curriculum Vitae (IT)</span>
                       </div>
                       <span className="text-xs bg-subtle px-2 py-1 rounded group-hover:bg-white group-hover:text-accent">IT</span>
@@ -188,12 +172,12 @@ const Contact: React.FC = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       download="Marco_Niccolini_CV_ENG.pdf"
-                      className="glassmorphism py-3 px-4 rounded-xl flex items-center justify-between group hover:bg-accent hover:text-white transition-all"
+                      className="glassmorphism py-3 px-4 rounded-xl flex items-center justify-between group hover:bg-accent dark:hover:text-white hover:text-gray-900 transition-all"
                       whileHover={{ x: 5 }}
                       whileTap={{ scale: 0.98 }}
                     >
                       <div className="flex items-center">
-                        <FaFileDownload className="mr-3 text-accent group-hover:text-white" />
+                        <FaFileDownload className="mr-3 text-accent group-hover:text-white dark:group-hover:text-white group-hover:text-gray-900" />
                         <span>Resume (ENG)</span>
                       </div>
                       <span className="text-xs bg-subtle px-2 py-1 rounded group-hover:bg-white group-hover:text-accent">EN</span>
