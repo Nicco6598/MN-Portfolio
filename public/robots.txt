@@ -1,5 +1,13 @@
-# https://www.robotstxt.org/robotstxt.html
+# robots.txt per MN Portfolio
+# Consigli: consenti a tutti i crawler, includi sitemap
 User-agent: *
 Allow: /
+
+# Se vuoi limitare la scansione delle immagini, decommenta la riga seguente
+# User-agent: Googlebot-Image
+# Disallow:
+
+# Crawl-delay (opzionale, solo se hai problemi di traffico)
+# Crawl-delay: 10
 
 Sitemap: https://mn-portfolio-orpin.vercel.app/sitemap.xml

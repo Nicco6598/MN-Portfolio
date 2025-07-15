@@ -26,5 +26,28 @@
   "background_color": "#ffffff",
   "categories": ["portfolio", "development", "blockchain"],
   "lang": "it-IT",
-  "orientation": "any"
+  "orientation": "any",
+  "screenshots": [
+    {
+      "src": "assets/profile.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
+      "label": "Homepage Portfolio"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Progetti",
+      "short_name": "Progetti",
+      "description": "Vai direttamente ai progetti di Marco Niccolini",
+      "url": "/projects"
+    },
+    {
+      "name": "Contatti",
+      "short_name": "Contatti",
+      "description": "Contatta Marco Niccolini",
+      "url": "/contact"
+    }
+  ],
+  "related_applications": []
 }

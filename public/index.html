@@ -2,9 +2,15 @@
 <html lang="it">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
     <meta name="theme-color" content="#6D28D9" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="msapplication-TileColor" content="#6D28D9" />
+    <meta name="msapplication-TileImage" content="%PUBLIC_URL%/logo192.png" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="copyright" content="© 2025 Marco Niccolini" />
+
     
     <!-- Primary Meta Tags -->
     <title>Marco Niccolini | Blockchain & Full Stack Developer</title>
@@ -19,24 +25,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="format-detection" content="telephone=no" />
     
-    <!-- Ottimizzazione mobile scrolling -->
-    <style>
-      @supports (-webkit-touch-callout: none) {
-        /* Solo per dispositivi iOS */
-        html, body {
-          overflow-x: hidden;
-          -webkit-overflow-scrolling: touch !important;
-          position: relative;
-        }
-        
-        /* Base transition fix */
-        .page-transition {
-          transition: opacity 0.3s ease !important;
-          animation: none !important;
-        }
-      }
-    </style>
-    
     <!-- Robots and Canonical -->
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://mn-portfolio-orpin.vercel.app/" />
@@ -46,35 +34,35 @@
     <meta property="og:url" content="https://mn-portfolio-orpin.vercel.app/" />
     <meta property="og:title" content="Marco Niccolini | Blockchain & Full Stack Developer" />
     <meta property="og:description" content="Portfolio di Marco Niccolini, sviluppatore blockchain con esperienza in smart contracts, dApps e tecnologie web innovative. Scopri i miei progetti e competenze." />
-    <meta property="og:image" content="https://mn-portfolio-orpin.vercel.app/profile.jpg" />
+    <meta property="og:image" content="https://mn-portfolio-orpin.vercel.app/assets/profile.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="it_IT" />
     <meta property="og:site_name" content="Portfolio di Marco Niccolini" />
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://mn-portfolio-orpin.vercel.app/" />
-    <meta property="twitter:title" content="Marco Niccolini | Blockchain & Full Stack Developer" />
-    <meta property="twitter:description" content="Portfolio di Marco Niccolini, sviluppatore blockchain con esperienza in smart contracts, dApps e tecnologie web innovative. Scopri i miei progetti e competenze." />
-    <meta property="twitter:image" content="https://mn-portfolio-orpin.vercel.app/profile.jpg" />
-    
-    <!-- WhatsApp / LinkedIn Preview -->
     <meta property="og:image:alt" content="Marco Niccolini - Portfolio" />
     
-    <!-- Progressive Web App -->
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://mn-portfolio-orpin.vercel.app/" />
+    <meta name="twitter:title" content="Marco Niccolini | Blockchain & Full Stack Developer" />
+    <meta name="twitter:description" content="Portfolio di Marco Niccolini, sviluppatore blockchain con esperienza in smart contracts, dApps e tecnologie web innovative. Scopri i miei progetti e competenze." />
+    <meta name="twitter:image" content="https://mn-portfolio-orpin.vercel.app/assets/profile.jpg" />
+    <meta name="twitter:image:alt" content="Marco Niccolini - Portfolio" />
+    
+    <!-- Favicon e Apple Touch Icons -->
+    <link rel="icon" type="image/x-icon" href="%PUBLIC_URL%/favicon.ico" sizes="16x16 32x32 48x48 64x64" />
+    <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="%PUBLIC_URL%/logo512.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!-- browserconfig.xml per Windows Tiles (opzionale) -->
+    <!-- <meta name="msapplication-config" content="/browserconfig.xml" /> -->
     
     <!-- Resource Hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    
-    <!-- DNS prefetch per risorse critiche -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-    
-    <!-- Carica solo il subset necessario di font per migliorare le performance -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" as="style" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" />
   </head>
