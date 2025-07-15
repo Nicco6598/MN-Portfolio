@@ -3,6 +3,7 @@ import nft from '../assets/nft.png';
 import travel from '../assets/travel.png';
 import dao from '../assets/dao.png';
 import bombyx from '../assets/bombyx_logo.png';
+import scandellari from '../assets/scandellari.png';
 
 interface Project {
   id: number;
@@ -112,6 +113,19 @@ export const projects: Project[] = [
     type: 'Sviluppo Web',
     vercelLink: 'https://bombyx-menu.vercel.app/',
     githubLink: '#',
+  },
+  {
+    id: 6,
+    title: 'Scandellari Sito Web',
+    shortDescription: 'Sito web aziendale per Scandellari Giacinto SNC, azienda operante nel settore ferroviario.',
+    fullDescription: `Il sito web di Scandellari Giacinto SNC è stato realizzato per rappresentare online un'azienda leader nel settore ferroviario. Il progetto si è concentrato sulla creazione di una piattaforma moderna, intuitiva e responsive, in grado di presentare i servizi, la storia e i valori dell'azienda. Particolare attenzione è stata posta all'usabilità e all'accessibilità, per garantire una navigazione fluida sia da desktop che da dispositivi mobili. Il sito offre una panoramica dettagliata delle attività aziendali, delle certificazioni e delle realizzazioni, rafforzando la presenza digitale di Scandellari Giacinto SNC e facilitando il contatto con clienti e partner.`,
+    imageUrl: scandellari,
+    year: '2025',
+    month: 'Maggio',
+    languages: ['React', 'Typescript', 'Node.js', 'Express'],
+    type: 'Sviluppo Web',
+    vercelLink: 'https://scandellarigiacintosnc.it/',
+    githubLink: '',
   },
   // Aggiungi altri progetti se necessario
 ];
