@@ -420,15 +420,15 @@ const Navbar: React.FC = () => {
                     {/* Download CV section */}
                     <div>
                       <h4 className="text-xs font-medium mb-3 text-secondary px-1">CURRICULUM</h4>
-                      <div className="grid grid-cols-2 gap-3">
+                      <div className="flex flex-col gap-3">
                         {cvLinks.map((link, index) => (
                           <motion.a
                             key={link.name}
                             href={link.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            download={link.name === "CV (IT)" ? "Marco_Niccolini_CV_IT.pdf" : "Marco_Niccolini_CV_ENG.pdf"}
-                            className="flex flex-col items-center gap-2 p-4 rounded-xl bg-subtle hover:bg-accent hover:text-white transition-all group"
+                            download={link.name === "CV (IT)" ? "CV_Marco_Niccolini(IT).pdf" : "CV_Marco_Niccolini(EN).pdf"}
+                            className="btn btn-primary w-full text-base flex items-center justify-center gap-3 shadow-lg hover-lift shimmer-glow"
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ 
                               opacity: 1, 
@@ -437,10 +437,10 @@ const Navbar: React.FC = () => {
                             }}
                             whileTap={{ scale: 0.98 }}
                           >
-                            <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center group-hover:bg-white">
-                              <FaFileDownload className="text-accent" />
-                            </div>
-                            <span className="text-sm font-medium">{link.name}</span>
+                            <span className="flex items-center justify-center w-7 h-7 relative overflow-visible">
+                              <FaFileDownload className="text-white text-lg shimmer-icon" style={{ minWidth: 20, minHeight: 20, maxWidth: 28, maxHeight: 28 }} />
+                            </span>
+                            <span className="font-semibold">{link.name === "CV (IT)" ? "Scarica CV Italiano" : "Download Resume (EN)"}</span>
                           </motion.a>
                         ))}
                       </div>
@@ -478,7 +478,7 @@ const Navbar: React.FC = () => {
                 <motion.button
                   onClick={() => {
                     toggleTheme();
-                    setIsMenuOpen(false);
+                    // rimosso: setIsMenuOpen(false);
                   }}
                   className="glassmorphism py-4 w-full rounded-2xl mt-6 mb-10 flex items-center justify-center gap-3"
                   initial={{ y: 20, opacity: 0 }}
