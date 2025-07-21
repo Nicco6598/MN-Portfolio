@@ -101,11 +101,11 @@ const Navbar: React.FC = () => {
   const cvLinks = [
     { 
       name: "CV (IT)", 
-      url: "/assets/cv/Marco_Niccolini_CV(IT).pdf" 
+      url: "/assets/cv/CV_Marco_Niccolini(IT).pdf" 
     },
     { 
       name: "RESUME", 
-      url: "/assets/cv/Marco_Niccolini_CV(ENG).pdf" 
+      url: "/assets/cv/CV_Marco_Niccolini(EN).pdf" 
     }
   ];
 
