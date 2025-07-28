@@ -83,13 +83,13 @@ const Footer: React.FC = () => {
   const cvLinks = [
     { 
       name: "CV in Italiano", 
-      url: "/assets/cv/Marco_Niccolini_CV(IT).pdf",
-      downloadName: "Marco_Niccolini_CV_IT.pdf"
+      url: "/assets/cv/CV_Marco_Niccolini(IT).pdf",
+      downloadName: "CV_Marco_Niccolini_IT.pdf"
     },
     { 
       name: "CV in Inglese", 
-      url: "/assets/cv/Marco_Niccolini_CV(ENG).pdf",
-      downloadName: "Marco_Niccolini_CV_ENG.pdf"
+      url: "/assets/cv/CV_Marco_Niccolini(EN).pdf",
+      downloadName: "CV_Marco_Niccolini_EN.pdf"
     }
   ];
 
@@ -106,7 +106,7 @@ const Footer: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
         {/* Sezione info principale */}
         <motion.div 
-          className={`md:col-span-4 glassmorphism rounded-2xl p-6 ${theme === 'dark' ? 'border border-gray-800' : 'border border-gray-200'}`}
+          className={`md:col-span-4 rounded-2xl backdrop-blur-xl border p-6 ${theme === 'dark' ? 'bg-gray-800/30 border-gray-700/40' : 'bg-white/30 border-gray-300/40'}`}
           variants={itemVariants}
         >
           <Link to="/" className="flex items-center space-x-3 mb-4">
@@ -154,10 +154,10 @@ const Footer: React.FC = () => {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm transition-colors ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm transition-all duration-200 ${
                   theme === 'dark' 
-                    ? 'bg-gray-800 hover:bg-accent hover:text-white' 
-                    : 'bg-gray-100 hover:bg-accent hover:text-white'
+                    ? 'bg-gray-700/50 hover:bg-indigo-500 text-white hover:shadow-lg' 
+                    : 'bg-gray-200/50 hover:bg-indigo-500 text-gray-700 hover:text-white hover:shadow-lg'
                 }`}
                 variants={socialIconVariants}
                 whileHover="hover"
@@ -169,10 +169,10 @@ const Footer: React.FC = () => {
             
             <motion.button
               onClick={toggleTheme}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm transition-colors ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm transition-all duration-200 ${
                 theme === 'dark' 
-                  ? 'bg-gray-800 hover:bg-accent hover:text-white' 
-                  : 'bg-gray-100 hover:bg-accent hover:text-white'
+                  ? 'bg-gray-700/50 hover:bg-indigo-500 text-white hover:shadow-lg' 
+                  : 'bg-gray-200/50 hover:bg-indigo-500 text-gray-700 hover:text-white hover:shadow-lg'
               }`}
               variants={socialIconVariants}
               whileHover="hover"
@@ -186,11 +186,11 @@ const Footer: React.FC = () => {
         
         {/* Navigazione */}
         <motion.div 
-          className={`md:col-span-4 glassmorphism rounded-2xl p-6 ${theme === 'dark' ? 'border border-gray-800' : 'border border-gray-200'}`}
+          className={`md:col-span-4 rounded-2xl backdrop-blur-xl border p-6 ${theme === 'dark' ? 'bg-gray-800/30 border-gray-700/40' : 'bg-white/30 border-gray-300/40'}`}
           variants={itemVariants}
         >
-          <h3 className="text-lg font-bold mb-5 flex items-center gap-2">
-            <FaCode className="text-accent" />
+          <h3 className="text-xl font-bold mb-5 flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">
+            <FaCode className="text-indigo-500" />
             <span>Link Utili</span>
           </h3>
           
@@ -205,7 +205,7 @@ const Footer: React.FC = () => {
               >
                 <Link 
                   to={link.path}
-                  className="flex items-center gap-3 py-2 hover:text-accent transition-colors"
+                  className="flex items-center gap-3 py-2 text-secondary hover:text-indigo-500 transition-colors duration-200"
                 >
                   <span className="text-accent">{link.icon}</span>
                   <span>{link.name}</span>
@@ -217,10 +217,10 @@ const Footer: React.FC = () => {
             <div className="border-b border-gray-200 dark:border-gray-700 opacity-30 my-4"></div>
             
             <motion.h3 
-              className="text-lg font-bold mb-4 flex items-center gap-2"
+              className="text-xl font-bold mb-4 flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent"
               variants={itemVariants}
             >
-              <FaFileAlt className="text-accent" />
+              <FaFileAlt className="text-indigo-500" />
               <span>Curriculum</span>
             </motion.h3>
             
@@ -237,7 +237,7 @@ const Footer: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   download={link.downloadName}
-                  className="flex items-center gap-3 py-2 hover:text-accent transition-colors"
+                  className="flex items-center gap-3 py-2 text-secondary hover:text-indigo-500 transition-colors duration-200"
                 >
                   <span className="text-accent"><FaFileDownload /></span>
                   <span>{link.name}</span>
@@ -249,11 +249,11 @@ const Footer: React.FC = () => {
         
         {/* Newsletter/Contatto */}
         <motion.div 
-          className={`md:col-span-4 glassmorphism rounded-2xl p-6 ${theme === 'dark' ? 'border border-gray-800' : 'border border-gray-200'}`}
+          className={`md:col-span-4 rounded-2xl backdrop-blur-xl border p-6 ${theme === 'dark' ? 'bg-gray-800/30 border-gray-700/40' : 'bg-white/30 border-gray-300/40'}`}
           variants={itemVariants}
         >
-          <h3 className="text-lg font-bold mb-5 flex items-center gap-2">
-            <FaEnvelope className="text-accent" />
+          <h3 className="text-xl font-bold mb-5 flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">
+            <FaEnvelope className="text-indigo-500" />
             <span>Contattami</span>
           </h3>
           
@@ -263,7 +263,7 @@ const Footer: React.FC = () => {
           
           <Link 
             to="/contact"
-            className="btn btn-primary w-full flex items-center justify-center gap-2 py-3"
+            className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105"
           >
             <FaEnvelope />
             <span>Invia un messaggio</span>
