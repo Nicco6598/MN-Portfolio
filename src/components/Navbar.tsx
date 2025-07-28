@@ -101,11 +101,13 @@ const Navbar: React.FC = () => {
   const cvLinks = [
     { 
       name: "CV (IT)", 
-      url: "/assets/cv/CV_Marco_Niccolini(IT).pdf" 
+      url: "/assets/cv/CV_Marco_Niccolini(IT).pdf",
+      download: "CV_Marco_Niccolini(IT).pdf"
     },
     { 
       name: "RESUME", 
-      url: "/assets/cv/CV_Marco_Niccolini(EN).pdf" 
+      url: "/assets/cv/CV_Marco_Niccolini(EN).pdf",
+      download: "CV_Marco_Niccolini(EN).pdf"
     }
   ];
 
@@ -179,6 +181,7 @@ const Navbar: React.FC = () => {
                           : 'hover:text-accent'
                       }
                     `}
+                    aria-label={`Vai alla pagina ${item.name}`}
                   >
                     <span>{item.name}</span>
                   </Link>
@@ -211,66 +214,174 @@ const Navbar: React.FC = () => {
               }
             </motion.button>
 
-            {/* Dropdown Menu per CV e GitHub */}
+            {/* Dropdown Menu per CV e GitHub - Separato con colori più solidi */}
             <div className="hidden md:block dropdown-container relative">
               <motion.button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className={`
-                  w-10 h-10 flex items-center justify-center rounded-full
-                  ${theme === 'dark' ? 'hover:bg-gray-800' : 'hover:bg-gray-100'}
-                  ${isDropdownOpen ? (theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100') : ''}
-                  transition-colors
+                  px-4 py-2 rounded-xl flex items-center gap-2 transition-all duration-300
+                  ${theme === 'dark' 
+                    ? 'bg-gray-800 hover:bg-gray-700 border-gray-600' 
+                    : 'bg-white hover:bg-gray-50 border-gray-300 shadow-sm'
+                  }
+                  ${isDropdownOpen 
+                    ? (theme === 'dark' ? 'bg-gray-700 border-gray-500 shadow-lg' : 'bg-gray-50 border-gray-400 shadow-md') 
+                    : 'border'
+                  }
+                  border transition-colors font-medium
                 `}
                 aria-label="Opzioni"
                 variants={navItemVariants}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <FaEllipsisV size={16} />
+                <span className="text-sm">CV & Risorse</span>
+                <motion.div
+                  animate={{ rotate: isDropdownOpen ? 180 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <FaEllipsisV size={14} />
+                </motion.div>
               </motion.button>
               
-              {/* Dropdown Content */}
+              {/* Dropdown Content - Separato con sfondo solido */}
               <AnimatePresence>
                 {isDropdownOpen && (
                   <motion.div 
-                    className={`absolute right-0 mt-4 w-48 rounded-xl overflow-hidden shadow-lg z-50 glassmorphism ${theme === 'dark' ? 'border border-gray-800' : 'border border-gray-200'}`}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2 }}
+                    className={`absolute right-0 mt-4 w-80 rounded-2xl overflow-hidden shadow-2xl z-50 
+                      ${theme === 'dark' 
+                        ? 'bg-slate-800 border border-gray-700' 
+                        : 'bg-white border border-gray-200 shadow-xl'
+                      }`}
+                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                    transition={{ duration: 0.2, type: "spring", stiffness: 300, damping: 25 }}
                   >
-                    <div className="py-1">
-                      {/* CV Links */}
-                      <div className="px-3 py-2 text-xs font-semibold text-secondary">Curriculum</div>
-                      {cvLinks.map((link) => (
-                        <a
-                          key={link.name}
-                          href={link.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          download={link.name === "CV (IT)" ? "Marco_Niccolini_CV_IT.pdf" : "Marco_Niccolini_CV_ENG.pdf"}
-                          className={`block px-4 py-2 text-sm transition-colors flex items-center gap-2 ${theme === 'dark' ? 'hover:bg-accent hover:text-white' : 'hover:bg-accent hover:text-white text-gray-700'}`}
-                          onClick={() => setIsDropdownOpen(false)}
-                        >
-                          <FaFileDownload size={14} />
-                          <span>{link.name}</span>
-                        </a>
-                      ))}
-                      
-                      {/* Divider */}
-                      <div className="border-t border-gray-200 dark:border-gray-700 my-1"></div>
-                      
-                      {/* GitHub Link */}
-                      <a
+                    <div className="p-6">
+                      {/* Header con separazione visiva */}
+                      <div className={`mb-5 pb-4 border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
+                        <h3 className="text-lg font-bold mb-1">Curriculum Vitae</h3>
+                        <p className="text-sm text-secondary">Scarica la versione più adatta alle tue esigenze</p>
+                      </div>
+
+                      {/* CV Links con sfondo solido */}
+                      <div className="space-y-3 mb-6">
+                        {cvLinks.map((link, index) => (
+                          <motion.a
+                            key={link.name}
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            download={link.download}
+                            className={`
+                              block p-4 rounded-xl flex items-center gap-4 transition-all group
+                              ${theme === 'dark' 
+                                ? 'bg-gray-700 hover:bg-gray-600 border border-gray-600' 
+                                : 'bg-gray-50 hover:bg-gray-100 border border-gray-200'
+                              }
+                              hover:border-accent hover:shadow-md
+                            `}
+                            onClick={() => setIsDropdownOpen(false)}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.1 }}
+                            whileHover={{ x: 2 }}
+                            whileTap={{ scale: 0.98 }}
+                          >
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-3">
+                                <div className={`
+                                  w-10 h-10 rounded-lg flex items-center justify-center
+                                  ${theme === 'dark' 
+                                    ? 'bg-indigo-500/20 text-indigo-400' 
+                                    : 'bg-indigo-100 text-indigo-600'
+                                  }
+                                  group-hover:scale-110 transition-transform
+                                `}>
+                                  <FaFileDownload size={18} />
+                                </div>
+                                <div>
+                                  <div className="font-semibold text-sm">
+                                    {link.name === "CV (IT)" ? "Curriculum Italiano" : "Resume English"}
+                                  </div>
+                                  <div className="text-xs text-secondary">
+                                    {link.name === "CV (IT)" ? "Formato PDF - 2.3 MB" : "PDF Format - 2.1 MB"}
+                                  </div>
+                                </div>
+                              </div>
+                              <motion.div
+                                className="text-accent"
+                                whileHover={{ x: 3 }}
+                              >
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                              </motion.div>
+                            </div>
+                          </motion.a>
+                        ))}
+                      </div>
+
+                      {/* Divider più visibile */}
+                      <div className="relative my-6">
+                        <div className={`absolute inset-0 flex items-center ${theme === 'dark' ? 'text-gray-600' : 'text-gray-300'}`}>
+                          <div className="w-full border-t border-current"></div>
+                        </div>
+                        <div className="relative flex justify-center">
+                          <span className={`px-3 text-xs font-medium ${theme === 'dark' ? 'bg-slate-800 text-gray-400' : 'bg-white text-gray-500'}`}>
+                            CONNETTITI
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* GitHub Link con sfondo solido */}
+                      <motion.a
                         href="https://github.com/Nicco6598"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`block px-4 py-2 text-sm transition-colors flex items-center gap-2 ${theme === 'dark' ? 'hover:bg-accent hover:text-white' : 'hover:bg-accent hover:text-white text-gray-700'}`}
+                        className={`
+                          block p-4 rounded-xl transition-all group
+                          ${theme === 'dark' 
+                            ? 'bg-gray-700 hover:bg-gray-600 border border-gray-600' 
+                            : 'bg-gray-50 hover:bg-gray-100 border border-gray-200'
+                          }
+                          hover:border-gray-500 hover:shadow-md
+                        `}
                         onClick={() => setIsDropdownOpen(false)}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
                       >
-                        <FaGithub size={14} />
-                        <span>GitHub</span>
-                      </a>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className={`
+                              w-10 h-10 rounded-lg flex items-center justify-center
+                              ${theme === 'dark' 
+                                ? 'bg-gray-600 text-gray-300' 
+                                : 'bg-gray-200 text-gray-700'
+                              }
+                              group-hover:scale-110 transition-transform
+                            `}>
+                              <FaGithub size={18} />
+                            </div>
+                            <div>
+                              <div className="font-semibold text-sm">GitHub Profile</div>
+                              <div className="text-xs text-secondary">@Nicco6598</div>
+                            </div>
+                          </div>
+                          <motion.div
+                            className="text-gray-400 dark:text-gray-500"
+                            whileHover={{ x: 3 }}
+                          >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                          </motion.div>
+                        </div>
+                      </motion.a>
                     </div>
                   </motion.div>
                 )}
@@ -427,7 +538,7 @@ const Navbar: React.FC = () => {
                             href={link.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            download={link.name === "CV (IT)" ? "CV_Marco_Niccolini(IT).pdf" : "CV_Marco_Niccolini(EN).pdf"}
+                            download={link.download}
                             className="btn btn-primary w-full text-base flex items-center justify-center gap-3 shadow-lg hover-lift shimmer-glow"
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ 
