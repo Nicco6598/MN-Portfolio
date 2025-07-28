@@ -7,7 +7,7 @@ import { projects } from '../../data/projectData';
 
 const FeaturedProjects: React.FC = () => {
   const { theme } = useContext(ThemeContext);
-  const featuredProjects = projects.slice(0, 3); // Show only the first 3 projects
+  const featuredProjects = projects.slice(0, 3);
 
   // Enhanced animation variants with spring physics
   const containerVariants = {
@@ -65,60 +65,28 @@ const FeaturedProjects: React.FC = () => {
     }
   };
 
-  // Button micro-interactions
-  const buttonVariants = {
-    hover: { 
-      scale: 1.08,
-      y: -2,
-      transition: { 
-        type: "spring", 
-        stiffness: 400,
-        damping: 15
-      }
-    },
-    tap: { 
-      scale: 0.95,
-      y: 0
-    }
-  };
-
-  // Floating badge animation
+  // Premium badge variants with glassmorphism
   const badgeVariants = {
-    hidden: { opacity: 0, scale: 0.5, rotate: -180 },
+    hidden: { opacity: 0, scale: 0.7, y: -10 },
     visible: { 
       opacity: 1, 
       scale: 1,
-      rotate: 0,
+      y: 0,
       transition: { 
         type: "spring",
         stiffness: 200,
         damping: 15,
-        delay: 0.5
+        delay: 0.3
       }
     },
     hover: { 
-      scale: 1.1,
-      rotate: 360,
+      scale: 1.08,
+      y: -2,
       transition: { 
-        duration: 0.4,
+        duration: 0.2,
         type: "spring"
       }
     }
-  };
-
-  // Image hover effects
-  const imageVariants = {
-    hover: {
-      scale: 1.1,
-      transition: { duration: 0.4 }
-    }
-  };
-
-  // Gradient overlay animation
-  const overlayVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
-    hover: { opacity: 0.8 }
   };
 
   // Floating particles for background
@@ -205,16 +173,16 @@ const FeaturedProjects: React.FC = () => {
         </motion.p>
       </motion.div>
       
-      {/* Enhanced bento-style grid with modern layout */}
+      {/* Enhanced bento-style grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {featuredProjects.map((project, index) => (
           <motion.div
             key={project.id}
             className={`group relative overflow-hidden rounded-2xl backdrop-blur-xl border transition-all duration-300 ${
               theme === 'dark' 
-                ? 'bg-gray-800/40 border-gray-700/50' 
-                : 'bg-white/40 border-gray-300/50'
-            } shadow-2xl hover:shadow-3xl`}
+                ? 'bg-gray-800/30 border-gray-700/40 hover:border-indigo-500/50' 
+                : 'bg-white/30 border-gray-300/40 hover:border-indigo-500/50'
+            } shadow-2xl hover:shadow-3xl hover:shadow-indigo-500/20`}
             variants={cardVariants}
             custom={index}
             whileHover="hover"
@@ -223,16 +191,24 @@ const FeaturedProjects: React.FC = () => {
               WebkitBackdropFilter: 'blur(20px)'
             }}
           >
-            {/* Enhanced project image with overlay effects */}
+            {/* Enhanced project image */}
             <div className="relative h-56 overflow-hidden">
-              {/* Background gradient blur */}
+              {/* Background gradient glow */}
               <motion.div
-                className="absolute inset-0 z-0 blur-2xl opacity-30"
+                className="absolute inset-0 z-0 blur-3xl opacity-20"
                 style={{
                   backgroundColor: index === 0 ? '#6366F1' : index === 1 ? '#8B5CF6' : '#10B981',
                   transform: 'scale(1.5)',
                 }}
-                variants={overlayVariants}
+                animate={{ 
+                  opacity: [0.1, 0.3, 0.1],
+                  scale: [1.5, 1.6, 1.5] 
+                }}
+                transition={{ 
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut" 
+                }}
               />
               
               {/* Project image */}
@@ -240,37 +216,45 @@ const FeaturedProjects: React.FC = () => {
                 src={project.imageUrl} 
                 alt={project.title} 
                 className="w-full h-full object-contain relative z-10 p-6 transition-transform duration-500"
-                variants={imageVariants}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.4 }}
               />
               
               {/* Gradient overlay */}
               <motion.div 
                 className={`absolute inset-0 bg-gradient-to-t ${
                   theme === 'dark' 
-                    ? 'from-gray-900/80 via-transparent to-transparent' 
-                    : 'from-white/80 via-transparent to-transparent'
+                    ? 'from-gray-900/60 via-transparent to-transparent' 
+                    : 'from-white/60 via-transparent to-transparent'
                 } opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
-                variants={overlayVariants}
               />
               
-              {/* Floating project type badge */}
+              {/* Premium project type badge */}
               <motion.div
-                className="absolute top-4 left-4 px-3 py-1 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-xs font-bold rounded-full"
+                className={`absolute top-3 left-3 px-3 py-1.5 rounded-full text-xs font-bold backdrop-blur-md border transition-all duration-300 ${
+                  theme === 'dark'
+                    ? 'bg-gray-900/60 border-indigo-500/50 text-white shadow-lg shadow-indigo-500/20'
+                    : 'bg-white/60 border-indigo-500/50 text-gray-900 shadow-lg shadow-indigo-500/20'
+                }`}
                 variants={badgeVariants}
               >
-                {project.type}
+                <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                  {project.type}
+                </span>
               </motion.div>
               
-              {/* Year badge */}
+              {/* Premium year badge */}
               <motion.div
-                className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold ${
-                  theme === 'dark' 
-                    ? 'bg-gray-700/80 text-gray-200' 
-                    : 'bg-white/80 text-gray-700'
-                } backdrop-blur-sm`}
+                className={`absolute top-3 right-3 px-3 py-1.5 rounded-full text-xs font-bold backdrop-blur-md border transition-all duration-300 ${
+                  theme === 'dark'
+                    ? 'bg-gray-900/60 border-purple-500/50 text-white shadow-lg shadow-purple-500/20'
+                    : 'bg-white/60 border-purple-500/50 text-gray-900 shadow-lg shadow-purple-500/20'
+                }`}
                 variants={badgeVariants}
               >
-                {project.year}
+                <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                  {project.year}
+                </span>
               </motion.div>
             </div>
             
@@ -291,30 +275,44 @@ const FeaturedProjects: React.FC = () => {
                   {project.shortDescription}
                 </motion.p>
                 
-                {/* Enhanced tech stack - rimossi variants per evitare rotazione */}
+                {/* Modern tech stack tags */}
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {project.languages.slice(0, 4).map((language) => (
-                    <span 
+                  {project.languages.slice(0, 4).map((language, langIndex) => (
+                    <motion.span 
                       key={language}
-                      className={`text-xs py-1.5 px-3 rounded-full font-medium backdrop-blur-sm transition-all duration-300 hover:scale-110 ${
+                      className={`text-xs py-1.5 px-3 rounded-full font-medium backdrop-blur-sm transition-all duration-300 ${
                         theme === 'dark' 
-                          ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30' 
-                          : 'bg-indigo-100/50 text-indigo-700 border border-indigo-200/50'
+                          ? 'bg-gray-800/50 text-gray-300 border border-gray-700/50 hover:border-indigo-500/50' 
+                          : 'bg-gray-100/50 text-gray-700 border border-gray-200/50 hover:border-indigo-500/50'
                       }`}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 + langIndex * 0.05 }}
+                      whileHover={{ 
+                        scale: 1.1, 
+                        y: -2,
+                        boxShadow: theme === 'dark' 
+                          ? '0 4px 20px rgba(99, 102, 241, 0.3)' 
+                          : '0 4px 20px rgba(99, 102, 241, 0.2)'
+                      }}
                     >
                       {language}
-                    </span>
+                    </motion.span>
                   ))}
                   {project.languages.length > 4 && (
-                    <span 
+                    <motion.span 
                       className={`text-xs py-1.5 px-3 rounded-full font-medium backdrop-blur-sm ${
                         theme === 'dark' 
-                          ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' 
-                          : 'bg-purple-100/50 text-purple-700 border border-purple-200/50'
+                          ? 'bg-gray-800/50 text-gray-300 border border-gray-700/50' 
+                          : 'bg-gray-100/50 text-gray-700 border border-gray-200/50'
                       }`}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                      whileHover={{ scale: 1.1, y: -2 }}
                     >
                       +{project.languages.length - 4}
-                    </span>
+                    </motion.span>
                   )}
                 </div>
               </div>
@@ -324,9 +322,8 @@ const FeaturedProjects: React.FC = () => {
                 theme === 'dark' ? 'border-gray-700/50' : 'border-gray-200/50'
               }">
                 <motion.div
-                  variants={buttonVariants}
-                  whileHover="hover"
-                  whileTap="tap"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <Link 
                     to={`/projects/${project.id}`} 
@@ -350,13 +347,12 @@ const FeaturedProjects: React.FC = () => {
                       rel="noopener noreferrer"
                       className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm ${
                         theme === 'dark' 
-                          ? 'bg-gray-700/50 text-gray-300 border border-gray-600/50 hover:bg-indigo-500 hover:text-white hover:border-indigo-500' 
-                          : 'bg-gray-100/50 text-gray-700 border border-gray-200/50 hover:bg-indigo-500 hover:text-white hover:border-indigo-500'
+                          ? 'bg-gray-800/50 text-gray-300 border border-gray-700/50 hover:bg-indigo-500 hover:text-white hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/30' 
+                          : 'bg-gray-100/50 text-gray-700 border border-gray-200/50 hover:bg-indigo-500 hover:text-white hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/30'
                       }`}
                       aria-label="GitHub Repository"
-                      variants={buttonVariants}
-                      whileHover="hover"
-                      whileTap="tap"
+                      whileHover={{ scale: 1.1, y: -2 }}
+                      whileTap={{ scale: 0.9 }}
                     >
                       <FaGithub size={18} />
                     </motion.a>
@@ -369,13 +365,12 @@ const FeaturedProjects: React.FC = () => {
                       rel="noopener noreferrer"
                       className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm ${
                         theme === 'dark' 
-                          ? 'bg-gray-700/50 text-gray-300 border border-gray-600/50 hover:bg-purple-500 hover:text-white hover:border-purple-500' 
-                          : 'bg-gray-100/50 text-gray-700 border border-gray-200/50 hover:bg-purple-500 hover:text-white hover:border-purple-500'
+                          ? 'bg-gray-800/50 text-gray-300 border border-gray-700/50 hover:bg-purple-500 hover:text-white hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/30' 
+                          : 'bg-gray-100/50 text-gray-700 border border-gray-200/50 hover:bg-purple-500 hover:text-white hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/30'
                       }`}
                       aria-label="Live Demo"
-                      variants={buttonVariants}
-                      whileHover="hover"
-                      whileTap="tap"
+                      whileHover={{ scale: 1.1, y: -2 }}
+                      whileTap={{ scale: 0.9 }}
                     >
                       <FaExternalLinkAlt size={14} />
                     </motion.a>
@@ -395,13 +390,12 @@ const FeaturedProjects: React.FC = () => {
         transition={{ delay: 0.4, duration: 0.6 }}
       >
         <motion.div
-          variants={buttonVariants}
-          whileHover="hover"
-          whileTap="tap"
+          whileHover={{ scale: 1.05, y: -2 }}
+          whileTap={{ scale: 0.95 }}
         >
           <Link 
             to="/projects" 
-            className="group inline-flex items-center gap-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/25"
+            className="group inline-flex items-center gap-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/25"
           >
             <span>Visualizza tutti i progetti</span>
             <motion.div
