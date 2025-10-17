@@ -112,7 +112,7 @@ export const projects: Project[] = [
     languages: ['React', 'Typescript'],
     type: 'Sviluppo Web',
     vercelLink: 'https://bombyx-menu.vercel.app/',
-    githubLink: '#',
+    githubLink: 'https://github.com/Nicco6598/bombyx-menu',
   },
   {
     id: 6,
@@ -125,7 +125,7 @@ export const projects: Project[] = [
     languages: ['React', 'Typescript', 'Node.js', 'Express'],
     type: 'Sviluppo Web',
     vercelLink: 'https://scandellarigiacintosnc.it/',
-    githubLink: '',
+    githubLink: 'https://github.com/Nicco6598/scandellari',
   },
   // Aggiungi altri progetti se necessario
 ];
