@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { FaArrowRight, FaEnvelope, FaGithub, FaLinkedin } from 'react-icons/fa';
 import { ThemeContext } from '../../context/ThemeContext';
 import profilePic from '../../assets/profile.jpg';
@@ -8,17 +8,7 @@ import profilePic from '../../assets/profile.jpg';
 const HeroSection: React.FC = () => {
   const { theme } = useContext(ThemeContext);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ 
-    target: sectionRef, 
-    offset: ["start start", "end start"] 
-  });
-  
-  const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
-
-  // Parallax transforms
-  const yTransform = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const opacityTransform = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scaleTransform = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
   // Enhanced container variants
   const containerVariants = {
@@ -85,41 +75,24 @@ const HeroSection: React.FC = () => {
   // Enhanced social variants with micro-interactions
   const socialVariants = {
     hidden: { opacity: 0, scale: 0.5, rotate: -180 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       scale: 1,
       rotate: 0,
-      transition: { 
+      transition: {
         type: "spring",
         stiffness: 200,
         damping: 15
       }
     },
-    hover: { 
+    hover: {
       scale: 1.2,
       rotate: 360,
-      transition: { 
+      transition: {
         duration: 0.4,
         type: "spring",
         stiffness: 200
       }
-    }
-  };
-
-  // Button variants with advanced effects
-  const buttonVariants = {
-    hover: { 
-      y: -5,
-      scale: 1.05,
-      transition: { 
-        type: "spring", 
-        stiffness: 400,
-        damping: 15
-      }
-    },
-    tap: { 
-      scale: 0.95,
-      y: -2
     }
   };
 
@@ -196,10 +169,9 @@ const HeroSection: React.FC = () => {
   ];
 
   return (
-    <motion.section 
+    <motion.section
       ref={sectionRef}
       className="py-20 mb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative"
-      style={{ y: yTransform, opacity: opacityTransform, scale: scaleTransform }}
     >
       {/* Background floating particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -401,42 +373,41 @@ const HeroSection: React.FC = () => {
             nella progettazione e nello sviluppo di software innovativi.
           </motion.p>
           
-          {/* CTA Buttons con effetti avanzati */}
-          <motion.div 
+          {/* CTA Buttons - Modern & Clean */}
+          <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12"
             variants={itemVariants}
           >
+            {/* Primary Button */}
             <motion.div
-              variants={buttonVariants}
-              whileHover="hover"
-              whileTap="tap"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <Link 
-                to="/projects" 
-                className="group relative overflow-hidden bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-8 py-3 rounded-full font-semibold flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/25"
+              <Link
+                to="/projects"
+                className="btn btn-primary btn-lg"
               >
-                <span className="relative z-10">Esplora Progetti</span>
-                <FaArrowRight className="relative z-10 transition-transform duration-300 group-hover:translate-x-1" />
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span>Esplora Progetti</span>
+                <motion.div
+                  whileHover={{ x: 4 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <FaArrowRight className="w-4 h-4" />
+                </motion.div>
               </Link>
             </motion.div>
-            
+
+            {/* Secondary Button */}
             <motion.div
-              variants={buttonVariants}
-              whileHover="hover"
-              whileTap="tap"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <Link 
-                to="/contact" 
-                className={`group relative overflow-hidden px-8 py-3 rounded-full font-semibold flex items-center justify-center gap-2 transition-all duration-300 border-2 ${
-                  theme === 'dark'
-                    ? 'border-gray-600 text-gray-200 hover:border-indigo-500 hover:text-white'
-                    : 'border-gray-300 text-gray-700 hover:border-indigo-500 hover:text-indigo-600'
-                }`}
+              <Link
+                to="/contact"
+                className="btn btn-secondary btn-lg"
               >
-                <FaEnvelope className="relative z-10" />
-                <span className="relative z-10 transition-colors duration-300 group-hover:text-white">Contattami</span>
-                <div className={`absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 transition-transform duration-300 scale-0 group-hover:scale-100`} />
+                <FaEnvelope className="w-4 h-4" />
+                <span>Contattami</span>
               </Link>
             </motion.div>
           </motion.div>

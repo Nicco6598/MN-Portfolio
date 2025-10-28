@@ -56,40 +56,84 @@ const SkillsSection: React.FC = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
-  // Animazioni container
+  // Enhanced container animations with creative stagger
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
+        staggerChildren: 0.15,
+        delayChildren: 0.3,
+        duration: 0.8,
+        ease: [0.25, 0.46, 0.45, 0.94]
       }
     }
   };
 
+  // Creative bento-box card variants with 3D effects
   const cardVariants = {
-    hidden: { opacity: 0, y: 30, scale: 0.9 },
-    visible: { 
-      opacity: 1, 
+    hidden: {
+      opacity: 0,
+      y: 60,
+      scale: 0.8,
+      rotateX: 15,
+      rotateY: 15
+    },
+    visible: (i: number) => ({
+      opacity: 1,
       y: 0,
       scale: 1,
-      transition: { 
-        type: "spring", 
-        stiffness: 120,
+      rotateX: 0,
+      rotateY: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
         damping: 20,
-        duration: 0.6
-      } 
-    },
-    hover: { 
-      y: -8,
+        delay: i * 0.1,
+        duration: 0.8
+      }
+    }),
+    hover: {
+      y: -12,
       scale: 1.02,
-      transition: { 
-        type: "spring", 
-        stiffness: 300,
-        damping: 20
+      rotateX: -5,
+      rotateY: 5,
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 25,
+        duration: 0.3
       }
     }
+  };
+
+  // Floating particle animations
+  const particleVariants = {
+    animate: {
+      y: [0, -30, 0],
+      x: [0, 20, -10, 0],
+      opacity: [0.3, 0.8, 0.3],
+      scale: [0.8, 1.2, 0.8],
+      transition: {
+        duration: 6,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay: Math.random() * 2
+      }
+    }
+  };
+
+  // Skill progress bar animation
+  const progressVariants = {
+    hidden: { width: 0 },
+    visible: (level: number) => ({
+      width: `${level}%`,
+      transition: {
+        duration: 1.5,
+        delay: 0.5,
+        ease: "easeOut"
+      }
+    })
   };
 
   const skillCategories: SkillCategory[] = [
@@ -207,80 +251,313 @@ const SkillsSection: React.FC = () => {
         </motion.p>
       </motion.div>
 
-      {/* Bento Grid Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-        
-        {/* Skill Categories - 4 cards in 3 columns each */}
-        {skillCategories.map((category, index) => (
+      {/* Creative Bento Grid Layout */}
+      <div className="relative">
+        {/* Floating Background Particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(12)].map((_, i) => (
+            <motion.div
+              key={i}
+              className={`absolute w-2 h-2 rounded-full bg-gradient-to-r ${
+                i % 4 === 0 ? 'from-violet-500 to-pink-500' :
+                i % 4 === 1 ? 'from-cyan-500 to-blue-500' :
+                i % 4 === 2 ? 'from-emerald-500 to-teal-500' :
+                'from-amber-500 to-orange-500'
+              } opacity-20`}
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              variants={particleVariants}
+              animate="animate"
+              custom={i}
+            />
+          ))}
+        </div>
+
+        {/* Asymmetric Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 relative z-10">
+
+          {/* Large Hero Card - Blockchain (spans 8 columns on desktop) */}
           <motion.div
-            key={category.title}
-            className={`md:col-span-6 lg:col-span-3 group relative overflow-hidden rounded-2xl p-6 backdrop-blur-sm border transition-all duration-300 ${
-              theme === 'dark' 
-                ? 'bg-gray-800/50 border-gray-700/50 hover:border-gray-600/50' 
-                : 'bg-white/50 border-gray-200/50 hover:border-gray-300/50'
-            }`}
+            className="md:col-span-8 lg:col-span-8 group relative overflow-hidden rounded-3xl p-8 backdrop-blur-xl border transition-all duration-500 shadow-modern-xl"
+            style={{
+              background: theme === 'dark'
+                ? 'linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(51, 65, 85, 0.6) 100%)'
+                : 'linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(248, 250, 252, 0.6) 100%)',
+              border: theme === 'dark'
+                ? '1px solid rgba(255, 255, 255, 0.1)'
+                : '1px solid rgba(0, 0, 0, 0.1)'
+            }}
             variants={cardVariants}
+            custom={0}
             whileHover="hover"
           >
-            {/* Background Gradient */}
-            <div 
-              className={`absolute inset-0 bg-gradient-to-br ${category.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
-            />
-            
-            {/* Animated Background Pattern */}
+            {/* Animated Background Shapes */}
             <div className="absolute inset-0 overflow-hidden">
               <motion.div
-                className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-gradient-to-br from-violet-500/20 to-pink-500/20 blur-3xl"
                 animate={{
-                  rotate: [0, 360],
-                  scale: [1, 1.5, 1],
+                  scale: [1, 1.2, 1],
+                  opacity: [0.3, 0.6, 0.3],
                 }}
                 transition={{
                   duration: 8,
                   repeat: Infinity,
-                  ease: "linear"
+                  ease: "easeInOut"
+                }}
+              />
+              <motion.div
+                className="absolute -bottom-20 -left-20 w-32 h-32 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 blur-3xl"
+                animate={{
+                  scale: [1.2, 1, 1.2],
+                  opacity: [0.4, 0.2, 0.4],
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 2
                 }}
               />
             </div>
 
             <div className="relative z-10">
+              <div className="flex items-center gap-4 mb-6">
+                <motion.div
+                  className="p-4 rounded-2xl bg-gradient-to-br from-violet-500 to-pink-500 text-white shadow-2xl"
+                  whileHover={{
+                    rotate: [0, -10, 10, 0],
+                    scale: 1.1
+                  }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <FaCubes className="w-8 h-8" />
+                </motion.div>
+                <div>
+                  <h3 className="text-3xl font-bold text-gradient mb-1">
+                    Blockchain Development
+                  </h3>
+                  <p className={`text-lg ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                    Smart Contracts & DeFi Solutions
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {skillCategories[0].skills.map((skill, skillIndex) => (
+                  <motion.div
+                    key={skill.name}
+                    className="group/skill"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ delay: skillIndex * 0.1 + 0.5 }}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-3">
+                        <div className="text-violet-500">
+                          {skill.icon}
+                        </div>
+                        <span className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                          {skill.name}
+                        </span>
+                      </div>
+                      <span className="text-sm font-bold text-violet-500">
+                        {skill.level}%
+                      </span>
+                    </div>
+                    <div className={`w-full h-3 rounded-full overflow-hidden ${
+                      theme === 'dark' ? 'bg-gray-700/50' : 'bg-gray-200/50'
+                    }`}>
+                      <motion.div
+                        className="h-full rounded-full bg-gradient-to-r from-violet-500 to-pink-500"
+                        variants={progressVariants}
+                        custom={skill.level}
+                        initial="hidden"
+                        animate={isInView ? "visible" : "hidden"}
+                      />
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Medium Card - Frontend (spans 4 columns) */}
+          <motion.div
+            className="md:col-span-4 lg:col-span-4 group relative overflow-hidden rounded-3xl p-6 backdrop-blur-xl border transition-all duration-500 shadow-modern-lg"
+            style={{
+              background: theme === 'dark'
+                ? 'linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(51, 65, 85, 0.6) 100%)'
+                : 'linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(248, 250, 252, 0.6) 100%)',
+              border: theme === 'dark'
+                ? '1px solid rgba(255, 255, 255, 0.1)'
+                : '1px solid rgba(0, 0, 0, 0.1)'
+            }}
+            variants={cardVariants}
+            custom={1}
+            whileHover="hover"
+          >
+            <div className="relative z-10 h-full flex flex-col">
               <div className="flex items-center gap-3 mb-4">
-                <motion.div 
-                  className={`p-3 rounded-xl bg-gradient-to-br ${category.gradient} text-white shadow-lg`}
+                <motion.div
+                  className="p-3 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 text-white shadow-lg"
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.6 }}
                 >
-                  {category.icon}
+                  <FaCode className="w-6 h-6" />
                 </motion.div>
-                <h3 className={`text-xl font-bold ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}>
-                  {category.title}
+                <h3 className="text-xl font-bold text-gradient">
+                  Frontend
                 </h3>
               </div>
 
-              <div className="space-y-3">
-                {category.skills.map((skill, skillIndex) => (
+              <div className="space-y-3 flex-grow">
+                {skillCategories[1].skills.slice(0, 3).map((skill, skillIndex) => (
                   <motion.div
                     key={skill.name}
                     initial={{ opacity: 0, x: -20 }}
                     animate={isInView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ delay: index * 0.1 + skillIndex * 0.05 }}
+                    transition={{ delay: skillIndex * 0.1 + 0.8 }}
                   >
-                    <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        {skill.icon && (
-                          <span className="text-xs" style={{ color: category.color }}>
-                            {skill.icon}
-                          </span>
-                        )}
-                        <span className={`text-sm font-medium ${
-                          theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-                        }`}>
+                        <span className="text-cyan-500 text-sm">
+                          {skill.icon}
+                        </span>
+                        <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
                           {skill.name}
                         </span>
                       </div>
-                      <span className="text-xs font-bold" style={{ color: category.color }}>
+                      <span className="text-xs font-bold text-cyan-500">
+                        {skill.level}%
+                      </span>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Small Square Cards Row */}
+          <motion.div
+            className="md:col-span-6 lg:col-span-4 group relative overflow-hidden rounded-3xl p-6 backdrop-blur-xl border transition-all duration-500 shadow-modern"
+            variants={cardVariants}
+            custom={2}
+            whileHover="hover"
+          >
+            <div className="relative z-10 h-full flex flex-col">
+              <div className="flex items-center gap-3 mb-4">
+                <motion.div
+                  className="p-3 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 text-white shadow-lg"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <FaServer className="w-6 h-6" />
+                </motion.div>
+                <h3 className="text-xl font-bold text-gradient">
+                  Backend
+                </h3>
+              </div>
+
+              <div className="space-y-2 flex-grow">
+                {skillCategories[2].skills.map((skill, skillIndex) => (
+                  <motion.div
+                    key={skill.name}
+                    className="flex items-center gap-2"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{ delay: skillIndex * 0.1 + 1.0 }}
+                  >
+                    <span className="text-emerald-500 text-sm">
+                      {skill.icon}
+                    </span>
+                    <span className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                      {skill.name}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="md:col-span-6 lg:col-span-4 group relative overflow-hidden rounded-3xl p-6 backdrop-blur-xl border transition-all duration-500 shadow-modern"
+            variants={cardVariants}
+            custom={3}
+            whileHover="hover"
+          >
+            <div className="relative z-10 h-full flex flex-col">
+              <div className="flex items-center gap-3 mb-4">
+                <motion.div
+                  className="p-3 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 text-white shadow-lg"
+                  whileHover={{
+                    rotate: [0, 10, -10, 0],
+                    scale: 1.1
+                  }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <FaGithub className="w-6 h-6" />
+                </motion.div>
+                <h3 className="text-xl font-bold text-gradient">
+                  DevOps & Tools
+                </h3>
+              </div>
+
+              <div className="space-y-2 flex-grow">
+                {skillCategories[3].skills.map((skill, skillIndex) => (
+                  <motion.div
+                    key={skill.name}
+                    className="flex items-center gap-2"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{ delay: skillIndex * 0.1 + 1.2 }}
+                  >
+                    <span className="text-amber-500 text-sm">
+                      {skill.icon}
+                    </span>
+                    <span className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                      {skill.name}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="md:col-span-6 lg:col-span-4 group relative overflow-hidden rounded-3xl p-6 backdrop-blur-xl border transition-all duration-500 shadow-modern"
+            variants={cardVariants}
+            custom={4}
+            whileHover="hover"
+          >
+            <div className="relative z-10 h-full flex flex-col">
+              <div className="flex items-center gap-3 mb-4">
+                <motion.div
+                  className="p-3 rounded-xl bg-gradient-to-br from-rose-500 to-pink-500 text-white shadow-lg"
+                  whileHover={{ scale: [1, 1.2, 1], rotate: 180 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <FaUsers className="w-6 h-6" />
+                </motion.div>
+                <h3 className="text-xl font-bold text-gradient">
+                  Soft Skills
+                </h3>
+              </div>
+
+              <div className="space-y-3 flex-grow">
+                {softSkills.map((skill, skillIndex) => (
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ delay: skillIndex * 0.1 + 1.4 }}
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                        {skill.name}
+                      </span>
+                      <span className="text-xs font-bold" style={{ color: skill.color }}>
                         {skill.level}%
                       </span>
                     </div>
@@ -289,14 +566,12 @@ const SkillsSection: React.FC = () => {
                     }`}>
                       <motion.div
                         className="h-full rounded-full"
-                        style={{ 
-                          background: `linear-gradient(90deg, ${category.color}, ${category.color}dd)` 
-                        }}
+                        style={{ backgroundColor: skill.color }}
                         initial={{ width: 0 }}
                         animate={isInView ? { width: `${skill.level}%` } : {}}
-                        transition={{ 
-                          duration: 1.2, 
-                          delay: index * 0.1 + skillIndex * 0.1,
+                        transition={{
+                          duration: 1.2,
+                          delay: skillIndex * 0.1 + 1.6,
                           ease: "easeOut"
                         }}
                       />
@@ -306,160 +581,73 @@ const SkillsSection: React.FC = () => {
               </div>
             </div>
           </motion.div>
-        ))}
 
-        {/* Tech Stack Grid */}
-        <motion.div 
-          className="md:col-span-12 lg:col-span-8"
-          variants={cardVariants}
-        >
-          <div className={`rounded-2xl p-6 backdrop-blur-sm border ${
-            theme === 'dark' 
-              ? 'bg-gray-800/50 border-gray-700/50' 
-              : 'bg-white/50 border-gray-200/50'
-          }`}>
-            <h3 className={`text-2xl font-bold mb-6 text-center ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
-              Tech Stack
-            </h3>
-            
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-              {techStack.map((tool, index) => (
+          {/* Tech Stack Grid - Large spanning card */}
+          <motion.div
+            className="md:col-span-12 lg:col-span-8 group relative overflow-hidden rounded-3xl p-8 backdrop-blur-xl border transition-all duration-500 shadow-modern-xl"
+            variants={cardVariants}
+            custom={5}
+            whileHover="hover"
+          >
+            <div className="relative z-10">
+              <div className="flex items-center gap-4 mb-6">
                 <motion.div
-                  key={tool.name}
-                  className={`group relative p-4 rounded-xl border transition-all duration-300 cursor-pointer ${
-                    theme === 'dark' 
-                      ? 'bg-gray-700/30 border-gray-600/30 hover:border-gray-500/50' 
-                      : 'bg-gray-50/50 border-gray-200/50 hover:border-gray-300/50'
-                  }`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: 0.5 + index * 0.05 }}
-                  whileHover={{ 
-                    y: -5, 
-                    scale: 1.05,
-                    boxShadow: `0 10px 25px -5px ${tool.color}30`
+                  className="p-4 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 text-white shadow-2xl"
+                  whileHover={{
+                    rotate: [0, 360],
+                    scale: 1.1
                   }}
+                  transition={{ duration: 0.8 }}
                 >
-                  <div className="flex flex-col items-center gap-2">
-                    <motion.div
-                      style={{ color: tool.color }}
-                      whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.6 }}
-                    >
-                      {tool.icon}
-                    </motion.div>
-                    <span className={`text-xs font-medium ${
-                      theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-                    }`}>
-                      {tool.name}
-                    </span>
-                  </div>
+                  <SiTypescript className="w-8 h-8" />
                 </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
+                <div>
+                  <h3 className="text-3xl font-bold text-gradient mb-1">
+                    Tech Stack Completo
+                  </h3>
+                  <p className={`text-lg ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                    Tutte le tecnologie che utilizzo quotidianamente
+                  </p>
+                </div>
+              </div>
 
-        {/* Soft Skills with Circular Progress */}
-        <motion.div 
-          className="md:col-span-12 lg:col-span-4"
-          variants={cardVariants}
-        >
-          <div className={`rounded-2xl p-6 backdrop-blur-sm border ${
-            theme === 'dark' 
-              ? 'bg-gray-800/50 border-gray-700/50' 
-              : 'bg-white/50 border-gray-200/50'
-          }`}>
-            <h3 className={`text-xl font-bold mb-6 text-center ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
-              Soft Skills
-            </h3>
-            
-            <div className="grid grid-cols-2 gap-4">
-              {softSkills.map((skill, index) => (
-                <motion.div
-                  key={skill.name}
-                  className="flex flex-col items-center"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ delay: 0.8 + index * 0.1 }}
-                >
-                  <div className="relative w-20 h-20">
-                    <svg className="w-full h-full" viewBox="0 0 100 100">
-                      <circle
-                        cx="50"
-                        cy="50"
-                        r="40"
-                        fill="none"
-                        stroke={theme === 'dark' ? '#374151' : '#E5E7EB'}
-                        strokeWidth="8"
-                      />
-                      <motion.circle
-                        cx="50"
-                        cy="50"
-                        r="40"
-                        fill="none"
-                        stroke={skill.color}
-                        strokeWidth="8"
-                        strokeLinecap="round"
-                        strokeDasharray={`${2 * Math.PI * 40}`}
-                        strokeDashoffset={`${2 * Math.PI * 40 * (1 - skill.level / 100)}`}
-                        transform="rotate(-90 50 50)"
-                        initial={{ strokeDashoffset: 2 * Math.PI * 40 }}
-                        animate={isInView ? { 
-                          strokeDashoffset: 2 * Math.PI * 40 * (1 - skill.level / 100)
-                        } : {}}
-                        transition={{ 
-                          duration: 1.5, 
-                          delay: 0.8 + index * 0.1,
-                          ease: "easeOut"
-                        }}
-                      />
-                    </svg>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-sm font-bold" style={{ color: skill.color }}>
-                        {skill.level}%
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {techStack.map((tech, index) => (
+                  <motion.div
+                    key={tech.name}
+                    className={`group/tech p-4 rounded-2xl backdrop-blur-sm border transition-all duration-300 ${
+                      theme === 'dark'
+                        ? 'bg-gray-800/30 border-gray-700/50 hover:bg-gray-700/50'
+                        : 'bg-white/30 border-gray-200/50 hover:bg-gray-100/50'
+                    }`}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{ delay: index * 0.05 + 2.0 }}
+                    whileHover={{
+                      scale: 1.05,
+                      y: -2,
+                      transition: { duration: 0.2 }
+                    }}
+                  >
+                    <div className="flex flex-col items-center gap-2">
+                      <div
+                        className="text-2xl transition-transform duration-300 group-hover/tech:scale-110"
+                        style={{ color: tech.color }}
+                      >
+                        {tech.icon}
+                      </div>
+                      <span className={`text-xs font-medium text-center ${
+                        theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                      }`}>
+                        {tech.name}
                       </span>
                     </div>
-                  </div>
-                  <span className={`text-xs font-medium mt-2 text-center ${
-                    theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-                  }`}>
-                    {skill.name}
-                  </span>
-                </motion.div>
-              ))}
+                  </motion.div>
+                ))}
+              </div>
             </div>
-          </div>
-        </motion.div>
-
-      </div>
-
-      {/* Floating Particles Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full opacity-20"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              x: [0, 30, 0],
-              scale: [0.5, 1, 0.5],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
+          </motion.div>
+        </div>
       </div>
     </motion.section>
   );

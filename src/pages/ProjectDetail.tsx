@@ -145,7 +145,12 @@ const ProjectDetail: React.FC = () => {
       'Jest': SiJest,
       'Socket.io': SiSocketdotio,
       'npm': FaNpm,
-      'Yarn': FaYarn
+      'Yarn': FaYarn,
+      'Solidity': FaCode,
+      'Web3.js': FaCode,
+      'WalletConnect': FaCode,
+      'TAO Subnets': FaCode,
+      'Pyth': FaCode
     };
     return techMap[tech] || FaCode;
   };
@@ -314,19 +319,38 @@ const ProjectDetail: React.FC = () => {
           <div className="relative z-10 p-8 md:p-12">
             <div className="flex flex-col md:flex-row items-center justify-between gap-8">
               <div className="flex-1">
-                <motion.div
-                  className="inline-block px-4 py-2 mb-4 rounded-full text-sm font-bold backdrop-blur-sm border"
-                  style={{
-                    backgroundColor: `${colorScheme.primary}20`,
-                    borderColor: `${colorScheme.primary}40`,
-                    color: colorScheme.primary
-                  }}
-                  variants={floatingVariants}
-                  initial="initial"
-                  animate="animate"
-                >
-                  {project.type}
-                </motion.div>
+                <div className="flex items-center gap-3 mb-4">
+                  <motion.div
+                    className="inline-block px-4 py-2 rounded-full text-sm font-bold backdrop-blur-sm border"
+                    style={{
+                      backgroundColor: `${colorScheme.primary}20`,
+                      borderColor: `${colorScheme.primary}40`,
+                      color: colorScheme.primary
+                    }}
+                    variants={floatingVariants}
+                    initial="initial"
+                    animate="animate"
+                  >
+                    {project.type}
+                  </motion.div>
+
+                  {project.status && (
+                    <motion.div
+                      className="inline-block px-4 py-2 rounded-full text-sm font-bold backdrop-blur-sm border"
+                      style={{
+                        backgroundColor: '#f59e0b20',
+                        borderColor: '#f59e0b40',
+                        color: '#f59e0b'
+                      }}
+                      variants={floatingVariants}
+                      initial="initial"
+                      animate="animate"
+                    >
+                      <FaClock className="inline mr-2" />
+                      {project.status}
+                    </motion.div>
+                  )}
+                </div>
                 
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
                   <span 
@@ -627,6 +651,64 @@ const ProjectDetail: React.FC = () => {
             </div>
           </div>
         </motion.div>
+
+        {/* To-Do Section */}
+        {project.todo && project.todo.length > 0 && (
+          <motion.div
+            className="lg:col-span-3"
+            variants={sectionVariants}
+          >
+            <div
+              className={`rounded-2xl backdrop-blur-xl border p-6 ${theme === 'dark'
+                ? 'bg-gray-800/20 border-gray-700/30'
+                : 'bg-white/20 border-gray-300/30'
+              }`}
+              style={{
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)'
+              }}
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <div
+                  className="p-2 rounded-lg text-white"
+                  style={{ backgroundColor: '#f59e0b' }}
+                >
+                  <FaClock />
+                </div>
+                <h3 className="text-xl font-bold">Roadmap di Sviluppo</h3>
+              </div>
+
+              <div className="space-y-3">
+                {project.todo.map((item, index) => (
+                  <motion.div
+                    key={index}
+                    className={`flex items-start gap-3 p-3 rounded-lg border-l-4 ${
+                      theme === 'dark'
+                        ? 'bg-gray-800/30 border-gray-700/50'
+                        : 'bg-gray-50/50 border-gray-300/50'
+                    }`}
+                    style={{
+                      borderLeftColor: colorScheme.primary
+                    }}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <div
+                      className="w-2 h-2 rounded-full mt-2 flex-shrink-0"
+                      style={{ backgroundColor: colorScheme.primary }}
+                    />
+                    <span className={`text-sm leading-relaxed ${
+                      theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                    }`}>
+                      {item}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
 
         {/* Project Description */}
         <motion.div 

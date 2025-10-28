@@ -29,39 +29,56 @@ const PortfolioLoader: React.FC<PortfolioLoaderProps> = ({
     setIsMobile(window.innerWidth <= 768);
   }, []);
 
-  // Real progress tracking with smooth animation
+  // Optimized progress tracking with performance considerations
   useEffect(() => {
     const startTime = startTimeRef.current;
     let frameId: number;
-    
+    let isCancelled = false;
+
     const animateProgress = () => {
+      if (isCancelled) return;
+
       const elapsedTime = Date.now() - startTime;
       const timeProgress = Math.min(100, (elapsedTime / minDisplayTime) * 100);
-      
-      // Smooth easing function for natural progression
+
+      // Performance-optimized easing function
       const easeInOutCubic = (t: number) => {
         return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
       };
-      
+
       const easedProgress = easeInOutCubic(timeProgress / 100) * 100;
-      setProgress(easedProgress);
-      
+
+      // Use requestAnimationFrame for smooth 60fps animation
+      if (typeof window !== 'undefined') {
+        setProgress(easedProgress);
+      }
+
       if (easedProgress < 100) {
         frameId = requestAnimationFrame(animateProgress);
       } else {
+        // Reduced timeout for better perceived performance
         setTimeout(() => {
-          if (onLoadingComplete) onLoadingComplete();
-          setTimeout(() => setIsComplete(true), 300);
-        }, 200);
+          if (!isCancelled && onLoadingComplete) onLoadingComplete();
+          setTimeout(() => {
+            if (!isCancelled) setIsComplete(true);
+          }, isMobile ? 150 : 300); // Shorter on mobile
+        }, isMobile ? 100 : 200);
       }
     };
-    
-    frameId = requestAnimationFrame(animateProgress);
-    
+
+    // Start animation with a small delay for better UX
+    const startDelay = isMobile ? 50 : 100;
+    setTimeout(() => {
+      if (!isCancelled) {
+        frameId = requestAnimationFrame(animateProgress);
+      }
+    }, startDelay);
+
     return () => {
+      isCancelled = true;
       if (frameId) cancelAnimationFrame(frameId);
     };
-  }, [minDisplayTime, onLoadingComplete]);
+  }, [minDisplayTime, onLoadingComplete, isMobile]);
 
   // Dynamic theme colors
   const colors = {

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useInView } from 'framer-motion';
-import { FaExternalLinkAlt, FaGithub, FaArrowRight } from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import { FaExternalLinkAlt, FaGithub, FaArrowRight, FaClock } from 'react-icons/fa';
 import { ThemeContext } from '../../context/ThemeContext';
 import { projects } from '../../data/projectData';
 
@@ -256,6 +256,19 @@ const FeaturedProjects: React.FC = () => {
                   {project.year}
                 </span>
               </motion.div>
+
+              {/* Status badge */}
+              {project.status && (
+                <motion.div
+                  className="absolute top-3 right-20 px-3 py-1.5 rounded-full text-xs font-bold backdrop-blur-md border transition-all duration-300 bg-amber-500/20 border-amber-500/50 text-amber-600 shadow-lg shadow-amber-500/20"
+                  variants={badgeVariants}
+                >
+                  <div className="flex items-center gap-1">
+                    <FaClock size={10} />
+                    <span>{project.status}</span>
+                  </div>
+                </motion.div>
+              )}
             </div>
             
             {/* Enhanced project details */}
@@ -318,9 +331,9 @@ const FeaturedProjects: React.FC = () => {
               </div>
               
               {/* Enhanced action buttons */}
-              <div className="flex justify-between items-center mt-6 pt-4 border-t ${
+              <div className={`flex justify-between items-center mt-6 pt-4 border-t ${
                 theme === 'dark' ? 'border-gray-700/50' : 'border-gray-200/50'
-              }">
+              }`}>
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}

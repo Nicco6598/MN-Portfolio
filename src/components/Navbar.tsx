@@ -113,12 +113,12 @@ const Navbar: React.FC = () => {
 
   return (
     <motion.header 
-      className="fixed top-0 left-0 right-0 z-50 w-full px-4"
+      className="fixed top-0 left-0 right-0 z-50 w-full"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 100, damping: 20 }}
     >
-      <div className="max-w-6xl mx-auto py-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <motion.nav 
           className={`
             glassmorphism rounded-2xl flex justify-between items-center px-5 py-3
@@ -171,14 +171,16 @@ const Navbar: React.FC = () => {
                   whileHover="hover"
                   custom={index}
                 >
-                  <Link 
-                    to={item.path} 
+                  <Link
+                    to={item.path}
                     className={`
-                      px-4 py-2 rounded-xl mx-1 transition-colors
-                      ${location.pathname === item.path || 
-                        (item.path === '/projects' && location.pathname.includes('/projects/')) 
-                          ? 'text-accent font-medium'
-                          : 'hover:text-accent'
+                      px-4 py-2 rounded-2xl mx-1 transition-all duration-300 font-medium uppercase
+                      ${location.pathname === item.path ||
+                        (item.path === '/projects' && location.pathname.includes('/projects/'))
+                          ? 'bg-accent text-white shadow-md'
+                          : `bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-accent ${
+                              theme === 'dark' ? 'bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-300' : ''
+                            }`
                       }
                     `}
                     aria-label={`Vai alla pagina ${item.name}`}
