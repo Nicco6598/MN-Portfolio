@@ -1,19 +1,21 @@
-const nodemailer = require('nodemailer');
-require('dotenv').config();
+import type { NextApiRequest, NextApiResponse } from "next";
+import nodemailer from "nodemailer";
+import type SMTPTransport from "nodemailer/lib/smtp-transport";
+import "dotenv/config";
 
-async function sendEmail(req, res) {
+async function sendEmail(req: NextApiRequest, res: NextApiResponse) {
   const { email, message, selectedProject } = req.body;
 
   // Configura il trasportatore SMTP di Nodemailer
-  let transporter = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
+    port: Number(process.env.SMTP_PORT) || 587,
     secure: false, // true per 465, false per altre porte
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
     },
-  });
+  } satisfies SMTPTransport.Options);
 
   // Configura le opzioni dell'email
   const mailOptions = {
