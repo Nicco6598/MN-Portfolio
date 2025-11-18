@@ -1,12 +1,35 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   darkMode: 'class',
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1.5rem',
+        xl: '3rem',
+      },
+    },
     extend: {
+      fontFamily: {
+        sans: ['var(--font-sans)', 'sans-serif'],
+        mono: ['var(--font-mono)', 'monospace'],
+        modern: ['Roboto', 'sans-serif'],
+      },
       colors: {
+        base: '#050505',
+        surface: '#0f0f0f',
+        highlight: '#131313',
+        ember: {
+          100: '#ffe0cc',
+          300: '#ffae66',
+          500: '#ff7a29',
+          600: '#e46011',
+        },
+        frost: '#f5f5f5',
+        ash: '#c8c8c8',
         // Core colors
         'sunglow': '#ffd13e',
         'sunglow-light': '#f2c63a',
@@ -36,9 +59,14 @@ module.exports = {
         'dark-accent-tertiary': '#cca832',
         'dark-muted': '#a09b8c',
       },
-      fontFamily: {
-        sans: ['Montserrat', 'sans-serif'],
-        modern: ['Roboto', 'sans-serif'],
+      borderRadius: {
+        xl: '1.25rem',
+      },
+      boxShadow: {
+        glow: '0 0 80px rgba(255, 122, 41, 0.3)',
+      },
+      backgroundImage: {
+        'grid-overlay': 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
       },
       backdropFilter: {
         'none': 'none',
@@ -50,7 +78,9 @@ module.exports = {
         '2xl': 'blur(24px)',
       },
       animation: {
-        'float': 'float 6s ease-in-out infinite',
+        float: 'float 8s ease-in-out infinite',
+        'slow-marquee': 'marquee 18s linear infinite',
+        pulseScale: 'pulseScale 3s ease-in-out infinite',
         'ping-slow': 'ping 3s cubic-bezier(0, 0, 0.2, 1) infinite',
         'fadeScale': 'fadeScale 0.5s ease forwards',
         'loaderAnim': 'loaderAnim 1.5s ease infinite',
@@ -58,8 +88,16 @@ module.exports = {
       },
       keyframes: {
         float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-20px)' },
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-16px)' },
+        },
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+        pulseScale: {
+          '0%, 100%': { opacity: 0.75, transform: 'scale(0.98)' },
+          '50%': { opacity: 1, transform: 'scale(1.02)' },
         },
         fadeScale: {
           '0%': { 
