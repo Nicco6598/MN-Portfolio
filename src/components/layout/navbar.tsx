@@ -92,28 +92,29 @@ const Navbar = () => {
               CV
             </button>
             <div
-              className={`absolute right-0 top-full mt-2 w-48 rounded-2xl border border-white/10 bg-base/95 p-2 backdrop-blur-xl ${
-                isCvMenuOpen ? "block" : "hidden"
-              }`}
+              className={`absolute -right-6 top-full w-48 pt-4 ${isCvMenuOpen ? "block" : "hidden"
+                }`}
             >
-              <Link
-                href="/assets/cv/CV_Marco_Niccolini(IT).pdf"
-                target="_blank"
-                download
-                className="flex items-center gap-2 rounded-xl px-4 py-2 text-sm text-frost transition hover:bg-white/10"
-              >
-                <Download className="h-4 w-4" />
-                CV Italiano
-              </Link>
-              <Link
-                href="/assets/cv/CV_Marco_Niccolini(EN).pdf"
-                target="_blank"
-                download
-                className="flex items-center gap-2 rounded-xl px-4 py-2 text-sm text-frost transition hover:bg-white/10"
-              >
-                <Download className="h-4 w-4" />
-                Resume English
-              </Link>
+              <div className="rounded-2xl border border-white/10 bg-base/95 p-2 backdrop-blur-xl">
+                <Link
+                  href="/assets/cv/CV_Marco_Niccolini(IT).pdf"
+                  target="_blank"
+                  download
+                  className="flex items-center gap-2 rounded-xl px-4 py-2 text-sm text-frost transition hover:bg-white/10"
+                >
+                  <Download className="h-4 w-4" />
+                  CV (IT)
+                </Link>
+                <Link
+                  href="/assets/cv/CV_Marco_Niccolini(EN).pdf"
+                  target="_blank"
+                  download
+                  className="flex items-center gap-2 rounded-xl px-4 py-2 text-sm text-frost transition hover:bg-white/10"
+                >
+                  <Download className="h-4 w-4" />
+                  CV (EN)
+                </Link>
+              </div>
             </div>
           </div>
           <button
@@ -179,7 +180,7 @@ const Navbar = () => {
                       className="flex w-full items-center gap-2 rounded-2xl border border-white/10 px-4 py-3 text-sm text-frost transition hover:border-ember-500 hover:bg-white/5"
                     >
                       <Download className="h-4 w-4" />
-                      CV IT
+                      CV (IT)
                     </Link>
                     <Link
                       href="/assets/cv/CV_Marco_Niccolini(EN).pdf"
@@ -189,7 +190,7 @@ const Navbar = () => {
                       className="flex w-full items-center gap-2 rounded-2xl border border-white/10 px-4 py-3 text-sm text-frost transition hover:border-ember-500 hover:bg-white/5"
                     >
                       <Download className="h-4 w-4" />
-                      CV EN
+                      CV (EN)
                     </Link>
                   </div>
                 </div>

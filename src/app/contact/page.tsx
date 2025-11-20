@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "motion/react";
-import { CalendarClock, Github, Linkedin, MapPin, Send } from "lucide-react";
+import { CalendarClock, ChevronDown, Github, Linkedin, MapPin, Send } from "lucide-react";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Inserisci almeno 2 caratteri"),
@@ -143,7 +143,7 @@ const ContactPage = () => {
                   <label className="text-sm text-ash">Nome*</label>
                   <input
                     {...register("name")}
-                    className="h-12 w-full rounded-full border border-white/10 bg-black/30 px-5 text-sm text-frost outline-none"
+                    className="h-12 w-full rounded-full border border-white/10 bg-black/30 px-5 text-sm text-frost outline-none transition focus:border-ember-500"
                     placeholder="Come posso chiamarti?"
                   />
                   {errors.name && <p className="text-xs text-ember-300">{errors.name.message}</p>}
@@ -152,31 +152,34 @@ const ContactPage = () => {
                   <label className="text-sm text-ash">Email*</label>
                   <input
                     {...register("email")}
-                    className="h-12 w-full rounded-full border border-white/10 bg-black/30 px-5 text-sm text-frost outline-none"
+                    className="h-12 w-full rounded-full border border-white/10 bg-black/30 px-5 text-sm text-frost outline-none transition focus:border-ember-500"
                     placeholder="tuo@email.com"
                   />
                   {errors.email && <p className="text-xs text-ember-300">{errors.email.message}</p>}
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm text-ash">Tipo di progetto</label>
-                  <select
-                    {...register("projectType")}
-                    className="h-12 w-full rounded-full border border-white/10 bg-black/30 px-5 text-sm text-frost outline-none"
-                  >
-                    <option value="">Seleziona</option>
-                    {projectTypes.map(option => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <select
+                      {...register("projectType")}
+                      className="h-12 w-full appearance-none rounded-full border border-white/10 bg-black/30 pl-5 pr-10 text-sm text-frost outline-none transition focus:border-ember-500"
+                    >
+                      <option value="">Seleziona</option>
+                      {projectTypes.map(option => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ash" />
+                  </div>
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm text-ash">Messaggio*</label>
                   <textarea
                     {...register("message")}
                     rows={5}
-                    className="w-full rounded-[24px] border border-white/10 bg-black/30 px-5 py-4 text-sm text-frost outline-none"
+                    className="w-full rounded-[24px] border border-white/10 bg-black/30 px-5 py-4 text-sm text-frost outline-none transition focus:border-ember-500"
                     placeholder="Timeline, budget, obiettivi…"
                   />
                   {errors.message && <p className="text-xs text-ember-300">{errors.message.message}</p>}

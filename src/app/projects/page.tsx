@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { ArrowUpRight, Filter, Search, X } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Filter, Search, X } from "lucide-react";
 
 import { projects, sortedProjects } from "@/data/projects";
 
@@ -80,30 +80,36 @@ const ProjectsPage = () => {
             )}
           </div>
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
-            <select
-              value={typeFilter}
-              onChange={event => setTypeFilter(event.target.value)}
-              className="h-12 rounded-full border border-white/10 bg-black/30 px-5 text-sm text-frost outline-none"
-            >
-              <option value="Tutti">Tutti i tipi</option>
-              {typeOptions.map(option => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-            <select
-              value={languageFilter}
-              onChange={event => setLanguageFilter(event.target.value)}
-              className="h-12 rounded-full border border-white/10 bg-black/30 px-5 text-sm text-frost outline-none"
-            >
-              <option value="Tutti">Tutti i linguaggi</option>
-              {languageOptions.map(option => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
+            <div className="relative">
+              <select
+                value={typeFilter}
+                onChange={event => setTypeFilter(event.target.value)}
+                className="h-12 appearance-none rounded-full border border-white/10 bg-black/30 pl-5 pr-10 text-sm text-frost outline-none transition focus:border-ember-500"
+              >
+                <option value="Tutti">Tutti i tipi</option>
+                {typeOptions.map(option => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ash" />
+            </div>
+            <div className="relative">
+              <select
+                value={languageFilter}
+                onChange={event => setLanguageFilter(event.target.value)}
+                className="h-12 appearance-none rounded-full border border-white/10 bg-black/30 pl-5 pr-10 text-sm text-frost outline-none transition focus:border-ember-500"
+              >
+                <option value="Tutti">Tutti i linguaggi</option>
+                {languageOptions.map(option => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ash" />
+            </div>
             <button
               type="button"
               onClick={resetFilters}
@@ -120,57 +126,67 @@ const ProjectsPage = () => {
             Nessun progetto corrisponde alla ricerca. Prova a rimuovere qualche filtro.
           </div>
         ) : (
-          <div className="grid gap-8 lg:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filteredProjects.map(project => (
               <motion.article
                 key={project.id}
-                className="group overflow-hidden rounded-[28px] border border-white/10 bg-surface/80"
-                initial={{ opacity: 0, y: 60 }}
+                className="group relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-surface/50 transition hover:border-ember-500/50 hover:bg-surface/80"
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
               >
-                <div className="relative">
+                <div className="relative aspect-[16/10] overflow-hidden bg-black/20">
                   <Image
                     src={project.imageUrl}
                     alt={project.title}
-                    width={920}
-                    height={520}
-                    className="h-[280px] w-full object-contain bg-surface/50 transition duration-500 group-hover:scale-105"
+                    width={600}
+                    height={400}
+                    className="h-full w-full object-contain p-4 transition duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-base via-transparent opacity-60" />
-                  <div className="absolute bottom-4 left-4 flex gap-3 text-xs uppercase">
-                    <span className="rounded-full bg-white/10 px-3 py-1 text-frost">{project.year}</span>
-                    <span className="rounded-full bg-white/10 px-3 py-1 text-frost">{project.type}</span>
+                  <div className="absolute inset-0 bg-gradient-to-t from-base/80 via-transparent to-transparent opacity-60" />
+                  <div className="absolute bottom-3 left-3 flex gap-2">
+                    <span className="rounded-full bg-black/40 px-2.5 py-1 text-[10px] uppercase tracking-wider text-frost backdrop-blur-md border border-white/10">
+                      {project.year}
+                    </span>
+                    <span className="rounded-full bg-black/40 px-2.5 py-1 text-[10px] uppercase tracking-wider text-frost backdrop-blur-md border border-white/10">
+                      {project.type}
+                    </span>
                   </div>
                 </div>
-                <div className="space-y-5 p-6">
-                  <div className="space-y-2">
-                    <h2 className="text-3xl font-semibold text-frost">{project.title}</h2>
-                    <p className="text-ash">{project.shortDescription}</p>
+
+                <div className="flex flex-1 flex-col p-5">
+                  <div className="mb-4 flex-1 space-y-2">
+                    <h2 className="text-xl font-semibold text-frost group-hover:text-ember-400 transition-colors">
+                      {project.title}
+                    </h2>
+                    <p className="line-clamp-2 text-sm text-ash/80">
+                      {project.shortDescription}
+                    </p>
                   </div>
-                  <div className="flex flex-wrap gap-2 text-xs uppercase tracking-wide text-ash">
-                    {project.languages.map(tag => (
-                      <span key={tag} className="rounded-full border border-white/15 px-3 py-1">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex gap-3 pt-2 text-sm">
+
+                  <div className="flex items-center justify-between gap-4 border-t border-white/5 pt-4">
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.languages.slice(0, 3).map(tag => (
+                        <span
+                          key={tag}
+                          className="text-[10px] uppercase tracking-wider text-ash/60"
+                        >
+                          #{tag}
+                        </span>
+                      ))}
+                      {project.languages.length > 3 && (
+                        <span className="text-[10px] text-ash/60">
+                          +{project.languages.length - 3}
+                        </span>
+                      )}
+                    </div>
+
                     <Link
                       href={`/projects/${project.id}`}
-                      className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-frost transition hover:border-ember-500"
+                      className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 text-ash transition hover:border-ember-500 hover:bg-ember-500 hover:text-white"
                     >
-                      Case study <ArrowUpRight className="h-4 w-4" />
+                      <ArrowUpRight className="h-4 w-4" />
                     </Link>
-                    {project.vercelLink !== "#" && (
-                      <Link
-                        href={project.vercelLink}
-                        target="_blank"
-                        className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-ember-300 transition hover:border-ember-500"
-                      >
-                        Live <ArrowUpRight className="h-4 w-4" />
-                      </Link>
-                    )}
                   </div>
                 </div>
               </motion.article>
