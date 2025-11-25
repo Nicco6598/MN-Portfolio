@@ -66,10 +66,10 @@ export const projects: Project[] = [
   },
   {
     id: 3,
-    title: 'dApp Travel',
+    title: 'voyage.',
     shortDescription: 'Booking crypto-friendly con MetaMask e recensioni integrate.',
     fullDescription:
-      `dApp Travel è una piattaforma innovativa che permette di acquistare pacchetti viaggio utilizzando criptovalute. Grazie alla nostra integrazione con MetaMask e alla rete di test Sepolia, offriamo un'esperienza utente fluida e sicura, rendendo l'acquisto di pacchetti viaggio più accessibile che mai. Gli utenti possono esplorare vari pacchetti viaggio, comparare prezzi e destinazioni, e finalizzare gli acquisti in modo sicuro utilizzando le loro criptovalute preferite. La piattaforma include anche funzionalità di feedback e recensioni, permettendo agli utenti di condividere le loro esperienze e aiutare altri viaggiatori a fare scelte informate. Inoltre, dApp Travel offre promozioni e sconti esclusivi per i membri registrati, incentivando l'uso della piattaforma e la fidelizzazione dei clienti.`,
+      `voyage. è una piattaforma innovativa che permette di acquistare pacchetti viaggio utilizzando criptovalute. Grazie alla nostra integrazione con MetaMask e alla rete di test Sepolia, offriamo un'esperienza utente fluida e sicura, rendendo l'acquisto di pacchetti viaggio più accessibile che mai. Gli utenti possono esplorare vari pacchetti viaggio, comparare prezzi e destinazioni, e finalizzare gli acquisti in modo sicuro utilizzando le loro criptovalute preferite. La piattaforma include anche funzionalità di feedback e recensioni, permettendo agli utenti di condividere le loro esperienze e aiutare altri viaggiatori a fare scelte informate. Inoltre, voyage. offre promozioni e sconti esclusivi per i membri registrati, incentivando l'uso della piattaforma e la fidelizzazione dei clienti.`,
     imageUrl: '/images/travel.png',
     year: '2024',
     month: 'Gennaio',
@@ -113,6 +113,7 @@ export const projects: Project[] = [
     month: 'Maggio',
     languages: ['React', 'TypeScript'],
     type: 'Sviluppo Web',
+    status: 'Aggiornato a NextJS',
     vercelLink: 'https://bombyx-menu.vercel.app/',
     githubLink: 'https://github.com/Nicco6598/bombyx-menu',
   },
