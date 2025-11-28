@@ -133,32 +133,30 @@ export const projects: Project[] = [
   },
   {
     id: 7,
-    title: 'VectorX',
+    title: 'Exora',
     shortDescription: 'Piattaforma decentralizzata per prediction markets basata su Web3 con subnet TAO dedicate.',
     fullDescription:
-      `VectorX è una dapp innovativa per prediction markets che rivoluziona il modo di scommettere su eventi futuri attraverso la tecnologia blockchain. La piattaforma permette agli utenti di acquistare token rappresentativi di previsioni specifiche per eventi binari (Si/No), dove il prezzo del token riflette la probabilità percepita dal mercato che l'evento si verifichi.
+      `Exora è una dapp innovativa per prediction markets che rivoluziona il modo di scommettere su eventi futuri attraverso la tecnologia blockchain. La piattaforma permette agli utenti di acquistare token rappresentativi di previsioni specifiche per eventi binari (Si/No), dove il prezzo del token riflette la probabilità percepita dal mercato che l'evento si verifichi.
 
 Il funzionamento è basato su meccanismi di mercato automatizzati: gli utenti acquistano token che rappresentano la loro previsione su un evento specifico. Man mano che più persone scommettono, il prezzo dei token si aggiorna in tempo reale riflettendo l'opinione collettiva del mercato. Quando l'evento si risolve, i possessori dei token vincenti ricevono una ricompensa proporzionale alla loro partecipazione, creando un sistema di previsione collettiva altamente accurato.
 
-VectorX si distingue per l'architettura unica basata su subnet dedicate di TAO (Bittensor), dove ogni categoria di eventi (sport, politica, economia, intrattenimento, etc.) ha il suo proprio subnet di intelligenza artificiale che analizza dati in tempo reale, studia tendenze e propone automaticamente nuovi eventi di previsione, ampliando continuamente l'ecosistema senza intervento umano.
+Exora si distingue per l'architettura unica basata su subnet dedicate di TAO (Bittensor), dove ogni categoria di eventi (sport, politica, economia, intrattenimento, etc.) ha il suo proprio subnet di intelligenza artificiale che analizza dati in tempo reale, studia tendenze e propone automaticamente nuovi eventi di previsione, ampliando continuamente l'ecosistema senza intervento umano.
 
 La piattaforma integra tecnologie all'avanguardia come WalletConnect per connessioni wallet sicure, Chainlink per oracle decentralizzati che garantiscono la risoluzione affidabile degli eventi, e smart contract Solidity ottimizzati per performance elevate. L'interfaccia utente, sviluppata con React e TypeScript, offre un'esperienza fluida e intuitiva per la gestione delle previsioni.
 
-I principali competitors nel mercato dei prediction markets includono Polymarket (leader nei mercati regolamentati), Kalshi (specializzato in eventi economici), Augur (pioniere dei prediction markets su Ethereum) e Gnosis (con la loro piattaforma Conditional Tokens). VectorX si differenzia grazie all'integrazione AI-driven e alla scalabilità offerta dalla rete Bittensor.
+I principali competitors nel mercato dei prediction markets includono Polymarket (leader nei mercati regolamentati), Kalshi (specializzato in eventi economici), Augur (pioniere dei prediction markets su Ethereum) e Gnosis (con la loro piattaforma Conditional Tokens). Exora si differenzia grazie all'integrazione AI-driven e alla scalabilità offerta dalla rete Bittensor.
 
 Attualmente il progetto è in fase di sviluppo attivo, con la costruzione degli smart contract Solidity, dell'interfaccia frontend React/Web3.js, dell'integrazione con WalletConnect, della configurazione delle subnet TAO e dell'implementazione degli oracle Pyth per garantire risoluzioni eventi imparziali e automatizzate.`,
-    imageUrl: '/images/dao.png',
+    imageUrl: '/images/exora_logo.png',
     year: '2025',
     month: 'Ottobre',
     languages: ['Solidity', 'React', 'TypeScript', 'Web3.js', 'WalletConnect', 'TAO Subnets', 'Pyth', 'Python'],
     type: 'Sviluppo di dApp',
-    vercelLink: 'https://vector-x-alpha.vercel.app/',
+    vercelLink: 'https://exoramarkets.vercel.app/',
     githubLink: '#',
     status: 'In Sviluppo',
     todo: [
       'Sviluppo smart contract Solidity per prediction markets con meccanismi AMM',
-      'Integrazione WalletConnect per connessioni multi-wallet sicure',
-      'Implementazione interfaccia React/TypeScript con Web3.js',
       'Configurazione subnet TAO dedicate per categorie di eventi (sport, politica, economia)',
       'Integrazione Chainlink oracle per risoluzione eventi decentralizzata',
       'Sviluppo sistema di analisi dati e proposta eventi automatica via Python',

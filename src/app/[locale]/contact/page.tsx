@@ -2,20 +2,19 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "motion/react";
 import { CalendarClock, ChevronDown, Github, Linkedin, MapPin, Send } from "lucide-react";
 
-const contactSchema = z.object({
-  name: z.string().min(2, "Inserisci almeno 2 caratteri"),
-  email: z.string().email("Email non valida"),
-  projectType: z.string().optional(),
-  message: z.string().min(20, "Raccontami un po' di più"),
-});
-
-type ContactFormValues = z.infer<typeof contactSchema>;
+type ContactFormValues = {
+  name: string;
+  email: string;
+  projectType?: string;
+  message: string;
+};
 
 const defaultValues: ContactFormValues = {
   name: "",
@@ -53,7 +52,15 @@ const projectTypes = [
 ];
 
 const ContactPage = () => {
+  const t = useTranslations("Contact");
   const [submitted, setSubmitted] = useState(false);
+  const contactSchema = z.object({
+    name: z.string().min(2, t("errors.name_min")),
+    email: z.string().email(t("errors.email_invalid")),
+    projectType: z.string().optional(),
+    message: z.string().min(20, t("errors.message_min")),
+  });
+
   const {
     register,
     handleSubmit,
@@ -86,14 +93,9 @@ const ContactPage = () => {
       <section className="container pt-24">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-6">
-            <p className="text-sm uppercase tracking-[0.4em] text-ash">contact</p>
-            <h1 className="font-display text-4xl text-frost sm:text-5xl">
-              Parliamo del tuo prossimo prodotto
-            </h1>
-            <p className="text-lg text-ash">
-              Sviluppo interfacce e infrastrutture Web3 con motion design curato. Raccontami la tua idea, ti rispondo con
-              una roadmap chiara.
-            </p>
+            <p className="text-sm uppercase tracking-[0.4em] text-ash">{t("label")}</p>
+            <h1 className="font-display text-4xl text-frost sm:text-5xl">{t("title")}</h1>
+            <p className="text-lg text-ash">{t("subtitle")}</p>
             <div className="grid gap-4 sm:grid-cols-3">
               {contactStats.map(stat => (
                 <div key={stat.label} className="rounded-2xl border border-white/10 bg-surface/80 px-5 py-4">
@@ -135,36 +137,36 @@ const ContactPage = () => {
                 <div className="flex h-14 w-14 items-center justify-center rounded-full bg-ember-500/20 text-ember-200">
                   ✓
                 </div>
-                <p className="text-xl text-frost">Messaggio inviato, ti rispondo entro 24 ore.</p>
+                <p className="text-xl text-frost">{t("form_success_title")}</p>
               </div>
             ) : (
               <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
                 <div className="space-y-2">
-                  <label className="text-sm text-ash">Nome*</label>
+                  <label className="text-sm text-ash">{t("name_label")}</label>
                   <input
                     {...register("name")}
                     className="h-12 w-full rounded-full border border-white/10 bg-black/30 px-5 text-sm text-frost outline-none transition focus:border-ember-500"
-                    placeholder="Come posso chiamarti?"
+                    placeholder={t("name_placeholder")}
                   />
                   {errors.name && <p className="text-xs text-ember-300">{errors.name.message}</p>}
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm text-ash">Email*</label>
+                  <label className="text-sm text-ash">{t("email_label")}</label>
                   <input
                     {...register("email")}
                     className="h-12 w-full rounded-full border border-white/10 bg-black/30 px-5 text-sm text-frost outline-none transition focus:border-ember-500"
-                    placeholder="tuo@email.com"
+                    placeholder={t("email_placeholder")}
                   />
                   {errors.email && <p className="text-xs text-ember-300">{errors.email.message}</p>}
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm text-ash">Tipo di progetto</label>
+                  <label className="text-sm text-ash">{t("project_type_label")}</label>
                   <div className="relative">
                     <select
                       {...register("projectType")}
                       className="h-12 w-full appearance-none rounded-full border border-white/10 bg-black/30 pl-5 pr-10 text-sm text-frost outline-none transition focus:border-ember-500"
                     >
-                      <option value="">Seleziona</option>
+                      <option value="">{t("select_placeholder")}</option>
                       {projectTypes.map(option => (
                         <option key={option} value={option}>
                           {option}
@@ -175,12 +177,12 @@ const ContactPage = () => {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm text-ash">Messaggio*</label>
+                  <label className="text-sm text-ash">{t("message_label")}</label>
                   <textarea
                     {...register("message")}
                     rows={5}
                     className="w-full rounded-[24px] border border-white/10 bg-black/30 px-5 py-4 text-sm text-frost outline-none transition focus:border-ember-500"
-                    placeholder="Timeline, budget, obiettivi…"
+                    placeholder={t("message_placeholder")}
                   />
                   {errors.message && <p className="text-xs text-ember-300">{errors.message.message}</p>}
                 </div>
@@ -189,7 +191,7 @@ const ContactPage = () => {
                   disabled={isSubmitting}
                   className="flex w-full items-center justify-center gap-2 rounded-full bg-ember-500 px-6 py-3 font-medium text-base text-base transition hover:bg-ember-600 disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  {isSubmitting ? "Invio…" : "Invia il brief"}
+                  {isSubmitting ? t("submitting") : t("submit_btn")}
                   <Send className="h-4 w-4" />
                 </button>
               </form>

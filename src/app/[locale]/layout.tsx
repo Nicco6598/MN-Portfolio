@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
 import { Playfair_Display, Space_Grotesk } from "next/font/google";
-import "./globals.css";
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import { routing } from '@/i18n/routing';
+import "../globals.css";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
 import IntroLoader from "@/components/layout/intro-loader";
@@ -18,7 +23,7 @@ const grotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://marco-niccolini.dev"),
+  metadataBase: new URL("https://mn-portfolio-orpin.vercel.app"),
   title: {
     default: "Marco Niccolini — Web & Blockchain Engineer",
     template: "%s · Marco Niccolini",
@@ -29,7 +34,7 @@ export const metadata: Metadata = {
     title: "Marco Niccolini — Web & Blockchain Engineer",
     description:
       "Unisco product design e sviluppo fullstack per esperienze digitali audaci, con focus su Web3 e interfacce immersive.",
-    url: "https://marco-niccolini.dev",
+    url: "https://mn-portfolio-orpin.vercel.app",
     siteName: "Marco Niccolini Portfolio",
     images: [
       {
@@ -46,24 +51,37 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-}: Readonly<{
+  params
+}: {
   children: React.ReactNode;
-}>) {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
+  if (!routing.locales.includes(locale as any)) {
+    notFound();
+  }
+
+  const messages = await getMessages();
+
   return (
-    <html lang="it" className="bg-base">
+    <html lang={locale} className="bg-base">
       <body
         className={`${display.variable} ${grotesk.variable} antialiased text-frost bg-base`}
       >
-        <div className="relative min-h-screen bg-base text-frost">
-          <div className="pointer-events-none fixed inset-0 bg-grid-overlay opacity-25" />
-          <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,122,41,0.08),transparent_45%)]" />
-          <IntroLoader />
-          <Navbar />
-          <main className="relative z-10 pt-32">{children}</main>
-          <Footer />
-        </div>
+        <NextIntlClientProvider messages={messages}>
+          <div className="relative min-h-screen bg-base text-frost">
+            <div className="pointer-events-none fixed inset-0 bg-grid-overlay opacity-25" />
+            <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,122,41,0.08),transparent_45%)]" />
+            <IntroLoader />
+            <Navbar />
+            <main className="relative z-10 pt-32">{children}</main>
+            <Footer />
+            <Analytics />
+          </div>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

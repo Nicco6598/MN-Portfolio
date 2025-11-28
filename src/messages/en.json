@@ -1,0 +1,176 @@
+{
+    "HomePage": {
+        "title": "Web & Blockchain Engineer",
+        "subtitle": "Building bold digital experiences and decentralized infrastructures.",
+        "cta_projects": "View Projects",
+        "cta_contact": "Contact Me",
+        "available_for": "available for milan, italy",
+        "dossier_title": "Dossier",
+        "profile_title": "Professional Profile",
+        "soft_skills": "Soft skills",
+        "languages": "Languages",
+        "tech_stack_label": "tech stack",
+        "tech_stack_title": "Key Tech Skills",
+        "tech_stack_desc": "I cover the full Web3 stack: Solidity smart contracts, Node.js/Express backend, and React/Next.js frontend with continuous delivery pipelines.",
+        "experience_label": "experience",
+        "experience_title": "Professional Experience",
+        "experience_desc": "Collaborating with enterprise teams and startups to design and ship dApps focused on security, scalability, and time-to-market.",
+        "education_label": "education",
+        "education_title": "Education",
+        "education_desc": "My educational path, bridging academia and technical specialization.",
+        "projects_label": "projects",
+        "projects_title": "Recent Releases",
+        "projects_desc": "From UX storytelling for lifestyle brands to building decentralized protocols, a selection of works telling my end-to-end approach.",
+        "contact_label": "let's work",
+        "contact_title": "Let's talk about your next launch",
+        "contact_desc": "I work with founders and teams wanting fast shipping: dApps, Web3 dashboards, motion UI. Bring your idea or roadmap: I'll get back in 24h with a synthetic plan and next steps.",
+        "contact_box_title": "Contacts",
+        "contact_box_desc": "Want to collaborate on a Web3 project, a design system, or an MVP with smart contracts? Use the contact section below: form + calendly allow you to book a call in minutes.",
+        "contact_box_note": "Prefer a quick answer? Fill the form: share goals, stack, and deadline, and I'll reply in 24h with a preliminary budget and roadmap.",
+        "contact_cta": "Contact me now",
+        "profile": {
+            "description": "Expert in dApp and smart contract development with React, Solidity, and Node.js. I create Web3 solutions on Ethereum and Polygon with a proactive and result-oriented approach.",
+            "highlights": {
+                "0": "Custom dApps and smart contracts on Ethereum & Polygon",
+                "1": "ML integration, OpenSea API, and cloud-native infrastructures",
+                "2": "End-to-end delivery: design system, frontend, and Node.js backend"
+            },
+            "soft_skills_list": {
+                "0": "Problem Solving",
+                "1": "Teamwork",
+                "2": "Adaptability"
+            },
+            "languages_list": {
+                "0": "Italian · Native/C2",
+                "1": "English · Intermediate/B2"
+            }
+        },
+        "skills": {
+            "blockchain_backend": "Blockchain & Backend",
+            "frontend": "Frontend",
+            "tooling": "Tooling & DevOps",
+            "total_skills": "Total Skills",
+            "expert_level": "Expert Level",
+            "categories": "Categories",
+            "skills_count": "skills",
+            "exp_abbr": "exp",
+            "technologies": "technologies",
+            "experience": "Experience",
+            "years": "years",
+            "projects": "Projects",
+            "shipped": "shipped",
+            "proficiency": "Proficiency:",
+            "expert": "Expert",
+            "advanced": "Advanced",
+            "intermediate": "Intermediate",
+            "tap_to_change": "Tap to change category"
+        },
+        "experience_items": {
+            "capgemini": {
+                "title": "Associate Product Software Engineer",
+                "company": "Capgemini Engineering",
+                "period": "2024 · 2025",
+                "description": {
+                    "0": "Development of a Polygon dApp to generate custom NFTs with ML/TensorFlow pipeline.",
+                    "1": "Implementation of Solidity smart contracts, Node.js/Express backend, and internal APIs integrated with OpenSea.",
+                    "2": "React + TypeScript + Tailwind frontend with CI/CD workflow and performance budget."
+                }
+            },
+            "freelance": {
+                "title": "Blockchain Developer",
+                "company": "Freelance",
+                "period": "2023 · 2024",
+                "description": {
+                    "0": "Ethereum & Polygon dApps for mobility, digital assets, and loan management.",
+                    "1": "Solidity smart contracts with Hardhat, Web3.js integration, and Chainlink VRF.",
+                    "2": "React/TypeScript frontend design focusing on UX and security."
+                }
+            }
+        },
+        "education_items": {
+            "master": {
+                "title": "Master in Blockchain Development",
+                "school": "Start2Impact University",
+                "period": "Oct 2023 · Jun 2024"
+            },
+            "diploma": {
+                "title": "Diploma in Computer Science",
+                "school": "Industrial Technical Institute",
+                "period": "Sep 2012 · Jun 2017"
+            },
+            "university": {
+                "title": "Computer Science (Incomplete)",
+                "school": "University",
+                "period": "Oct 2020 · Sep 2021"
+            }
+        }
+    },
+    "Loading": {
+        "title": "Loading experience",
+        "home_subtitle": "Preparing the main interface…",
+        "projects_subtitle": "Filtering and organizing case studies…",
+        "contact_subtitle": "Initializing the contact surface…"
+    },
+    "Navbar": {
+        "home": "Home",
+        "projects": "Projects",
+        "contact": "Contact",
+        "cv_it": "CV (IT)",
+        "cv_en": "CV (EN)"
+    },
+    "Projects": {
+        "label": "projects",
+        "title": "Modular Case Studies",
+        "subtitle": "Product storytelling, motion UI, and Web3 infrastructures. Filter by stack or keywords to find the project closest to your needs.",
+        "projects_count": "projects",
+        "stack_count": "stack",
+        "search_placeholder": "Search by title or description",
+        "filter_all": "All types",
+        "sort_recent": "Most Recent",
+        "sort_oldest": "Oldest",
+        "sort_az": "Name A-Z",
+        "sort_za": "Name Z-A",
+        "reset": "Reset",
+        "active_filters": "Active filters:",
+        "showing": "Showing",
+        "of": "of",
+        "keyboard_nav": "Use keyboard arrows to navigate • Press Enter to open",
+        "no_results_title": "No projects found",
+        "no_results_desc": "No projects match your search. Try removing some filters or search with different terms.",
+        "remove_filters": "Remove all filters",
+        "status_dev": "In Development",
+        "progress": "Development progress",
+        "live_demo": "Live Demo",
+        "repo": "Repo"
+    },
+    "Contact": {
+        "label": "contact",
+        "title": "Let's talk about your next product",
+        "subtitle": "I develop Web3 interfaces and infrastructures with curated motion design. Tell me your idea, I'll reply with a clear roadmap.",
+        "stats_response": "Avg. response time",
+        "stats_clients": "Satisfied clients",
+        "stats_shipped": "Shipped projects",
+        "form_success_title": "Message sent, I'll reply within 24 hours.",
+        "name_label": "Name*",
+        "name_placeholder": "How can I call you?",
+        "email_label": "Email*",
+        "email_placeholder": "your@email.com",
+        "project_type_label": "Project Type",
+        "select_placeholder": "Select",
+        "message_label": "Message*",
+        "message_placeholder": "Timeline, budget, goals…",
+        "submit_btn": "Send Brief",
+        "submitting": "Sending…",
+        "errors": {
+            "name_min": "Enter at least 2 characters",
+            "email_invalid": "Invalid email",
+            "message_min": "Tell me a bit more"
+        }
+    },
+    "Footer": {
+        "name": "Marco Niccolini",
+        "tagline": "Building bold experiences.",
+        "book_call": "Book a call",
+        "copyright": "Crafted in Milan."
+    }
+}

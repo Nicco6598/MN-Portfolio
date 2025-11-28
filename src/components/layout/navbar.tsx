@@ -1,21 +1,24 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowUpRight, Menu, X, Github, Download } from "lucide-react";
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
-const links = [
-  { label: "Home", href: "/" },
-  { label: "Projects", href: "/projects" },
-  { label: "Contact", href: "/contact" },
-];
 
 const Navbar = () => {
+  const t = useTranslations('Navbar');
   const [isOpen, setIsOpen] = useState(false);
   const [isCvMenuOpen, setIsCvMenuOpen] = useState(false);
   const pathname = usePathname();
+
+  const links = [
+    { label: t('home'), href: "/" },
+    { label: t('projects'), href: "/projects" },
+    { label: t('contact'), href: "/contact" },
+  ];
 
   const isLinkActive = (href: string) => {
     if (!pathname) return false;
@@ -49,7 +52,7 @@ const Navbar = () => {
         )}
       </AnimatePresence>
       <div className="relative z-50 mx-auto mt-6 flex w-full max-w-[64rem] flex-wrap items-center justify-between gap-4 rounded-full border border-white/10 bg-base/80 px-6 py-3 backdrop-blur-xl">
-        <Link href="/" className="text-sm font-semibold uppercase tracking-[0.4em] text-ash">
+        <Link href="/" className="text-sm font-semibold uppercase tracking-[0.4em] text-ash" aria-label="Torna alla Home">
           MN
         </Link>
         <nav className="hidden items-center gap-2 text-sm lg:flex">
@@ -103,7 +106,7 @@ const Navbar = () => {
                   className="flex items-center gap-2 rounded-xl px-4 py-2 text-sm text-frost transition hover:bg-white/10"
                 >
                   <Download className="h-4 w-4" />
-                  CV (IT)
+                  {t('cv_it')}
                 </Link>
                 <Link
                   href="/assets/cv/CV_Marco_Niccolini(EN).pdf"
@@ -112,7 +115,7 @@ const Navbar = () => {
                   className="flex items-center gap-2 rounded-xl px-4 py-2 text-sm text-frost transition hover:bg-white/10"
                 >
                   <Download className="h-4 w-4" />
-                  CV (EN)
+                  {t('cv_en')}
                 </Link>
               </div>
             </div>
@@ -180,7 +183,7 @@ const Navbar = () => {
                       className="flex w-full items-center gap-2 rounded-2xl border border-white/10 px-4 py-3 text-sm text-frost transition hover:border-ember-500 hover:bg-white/5"
                     >
                       <Download className="h-4 w-4" />
-                      CV (IT)
+                      {t('cv_it')}
                     </Link>
                     <Link
                       href="/assets/cv/CV_Marco_Niccolini(EN).pdf"
@@ -190,7 +193,7 @@ const Navbar = () => {
                       className="flex w-full items-center gap-2 rounded-2xl border border-white/10 px-4 py-3 text-sm text-frost transition hover:border-ember-500 hover:bg-white/5"
                     >
                       <Download className="h-4 w-4" />
-                      CV (EN)
+                      {t('cv_en')}
                     </Link>
                   </div>
                 </div>

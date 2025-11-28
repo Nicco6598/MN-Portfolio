@@ -1,0 +1,176 @@
+{
+    "HomePage": {
+        "title": "Web & Blockchain Engineer",
+        "subtitle": "Costruisco esperienze digitali audaci e infrastrutture decentralizzate.",
+        "cta_projects": "Vedi Progetti",
+        "cta_contact": "Contattami",
+        "available_for": "disponibile per milano, italia",
+        "dossier_title": "Dossier",
+        "profile_title": "Profilo Professionale",
+        "soft_skills": "Soft skills",
+        "languages": "Lingue",
+        "tech_stack_label": "tech stack",
+        "tech_stack_title": "Competenze tecnologiche chiave",
+        "tech_stack_desc": "Copro l'intero stack Web3: smart contract Solidity, backend Node.js/Express e frontend React/Next.js con pipeline di delivery continue.",
+        "experience_label": "experience",
+        "experience_title": "Esperienze professionali",
+        "experience_desc": "Collaboro con team enterprise e startup per progettare e shippare dApp con focus su sicurezza, scalabilità e time-to-market.",
+        "education_label": "education",
+        "education_title": "Formazione",
+        "education_desc": "Il mio percorso formativo, tra accademia e specializzazione tecnica.",
+        "projects_label": "projects",
+        "projects_title": "Release recenti",
+        "projects_desc": "Dalla UX storytelling per brand lifestyle alla costruzione di protocolli decentralizzati, selezione di lavori che raccontano il mio approccio end-to-end.",
+        "contact_label": "collaboriamo",
+        "contact_title": "Parliamo del tuo prossimo lancio",
+        "contact_desc": "Lavoro con founder e team che vogliono shippare veloce: dApp, dashboard Web3, motion UI. Porta la tua idea o roadmap: ti rispondo in 24h con un piano sintetico e i prossimi step.",
+        "contact_box_title": "Contatti",
+        "contact_box_desc": "Vuoi collaborare su un progetto Web3, un design system o un MVP con smart contract? Usa la sezione contatti qui sotto: form + calendly ti permettono di prenotare una call in pochi minuti.",
+        "contact_box_note": "Preferisci una risposta rapida? Compila il form: condividi obiettivi, stack e deadline, e ti rispondo in 24h con budget preliminare e roadmap.",
+        "contact_cta": "Contattami ora",
+        "profile": {
+            "description": "Esperto nello sviluppo di dApp e smart contract con React, Solidity e Node.js. Creo soluzioni Web3 su Ethereum e Polygon con un approccio proattivo e orientato ai risultati.",
+            "highlights": {
+                "0": "dApp e smart contract custom su Ethereum & Polygon",
+                "1": "Integrazione ML, OpenSea API e infrastrutture cloud native",
+                "2": "Delivery end-to-end: design system, frontend e backend Node.js"
+            },
+            "soft_skills_list": {
+                "0": "Problem Solving",
+                "1": "Lavoro di squadra",
+                "2": "Adattabilità"
+            },
+            "languages_list": {
+                "0": "Italiano · Madrelingua/C2",
+                "1": "Inglese · Intermedio/B2"
+            }
+        },
+        "skills": {
+            "blockchain_backend": "Blockchain & Backend",
+            "frontend": "Frontend",
+            "tooling": "Tooling & DevOps",
+            "total_skills": "Skill totali",
+            "expert_level": "Livello Esperto",
+            "categories": "Categorie",
+            "skills_count": "skill",
+            "exp_abbr": "exp",
+            "technologies": "tecnologie",
+            "experience": "Esperienza",
+            "years": "anni",
+            "projects": "Progetti",
+            "shipped": "completati",
+            "proficiency": "Competenza:",
+            "expert": "Esperto",
+            "advanced": "Avanzato",
+            "intermediate": "Intermedio",
+            "tap_to_change": "Tocca per cambiare categoria"
+        },
+        "experience_items": {
+            "capgemini": {
+                "title": "Associate Product Software Engineer",
+                "company": "Capgemini Engineering",
+                "period": "2024 · 2025",
+                "description": {
+                    "0": "Sviluppo di una dApp su Polygon per generare NFT personalizzati con pipeline ML/TensorFlow.",
+                    "1": "Implementazione di smart contract Solidity, backend Node.js/Express e API interne integrate con OpenSea.",
+                    "2": "Frontend React + TypeScript + Tailwind con workflow CI/CD e performance budget."
+                }
+            },
+            "freelance": {
+                "title": "Blockchain Developer",
+                "company": "Freelance",
+                "period": "2023 · 2024",
+                "description": {
+                    "0": "dApp Ethereum & Polygon per mobility, asset digitali e gestione prestiti.",
+                    "1": "Smart contract Solidity con Hardhat, integrazione Web3.js e Chainlink VRF.",
+                    "2": "Progettazione frontend React/TypeScript con focus su UX e sicurezza."
+                }
+            }
+        },
+        "education_items": {
+            "master": {
+                "title": "Master in Blockchain Development",
+                "school": "Start2Impact University",
+                "period": "Ott 2023 · Giu 2024"
+            },
+            "diploma": {
+                "title": "Diploma in Informatica",
+                "school": "Istituto Tecnico Industriale",
+                "period": "Set 2012 · Giu 2017"
+            },
+            "university": {
+                "title": "Informatica (Percorso non completato)",
+                "school": "Università",
+                "period": "Ott 2020 · Set 2021"
+            }
+        }
+    },
+    "Loading": {
+        "title": "Caricamento esperienza",
+        "home_subtitle": "Preparo l'interfaccia principale…",
+        "projects_subtitle": "Filtro e organizzo i case studies…",
+        "contact_subtitle": "Inizializzo la surface di contatto…"
+    },
+    "Navbar": {
+        "home": "Home",
+        "projects": "Progetti",
+        "contact": "Contatti",
+        "cv_it": "CV (IT)",
+        "cv_en": "CV (EN)"
+    },
+    "Projects": {
+        "label": "projects",
+        "title": "Case studies modulari",
+        "subtitle": "Product storytelling, motion UI e infrastrutture Web3. Filtra per stack o parole chiave per trovare il progetto più vicino alle tue esigenze.",
+        "projects_count": "progetti",
+        "stack_count": "stack",
+        "search_placeholder": "Cerca per titolo o descrizione",
+        "filter_all": "Tutti i tipi",
+        "sort_recent": "Più recenti",
+        "sort_oldest": "Più vecchi",
+        "sort_az": "Nome A-Z",
+        "sort_za": "Nome Z-A",
+        "reset": "Reset",
+        "active_filters": "Filtri attivi:",
+        "showing": "Mostrando",
+        "of": "di",
+        "keyboard_nav": "Usa le frecce della tastiera per navigare • Premi Enter per aprire",
+        "no_results_title": "Nessun progetto trovato",
+        "no_results_desc": "Nessun progetto corrisponde alla ricerca. Prova a rimuovere qualche filtro o cerca con termini diversi.",
+        "remove_filters": "Rimuovi tutti i filtri",
+        "status_dev": "In Sviluppo",
+        "progress": "Progresso sviluppo",
+        "live_demo": "Live Demo",
+        "repo": "Repo"
+    },
+    "Contact": {
+        "label": "contact",
+        "title": "Parliamo del tuo prossimo prodotto",
+        "subtitle": "Sviluppo interfacce e infrastrutture Web3 con motion design curato. Raccontami la tua idea, ti rispondo con una roadmap chiara.",
+        "stats_response": "Tempo medio risposta",
+        "stats_clients": "Clienti soddisfatti",
+        "stats_shipped": "Progetti shippati",
+        "form_success_title": "Messaggio inviato, ti rispondo entro 24 ore.",
+        "name_label": "Nome*",
+        "name_placeholder": "Come posso chiamarti?",
+        "email_label": "Email*",
+        "email_placeholder": "tuo@email.com",
+        "project_type_label": "Tipo di progetto",
+        "select_placeholder": "Seleziona",
+        "message_label": "Messaggio*",
+        "message_placeholder": "Timeline, budget, obiettivi…",
+        "submit_btn": "Invia il brief",
+        "submitting": "Invio…",
+        "errors": {
+            "name_min": "Inserisci almeno 2 caratteri",
+            "email_invalid": "Email non valida",
+            "message_min": "Raccontami un po' di più"
+        }
+    },
+    "Footer": {
+        "name": "Marco Niccolini",
+        "tagline": "Costruiamo esperienze audaci.",
+        "book_call": "Prenota una call",
+        "copyright": "Crafted in Milan."
+    }
+}

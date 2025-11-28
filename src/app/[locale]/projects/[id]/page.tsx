@@ -2,21 +2,83 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowUpRight, Github } from "lucide-react";
+import type { Metadata } from "next";
 
 import { projects } from "@/data/projects";
+import { generateProjectStructuredData, generateBreadcrumbStructuredData } from "@/lib/structured-data";
+
 
 export const generateStaticParams = () =>
   projects.map(project => ({ id: String(project.id) }));
+
+type PageProps = {
+  params: Promise<{ id: string }>;
+};
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id } = await params;
+  const project = projects.find(item => String(item.id) === id);
+
+  if (!project) {
+    return {
+      title: "Progetto non trovato",
+    };
+  }
+
+  const title = `${project.title} — Case Study`;
+  const description = project.shortDescription;
+  const url = `https://marco-niccolini.dev/projects/${id}`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "article",
+      images: [
+        {
+          url: project.imageUrl,
+          width: 1200,
+          height: 630,
+          alt: project.title,
+        },
+      ],
+      publishedTime: `${project.year}-${String(project.month).padStart(2, '0')}-01`,
+      tags: project.languages,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [project.imageUrl],
+      creator: "@nicco6598",
+    },
+    alternates: {
+      canonical: url,
+      languages: {
+        'it-IT': url,
+        'en-US': url.replace('/projects/', '/en/projects/'),
+      },
+    },
+    keywords: [
+      ...project.languages,
+      project.type,
+      'Web3',
+      'Blockchain',
+      'Full Stack Development',
+      'Marco Niccolini',
+      'Portfolio',
+    ],
+  };
+}
 
 const metaFields = [
   { label: "Anno", key: "year" as const },
   { label: "Periodo", key: "month" as const },
   { label: "Tipo", key: "type" as const },
 ];
-
-type PageProps = {
-  params: Promise<{ id: string }>;
-};
 
 const ProjectDetailPage = async ({ params }: PageProps) => {
   const { id } = await params;
@@ -26,8 +88,23 @@ const ProjectDetailPage = async ({ params }: PageProps) => {
     notFound();
   }
 
+  const structuredData = generateProjectStructuredData(project, `https://mn-portfolio-orpin.vercel.app/projects/${id}`);
+  const breadcrumbData = generateBreadcrumbStructuredData([
+    { name: 'Home', url: 'https://mn-portfolio-orpin.vercel.app' },
+    { name: 'Progetti', url: 'https://mn-portfolio-orpin.vercel.app/projects' },
+    { name: project.title, url: `https://mn-portfolio-orpin.vercel.app/projects/${id}` }
+  ]);
+
   return (
     <div className="space-y-20 pb-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
+      />
       <section className="container pt-24">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-8">
