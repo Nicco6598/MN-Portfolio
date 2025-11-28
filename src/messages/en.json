@@ -139,9 +139,14 @@
         "no_results_desc": "No projects match your search. Try removing some filters or search with different terms.",
         "remove_filters": "Remove all filters",
         "status_dev": "In Development",
+        "status_updated_next": "Updated to Next.js",
         "progress": "Development progress",
         "live_demo": "Live Demo",
-        "repo": "Repo"
+        "repo": "Repo",
+        "type_dapp": "dApp Development",
+        "type_blockchain": "Blockchain Development",
+        "type_web": "Web Development",
+        "type_smart_contract": "Smart Contract Development"
     },
     "Contact": {
         "label": "contact",
@@ -166,6 +171,26 @@
             "email_invalid": "Invalid email",
             "message_min": "Tell me a bit more"
         }
+    },
+    "Cv": {
+        "label": "Curriculum Vitae",
+        "generated_version_prefix": "Version generated from the portfolio ·",
+        "header_role": "Web & Blockchain Engineer · Milan, Italy · Remote-first",
+        "section_profile": "Profile",
+        "section_experience": "Experience",
+        "section_projects": "Selected projects",
+        "section_education": "Education",
+        "section_stack": "Stack",
+        "section_languages": "Languages",
+        "section_soft_skills": "Soft skills",
+        "section_share": "Quick sharing",
+        "share_description": "Scan the QR code to open or share this CV version.",
+        "stack_blockchain_title": "Blockchain & Backend",
+        "stack_blockchain_desc": "Solidity, Hardhat, Node.js, Express, Web3.js, Ethers.js, SQL",
+        "stack_frontend_title": "Frontend",
+        "stack_frontend_desc": "React, Next.js, TypeScript, JavaScript, Tailwind CSS",
+        "stack_tooling_title": "Tooling",
+        "stack_tooling_desc": "Git, Docker, CI/CD, Chainlink, analytics & monitoring"
     },
     "Footer": {
         "name": "Marco Niccolini",

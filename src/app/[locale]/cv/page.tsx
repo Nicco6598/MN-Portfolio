@@ -47,6 +47,7 @@ interface CvPageProps {
 export default async function CvPage({ params }: CvPageProps) {
   const { locale } = await params;
   const tHome = await getTranslations({ locale, namespace: "HomePage" });
+  const tCv = await getTranslations({ locale, namespace: "Cv" });
 
   const cvUrl = `${SITE_URL}/${locale}/cv`;
   const featuredProjects = [...projects]
@@ -58,9 +59,9 @@ export default async function CvPage({ params }: CvPageProps) {
       {/* Header */}
       <header className="flex flex-col gap-6 border-b border-white/10 pb-8 md:flex-row md:items-end md:justify-between">
         <div className="space-y-2">
-          <p className="text-xs uppercase tracking-[0.35em] text-ash">Curriculum Vitae</p>
+          <p className="text-xs uppercase tracking-[0.35em] text-ash">{tCv("label")}</p>
           <h1 className="font-display text-3xl md:text-4xl text-frost">Marco Niccolini</h1>
-          <p className="text-sm text-ash/80">Web &amp; Blockchain Engineer · Milano, Italia · Remote-first</p>
+          <p className="text-sm text-ash/80">{tCv("header_role")}</p>
         </div>
         <div className="flex flex-col items-start gap-3 text-xs text-ash md:items-end">
           <div className="flex flex-wrap gap-2">
@@ -88,7 +89,7 @@ export default async function CvPage({ params }: CvPageProps) {
             </a>
           </div>
           <p className="text-[11px] text-ash/70">
-            Versione generata dal portfolio · {locale.toUpperCase()}
+            {tCv("generated_version_prefix")} {locale.toUpperCase()}
           </p>
         </div>
       </header>
@@ -98,13 +99,13 @@ export default async function CvPage({ params }: CvPageProps) {
         <div className="space-y-6">
           {/* Profile */}
           <section className="rounded-2xl border border-white/10 bg-surface/80 p-5">
-            <h2 className="text-sm uppercase tracking-[0.3em] text-ash mb-3">Profilo</h2>
+            <h2 className="text-sm uppercase tracking-[0.3em] text-ash mb-3">{tCv("section_profile")}</h2>
             <p className="text-sm text-ash leading-relaxed">{tHome("profile.description")}</p>
           </section>
 
           {/* Experience */}
           <section className="space-y-4">
-            <h2 className="text-sm uppercase tracking-[0.3em] text-ash">Esperienza</h2>
+            <h2 className="text-sm uppercase tracking-[0.3em] text-ash">{tCv("section_experience")}</h2>
             <div className="space-y-4">
               <div className="rounded-2xl border border-white/10 bg-surface/80 p-4">
                 <div className="flex flex-col justify-between gap-1 text-sm text-ash md:flex-row md:items-center">
@@ -148,7 +149,7 @@ export default async function CvPage({ params }: CvPageProps) {
 
           {/* Selected projects recap */}
           <section className="space-y-4">
-            <h2 className="text-sm uppercase tracking-[0.3em] text-ash">Progetti selezionati</h2>
+            <h2 className="text-sm uppercase tracking-[0.3em] text-ash">{tCv("section_projects")}</h2>
             <div className="space-y-3">
               {featuredProjects.map(project => (
                 <div
@@ -183,7 +184,7 @@ export default async function CvPage({ params }: CvPageProps) {
 
           {/* Education */}
           <section className="space-y-4">
-            <h2 className="text-sm uppercase tracking-[0.3em] text-ash">Formazione</h2>
+            <h2 className="text-sm uppercase tracking-[0.3em] text-ash">{tCv("section_education")}</h2>
             <div className="grid gap-3 md:grid-cols-3">
               <div className="rounded-2xl border border-white/10 bg-surface/80 p-4 text-sm text-ash">
                 <p className="font-semibold text-frost">
@@ -220,44 +221,44 @@ export default async function CvPage({ params }: CvPageProps) {
         <aside className="space-y-6">
           {/* Skills summary */}
           <section className="rounded-2xl border border-white/10 bg-surface/80 p-5 space-y-3">
-            <h2 className="text-sm uppercase tracking-[0.3em] text-ash">Stack</h2>
+            <h2 className="text-sm uppercase tracking-[0.3em] text-ash">{tCv("section_stack")}</h2>
             <div className="space-y-2 text-xs text-ash">
-              <p className="font-semibold text-frost">Blockchain &amp; Backend</p>
-              <p>Solidity, Hardhat, Node.js, Express, Web3.js, Ethers.js, SQL</p>
+              <p className="font-semibold text-frost">{tCv("stack_blockchain_title")}</p>
+              <p>{tCv("stack_blockchain_desc")}</p>
             </div>
             <div className="space-y-2 text-xs text-ash">
-              <p className="font-semibold text-frost">Frontend</p>
-              <p>React, Next.js, TypeScript, JavaScript, Tailwind CSS</p>
+              <p className="font-semibold text-frost">{tCv("stack_frontend_title")}</p>
+              <p>{tCv("stack_frontend_desc")}</p>
             </div>
             <div className="space-y-2 text-xs text-ash">
-              <p className="font-semibold text-frost">Tooling</p>
-              <p>Git, Docker, CI/CD, Chainlink, analytics & monitoring</p>
+              <p className="font-semibold text-frost">{tCv("stack_tooling_title")}</p>
+              <p>{tCv("stack_tooling_desc")}</p>
             </div>
           </section>
 
           {/* Languages & soft skills */}
           <section className="rounded-2xl border border-white/10 bg-surface/80 p-5 space-y-3 text-xs text-ash">
             <div>
-              <h2 className="text-sm uppercase tracking-[0.3em] text-ash">Lingue</h2>
+              <h2 className="text-sm uppercase tracking-[0.3em] text-ash">{tCv("section_languages")}</h2>
               <ul className="mt-2 space-y-1">
-                <li>Italiano · Madrelingua (C2)</li>
-                <li>Inglese · Intermedio (B2)</li>
+                <li>{tHome("profile.languages_list.0")}</li>
+                <li>{tHome("profile.languages_list.1")}</li>
               </ul>
             </div>
             <div>
-              <h2 className="mt-4 text-sm uppercase tracking-[0.3em] text-ash">Soft skills</h2>
+              <h2 className="mt-4 text-sm uppercase tracking-[0.3em] text-ash">{tCv("section_soft_skills")}</h2>
               <ul className="mt-2 space-y-1">
-                <li>Problem solving</li>
-                <li>Collaborazione in team</li>
-                <li>Orientamento al risultato</li>
+                <li>{tHome("profile.soft_skills_list.0")}</li>
+                <li>{tHome("profile.soft_skills_list.1")}</li>
+                <li>{tHome("profile.soft_skills_list.2")}</li>
               </ul>
             </div>
           </section>
 
           {/* QR code */}
           <section className="rounded-2xl border border-white/10 bg-surface/80 p-5 space-y-3 text-xs text-ash">
-            <h2 className="text-sm uppercase tracking-[0.3em] text-ash">Condivisione rapida</h2>
-            <p className="text-ash/80">Scansiona il QR per aprire questa versione del CV o condividerla.</p>
+            <h2 className="text-sm uppercase tracking-[0.3em] text-ash">{tCv("section_share")}</h2>
+            <p className="text-ash/80">{tCv("share_description")}</p>
             <div className="flex justify-center">
               <img
                 src={`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(cvUrl)}`}

@@ -3,10 +3,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowUpRight, Github } from "lucide-react";
 import type { Metadata } from "next";
+import { getLocale } from "next-intl/server";
 
 import { projects } from "@/data/projects";
 import { generateProjectStructuredData, generateBreadcrumbStructuredData } from "@/lib/structured-data";
-
 
 export const generateStaticParams = () =>
   projects.map(project => ({ id: String(project.id) }));
@@ -17,16 +17,20 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = await params;
+  const locale = await getLocale();
   const project = projects.find(item => String(item.id) === id);
 
   if (!project) {
     return {
-      title: "Progetto non trovato",
+      title: "Project not found",
     };
   }
 
-  const title = `${project.title} — Case Study`;
-  const description = project.shortDescription;
+  const isEn = locale === "en";
+  const baseTitle = isEn && project.titleEn ? project.titleEn : project.title;
+  const baseDescription = isEn && project.shortDescriptionEn ? project.shortDescriptionEn : project.shortDescription;
+  const title = `${baseTitle} — Case Study`;
+  const description = baseDescription;
   const url = `https://marco-niccolini.dev/projects/${id}`;
 
   return {
@@ -42,7 +46,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
           url: project.imageUrl,
           width: 1200,
           height: 630,
-          alt: project.title,
+          alt: isEn && project.titleEn ? project.titleEn : project.title,
         },
       ],
       publishedTime: `${project.year}-${String(project.month).padStart(2, '0')}-01`,
@@ -75,24 +79,26 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 const metaFields = [
-  { label: "Anno", key: "year" as const },
-  { label: "Periodo", key: "month" as const },
-  { label: "Tipo", key: "type" as const },
+  { label: "Year", key: "year" as const },
+  { label: "Period", key: "month" as const },
+  { label: "Type", key: "type" as const },
 ];
 
 const ProjectDetailPage = async ({ params }: PageProps) => {
   const { id } = await params;
+  const locale = await getLocale();
   const project = projects.find(item => String(item.id) === id);
 
   if (!project) {
     notFound();
   }
 
+  const isEn = locale === "en";
   const structuredData = generateProjectStructuredData(project, `https://mn-portfolio-orpin.vercel.app/projects/${id}`);
   const breadcrumbData = generateBreadcrumbStructuredData([
-    { name: 'Home', url: 'https://mn-portfolio-orpin.vercel.app' },
-    { name: 'Progetti', url: 'https://mn-portfolio-orpin.vercel.app/projects' },
-    { name: project.title, url: `https://mn-portfolio-orpin.vercel.app/projects/${id}` }
+    { name: isEn ? 'Home' : 'Home', url: 'https://mn-portfolio-orpin.vercel.app' },
+    { name: isEn ? 'Projects' : 'Progetti', url: 'https://mn-portfolio-orpin.vercel.app/projects' },
+    { name: isEn && project.titleEn ? project.titleEn : project.title, url: `https://mn-portfolio-orpin.vercel.app/projects/${id}` }
   ]);
 
   return (
@@ -109,10 +115,10 @@ const ProjectDetailPage = async ({ params }: PageProps) => {
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-8">
             <p className="text-sm uppercase tracking-[0.4em] text-ash">case study</p>
-            <h1 className="font-display text-4xl text-frost sm:text-5xl">{project.title}</h1>
-            <p className="text-lg text-ash">{project.shortDescription}</p>
+            <h1 className="font-display text-4xl text-frost sm:text-5xl">{isEn && project.titleEn ? project.titleEn : project.title}</h1>
+            <p className="text-lg text-ash">{isEn && project.shortDescriptionEn ? project.shortDescriptionEn : project.shortDescription}</p>
             <div className="space-y-4 text-ash">
-              <p className="whitespace-pre-line">{project.fullDescription}</p>
+              <p className="whitespace-pre-line">{isEn && project.fullDescriptionEn ? project.fullDescriptionEn : project.fullDescription}</p>
             </div>
             <div className="flex flex-wrap gap-3">
               {project.languages.map(language => (
@@ -166,11 +172,11 @@ const ProjectDetailPage = async ({ params }: PageProps) => {
                 </div>
               )}
             </div>
-            {project.todo && project.todo.length > 0 && (
+            {(isEn && project.todoEn && project.todoEn.length > 0) || (project.todo && project.todo.length > 0) ? (
               <div className="space-y-3">
-                <p className="text-sm uppercase tracking-[0.3em] text-ash">Focus attuali</p>
+                <p className="text-sm uppercase tracking-[0.3em] text-ash">{isEn ? "Current focus" : "Focus attuali"}</p>
                 <ul className="space-y-2 text-ash">
-                  {project.todo.map(item => (
+                  {(isEn && project.todoEn ? project.todoEn : project.todo ?? []).map(item => (
                     <li key={item} className="flex gap-2 text-sm">
                       <span className="text-ember-300">•</span>
                       {item}
@@ -178,7 +184,7 @@ const ProjectDetailPage = async ({ params }: PageProps) => {
                   ))}
                 </ul>
               </div>
-            )}
+            ) : null}
           </div>
         </div>
       </section>

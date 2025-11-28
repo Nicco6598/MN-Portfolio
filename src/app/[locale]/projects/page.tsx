@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import {
   ArrowUpRight,
@@ -22,6 +22,7 @@ import {
 
 import { projects, sortedProjects } from "@/data/projects";
 
+const ALL_TYPES = "ALL";
 const typeOptions = Array.from(new Set(projects.map(project => project.type)));
 const languageOptions = Array.from(new Set(projects.flatMap(project => project.languages)));
 
@@ -30,8 +31,9 @@ type ViewMode = "grid" | "list";
 
 const ProjectsPage = () => {
   const t = useTranslations("Projects");
+  const locale = useLocale();
   const [query, setQuery] = useState("");
-  const [typeFilter, setTypeFilter] = useState("Tutti");
+  const [typeFilter, setTypeFilter] = useState<string>(ALL_TYPES);
   const [languageFilters, setLanguageFilters] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<SortOption>("date-desc");
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
@@ -41,7 +43,7 @@ const ProjectsPage = () => {
     let filtered = sortedProjects.filter(project => {
       const matchesQuery = project.title.toLowerCase().includes(query.toLowerCase()) ||
         project.shortDescription.toLowerCase().includes(query.toLowerCase());
-      const matchesType = typeFilter === "Tutti" || project.type === typeFilter;
+      const matchesType = typeFilter === ALL_TYPES || project.type === typeFilter;
       const matchesLang = languageFilters.length === 0 ||
         languageFilters.some(lang => project.languages.includes(lang));
       return matchesQuery && matchesType && matchesLang;
@@ -80,11 +82,26 @@ const ProjectsPage = () => {
 
   const resetFilters = () => {
     setQuery("");
-    setTypeFilter("Tutti");
+    setTypeFilter(ALL_TYPES);
     setLanguageFilters([]);
   };
 
-  const hasActiveFilters = query !== "" || typeFilter !== "Tutti" || languageFilters.length > 0;
+  const hasActiveFilters = query !== "" || typeFilter !== ALL_TYPES || languageFilters.length > 0;
+
+  const getTypeLabel = (type: string) => {
+    switch (type) {
+      case "Sviluppo di dApp":
+        return t("type_dapp");
+      case "Sviluppo Blockchain":
+        return t("type_blockchain");
+      case "Sviluppo Web":
+        return t("type_web");
+      case "Sviluppo Smart Contract":
+        return t("type_smart_contract");
+      default:
+        return type;
+    }
+  };
 
   // Keyboard navigation
   useEffect(() => {
@@ -112,7 +129,7 @@ const ProjectsPage = () => {
           break;
         case "Enter":
           if (focusedCardIndex >= 0) {
-            window.location.href = `/projects/${filteredProjects[focusedCardIndex].id}`;
+            window.location.href = `/${locale}/projects/${filteredProjects[focusedCardIndex].id}`;
           }
           break;
       }
@@ -185,10 +202,10 @@ const ProjectsPage = () => {
                   onChange={event => setTypeFilter(event.target.value)}
                   className="h-10 appearance-none rounded-full border border-white/10 bg-black/30 pl-4 pr-9 text-sm text-frost outline-none transition focus:border-ember-500"
                 >
-                  <option value="Tutti">{t("filter_all")}</option>
+                  <option value={ALL_TYPES}>{t("filter_all")}</option>
                   {typeOptions.map(option => (
                     <option key={option} value={option}>
-                      {option}
+                      {getTypeLabel(option)}
                     </option>
                   ))}
                 </select>
@@ -284,15 +301,15 @@ const ProjectsPage = () => {
                   </button>
                 </motion.div>
               )}
-              {typeFilter !== "Tutti" && (
+              {typeFilter !== ALL_TYPES && (
                 <motion.div
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   exit={{ scale: 0.8, opacity: 0 }}
                   className="flex items-center gap-1.5 rounded-full border border-ember-500/30 bg-ember-500/10 px-3 py-1 text-xs text-ember-400"
                 >
-                  <span>{typeFilter}</span>
-                  <button onClick={() => setTypeFilter("Tutti")} className="hover:text-ember-300">
+                  <span>{getTypeLabel(typeFilter)}</span>
+                  <button onClick={() => setTypeFilter(ALL_TYPES)} className="hover:text-ember-300">
                     <X className="h-3 w-3" />
                   </button>
                 </motion.div>
@@ -322,9 +339,7 @@ const ProjectsPage = () => {
             <span className="text-frost font-semibold">{sortedProjects.length}</span> {t("projects_count")}
           </p>
           {viewMode === "grid" && (
-            <p className="text-ash/60 text-xs">
-              Usa le frecce della tastiera per navigare • Premi Enter per aprire
-            </p>
+            <p className="text-ash/60 text-xs">{t("keyboard_nav")}</p>
           )}
         </div>
 
@@ -369,7 +384,11 @@ const ProjectsPage = () => {
                   <div className="absolute top-4 right-4 z-10">
                     <div className="flex items-center gap-1.5 rounded-full border border-ember-500/30 bg-ember-500/20 px-3 py-1.5 text-xs font-medium text-ember-400 backdrop-blur-md">
                       <Sparkles className="h-3 w-3 animate-pulse" />
-                      {project.status}
+                      {project.status === "In Sviluppo"
+                        ? t("status_dev")
+                        : project.status === "Aggiornato a NextJS"
+                        ? t("status_updated_next")
+                        : project.status}
                     </div>
                   </div>
                 )}
@@ -379,7 +398,7 @@ const ProjectsPage = () => {
                   }`}>
                   <Image
                     src={project.imageUrl}
-                    alt={project.title}
+                    alt={locale === "en" && project.titleEn ? project.titleEn : project.title}
                     width={600}
                     height={400}
                     className="h-full w-full object-contain p-4 transition duration-700 group-hover:scale-105"
@@ -398,17 +417,17 @@ const ProjectsPage = () => {
                 <div className="flex flex-1 flex-col p-5">
                   <div className="mb-4 flex-1 space-y-2">
                     <h2 className="text-xl font-semibold text-frost group-hover:text-ember-400 transition-colors">
-                      {project.title}
+                      {locale === "en" && project.titleEn ? project.titleEn : project.title}
                     </h2>
                     <p className={`text-sm text-ash/80 ${viewMode === "grid" ? "line-clamp-2" : "line-clamp-3"}`}>
-                      {project.shortDescription}
+                      {locale === "en" && project.shortDescriptionEn ? project.shortDescriptionEn : project.shortDescription}
                     </p>
 
                     {/* Progress Bar for In Development */}
                     {project.status === "In Sviluppo" && project.todo && (
                       <div className="pt-2 space-y-1">
                         <div className="flex items-center justify-between text-xs">
-                          <span className="text-ash/60">Progresso sviluppo</span>
+                          <span className="text-ash/60">{t("progress")}</span>
                           <span className="text-ember-400 font-medium">{getProgressPercentage(project)}%</span>
                         </div>
                         <div className="h-1.5 w-full rounded-full bg-black/30 overflow-hidden">
@@ -477,7 +496,7 @@ const ProjectsPage = () => {
                       </div>
 
                       <Link
-                        href={`/projects/${project.id}`}
+                        href={`/${locale}/projects/${project.id}`}
                         className="flex h-8 w-8 items-center justify-center rounded-md border border-white/10 text-ash transition hover:border-ember-500 hover:bg-ember-500 hover:text-white"
                       >
                         <ArrowUpRight className="h-4 w-4" />

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 
 import { featuredProjects, projects } from "@/data/projects";
@@ -27,58 +27,7 @@ const heroStats = [
     { label: "Anni di esperienza", value: `${experienceYears}` },
 ];
 
-const profileOverview = {
-    description:
-        "Esperto nello sviluppo di dApp e smart contract con React, Solidity e Node.js. Creo soluzioni Web3 su Ethereum e Polygon con un approccio proattivo e orientato ai risultati.",
-    highlights: [
-        "dApp e smart contract custom su Ethereum & Polygon",
-        "Integrazione ML, OpenSea API e infrastrutture cloud native",
-        "Delivery end-to-end: design system, frontend e backend Node.js",
-    ],
-    softSkills: ["Problem Solving", "Lavoro di squadra", "Adattabilità"],
-    languages: ["Italiano · Madrelingua/C2", "Inglese · Intermedio/B2"],
-};
-
-const experienceItems = [
-    {
-        title: "Associate Product Software Engineer",
-        company: "Capgemini Engineering",
-        period: "2024 · 2025",
-        description: [
-            "Sviluppo di una dApp su Polygon per generare NFT personalizzati con pipeline ML/TensorFlow.",
-            "Implementazione di smart contract Solidity, backend Node.js/Express e API interne integrate con OpenSea.",
-            "Frontend React + TypeScript + Tailwind con workflow CI/CD e performance budget.",
-        ],
-    },
-    {
-        title: "Blockchain Developer",
-        company: "Freelance",
-        period: "2023 · 2024",
-        description: [
-            "dApp Ethereum & Polygon per mobility, asset digitali e gestione prestiti.",
-            "Smart contract Solidity con Hardhat, integrazione Web3.js e Chainlink VRF.",
-            "Progettazione frontend React/TypeScript con focus su UX e sicurezza.",
-        ],
-    },
-];
-
-const educationItems = [
-    {
-        title: "Master in Blockchain Development",
-        school: "Start2Impact University",
-        period: "Ott 2023 · Giu 2024",
-    },
-    {
-        title: "Diploma in Informatica",
-        school: "Istituto Tecnico Industriale",
-        period: "Set 2012 · Giu 2017",
-    },
-    {
-        title: "Informatica (Percorso non completato)",
-        school: "Università",
-        period: "Ott 2020 · Set 2021",
-    },
-];
+const profileOverview = {} as const;
 
 const LazySection = ({ children, className }: { children: React.ReactNode; className?: string }) => {
     const [isVisible, setIsVisible] = useState(false);
@@ -113,7 +62,7 @@ const Hero = () => {
     const t = useTranslations('HomePage');
 
     return (
-        <section className="container flex min-h-[calc(100vh-5rem)] flex-col justify-center pt-28 pb-16 lg:pt-36">
+        <section className="container flex flex-col justify-center pb-14 lg:pt-2 lg:pb-2">
             <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] items-center">
                 <div className="space-y-8">
                     <div className="flex items-center gap-3 text-sm uppercase tracking-[0.3em] text-ash">
@@ -174,10 +123,10 @@ const Hero = () => {
                                 priority
                                 placeholder="blur"
                                 sizes="(min-width: 1024px) 480px, 80vw"
-                                className="h-[420px] w-full rounded-3xl object-cover object-bottom lg:h-[560px]"
+                                className="h-[360px] w-full rounded-3xl object-cover object-bottom sm:h-[400px] lg:h-[540px]"
                             />
                             <div className="space-y-4 text-sm text-ash">
-                                <p>{profileOverview.description}</p>
+                                <p>{t('profile.description')}</p>
                                 <div className="flex flex-wrap gap-3">
                                     {["Solidity", "React", "Node.js", "Hardhat"].map(chip => (
                                         <span key={chip} className="rounded-full bg-white/5 px-4 py-1 text-xs uppercase tracking-wide text-frost">
@@ -196,15 +145,32 @@ const Hero = () => {
 
 const ProfileSummary = () => {
     const t = useTranslations('HomePage');
+
+    const highlights = [
+        t('profile.highlights.0'),
+        t('profile.highlights.1'),
+        t('profile.highlights.2'),
+    ];
+
+    const softSkills = [
+        t('profile.soft_skills_list.0'),
+        t('profile.soft_skills_list.1'),
+        t('profile.soft_skills_list.2'),
+    ];
+
+    const languages = [
+        t('profile.languages_list.0'),
+        t('profile.languages_list.1'),
+    ];
     return (
         <section className="container grid gap-10 lg:grid-cols-[1fr_0.9fr]">
             <div className="space-y-6 rounded-[32px] border border-white/10 bg-surface/80 p-8">
                 <div className="flex items-center gap-4 text-sm uppercase tracking-[0.3em] text-ash">
                     <span className="h-px w-10 bg-ash/40" /> {t('profile_title')}
                 </div>
-                <p className="text-lg text-ash">{profileOverview.description}</p>
+                <p className="text-lg text-ash">{t('profile.description')}</p>
                 <ul className="grid gap-3 text-sm text-frost">
-                    {profileOverview.highlights.map(item => (
+                    {highlights.map(item => (
                         <li key={item} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-black/20 px-4 py-3">
                             <span className="mt-1 h-2 w-2 rounded-full bg-ember-500" />
                             <span>{item}</span>
@@ -216,7 +182,7 @@ const ProfileSummary = () => {
                 <div>
                     <p className="text-xs uppercase tracking-[0.4em] text-ash/70">{t('soft_skills')}</p>
                     <div className="mt-3 flex flex-wrap gap-2">
-                        {profileOverview.softSkills.map(skill => (
+                        {softSkills.map(skill => (
                             <span key={skill} className="rounded-full border border-white/15 px-4 py-1 text-sm text-frost">
                                 {skill}
                             </span>
@@ -226,7 +192,7 @@ const ProfileSummary = () => {
                 <div>
                     <p className="text-xs uppercase tracking-[0.4em] text-ash/70">{t('languages')}</p>
                     <ul className="mt-3 space-y-2 text-sm text-ash">
-                        {profileOverview.languages.map(language => (
+                        {languages.map(language => (
                             <li key={language} className="rounded-2xl border border-white/10 px-4 py-3 text-frost">
                                 {language}
                             </li>
@@ -250,25 +216,56 @@ const ExperienceSection = () => {
                 </p>
             </div>
             <div className="grid gap-6 lg:grid-cols-2">
-                {experienceItems.map((item, index) => (
-                    <div key={index} className="rounded-[28px] border border-white/10 bg-surface/80 p-6">
-                        <div className="flex flex-col gap-2 text-sm text-ash/80 lg:flex-row lg:items-center lg:justify-between">
-                            <div>
-                                <p className="text-base font-semibold text-frost">{item.title}</p>
-                                <p>{item.company}</p>
-                            </div>
-                            <span className="rounded-full bg-white/5 px-4 py-1 text-xs uppercase tracking-widest text-ash">{item.period}</span>
+                <div className="rounded-[28px] border border-white/10 bg-surface/80 p-6">
+                    <div className="flex flex-col gap-2 text-sm text-ash/80 lg:flex-row lg:items-center lg:justify-between">
+                        <div>
+                            <p className="text-base font-semibold text-frost">{t('experience_items.capgemini.title')}</p>
+                            <p>{t('experience_items.capgemini.company')}</p>
                         </div>
-                        <ul className="mt-4 space-y-2 text-sm text-ash">
-                            {item.description.map((desc, descIndex) => (
-                                <li key={descIndex} className="flex items-start gap-3 text-frost">
-                                    <span className="mt-1 h-2 w-2 rounded-full bg-ember-500" />
-                                    <span>{desc}</span>
-                                </li>
-                            ))}
-                        </ul>
+                        <span className="rounded-full bg-white/5 px-4 py-1 text-xs uppercase tracking-widest text-ash">
+                            {t('experience_items.capgemini.period')}
+                        </span>
                     </div>
-                ))}
+                    <ul className="mt-4 space-y-2 text-sm text-ash">
+                        <li className="flex items-start gap-3 text-frost">
+                            <span className="mt-1 h-2 w-2 rounded-full bg-ember-500" />
+                            <span>{t('experience_items.capgemini.description.0')}</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-frost">
+                            <span className="mt-1 h-2 w-2 rounded-full bg-ember-500" />
+                            <span>{t('experience_items.capgemini.description.1')}</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-frost">
+                            <span className="mt-1 h-2 w-2 rounded-full bg-ember-500" />
+                            <span>{t('experience_items.capgemini.description.2')}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div className="rounded-[28px] border border-white/10 bg-surface/80 p-6">
+                    <div className="flex flex-col gap-2 text-sm text-ash/80 lg:flex-row lg:items-center lg:justify-between">
+                        <div>
+                            <p className="text-base font-semibold text-frost">{t('experience_items.freelance.title')}</p>
+                            <p>{t('experience_items.freelance.company')}</p>
+                        </div>
+                        <span className="rounded-full bg-white/5 px-4 py-1 text-xs uppercase tracking-widest text-ash">
+                            {t('experience_items.freelance.period')}
+                        </span>
+                    </div>
+                    <ul className="mt-4 space-y-2 text-sm text-ash">
+                        <li className="flex items-start gap-3 text-frost">
+                            <span className="mt-1 h-2 w-2 rounded-full bg-ember-500" />
+                            <span>{t('experience_items.freelance.description.0')}</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-frost">
+                            <span className="mt-1 h-2 w-2 rounded-full bg-ember-500" />
+                            <span>{t('experience_items.freelance.description.1')}</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-frost">
+                            <span className="mt-1 h-2 w-2 rounded-full bg-ember-500" />
+                            <span>{t('experience_items.freelance.description.2')}</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </section>
     );
@@ -283,13 +280,21 @@ const EducationSection = () => {
                 <h2 className="font-display text-4xl text-frost">{t('education_title')}</h2>
             </div>
             <div className="grid gap-6 lg:grid-cols-3">
-                {educationItems.map((item, index) => (
-                    <div key={index} className="rounded-[28px] border border-white/10 bg-surface/80 p-6">
-                        <h3 className="text-2xl font-semibold text-frost">{item.title}</h3>
-                        <p className="mt-1 text-ash">{item.school}</p>
-                        <p className="mt-1 text-sm text-ash/70">{item.period}</p>
-                    </div>
-                ))}
+                <div className="rounded-[28px] border border-white/10 bg-surface/80 p-6">
+                    <h3 className="text-2xl font-semibold text-frost">{t('education_items.master.title')}</h3>
+                    <p className="mt-1 text-ash">{t('education_items.master.school')}</p>
+                    <p className="mt-1 text-sm text-ash/70">{t('education_items.master.period')}</p>
+                </div>
+                <div className="rounded-[28px] border border-white/10 bg-surface/80 p-6">
+                    <h3 className="text-2xl font-semibold text-frost">{t('education_items.diploma.title')}</h3>
+                    <p className="mt-1 text-ash">{t('education_items.diploma.school')}</p>
+                    <p className="mt-1 text-sm text-ash/70">{t('education_items.diploma.period')}</p>
+                </div>
+                <div className="rounded-[28px] border border-white/10 bg-surface/80 p-6">
+                    <h3 className="text-2xl font-semibold text-frost">{t('education_items.university.title')}</h3>
+                    <p className="mt-1 text-ash">{t('education_items.university.school')}</p>
+                    <p className="mt-1 text-sm text-ash/70">{t('education_items.university.period')}</p>
+                </div>
             </div>
         </section>
     );
@@ -297,6 +302,8 @@ const EducationSection = () => {
 
 const Projects = () => {
     const t = useTranslations('HomePage');
+    const tProjects = useTranslations('Projects');
+    const locale = useLocale();
     return (
         <section id="projects" className="container space-y-12">
             <div className="space-y-3">
@@ -337,7 +344,7 @@ const Projects = () => {
                                 <div className="absolute top-3 right-3">
                                     <span className="inline-flex items-center gap-1.5 rounded-full bg-ember-500/90 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur-md border border-ember-400/50 shadow-lg">
                                         <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
-                                        In Sviluppo
+                                        {tProjects('status_dev')}
                                     </span>
                                 </div>
                             )}
@@ -371,7 +378,7 @@ const Projects = () => {
                                 </div>
 
                                 <Link
-                                    href={`/projects/${project.id}`}
+                                    href={`/${locale}/projects/${project.id}`}
                                     className="flex h-8 w-8 items-center justify-center rounded-full bg-white/5 transition hover:bg-ember-500/20 hover:text-ember-400"
                                     aria-label="View project"
                                 >
