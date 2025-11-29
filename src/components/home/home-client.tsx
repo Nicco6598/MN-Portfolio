@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ExternalLink, Github, Sparkles } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 
@@ -28,6 +28,14 @@ const heroStats = [
 ];
 
 const profileOverview = {} as const;
+
+const getProgressPercentage = (project: typeof projects[0]) => {
+    if (!project.todo) return 0;
+    // Deterministic calculation based on project ID to avoid hydration errors
+    // This ensures server and client render the same value
+    const baseProgress = (project.id * 13) % 60; // 0-59
+    return baseProgress + 20; // 20-79%
+};
 
 const LazySection = ({ children, className }: { children: React.ReactNode; className?: string }) => {
     const [isVisible, setIsVisible] = useState(false);
@@ -315,7 +323,7 @@ const Projects = () => {
             </div>
 
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {featuredProjects.map(project => (
+                {featuredProjects.map((project, index) => (
                     <motion.article
                         key={project.id}
                         className="group relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-surface/50 transition hover:border-ember-500/50 hover:bg-surface/80"
@@ -323,15 +331,29 @@ const Projects = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
                     >
-                        <div className="relative aspect-[16/10] overflow-hidden bg-black/20">
+                        {/* Status Badge */}
+                        {project.status && (
+                            <div className="absolute top-4 right-4 z-10">
+                                <div className="flex items-center gap-1.5 rounded-full border border-ember-500/30 bg-ember-500/20 px-3 py-1.5 text-xs font-medium text-ember-400 backdrop-blur-md">
+                                    <Sparkles className="h-3 w-3 animate-pulse" />
+                                    {project.status === "In Sviluppo"
+                                        ? tProjects("status_dev")
+                                        : project.status === "Aggiornato a NextJS"
+                                            ? tProjects("status_updated_next")
+                                            : project.status}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Image */}
+                        <div className="relative aspect-[16/10] overflow-hidden bg-black">
                             <Image
                                 src={project.imageUrl}
-                                alt={project.title}
+                                alt={locale === "en" && project.titleEn ? project.titleEn : project.title}
                                 width={600}
                                 height={400}
                                 className="h-full w-full object-contain p-4 transition duration-700 group-hover:scale-105"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-base/80 via-transparent to-transparent opacity-60" />
                             <div className="absolute bottom-3 left-3 flex gap-2">
                                 <span className="rounded-full bg-black/40 px-2.5 py-1 text-[10px] uppercase tracking-wider text-frost backdrop-blur-md border border-white/10">
                                     {project.year}
@@ -340,50 +362,93 @@ const Projects = () => {
                                     {project.type}
                                 </span>
                             </div>
-                            {project.status === "In Sviluppo" && (
-                                <div className="absolute top-3 right-3">
-                                    <span className="inline-flex items-center gap-1.5 rounded-full bg-ember-500/90 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur-md border border-ember-400/50 shadow-lg">
-                                        <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
-                                        {tProjects('status_dev')}
-                                    </span>
-                                </div>
-                            )}
                         </div>
 
+                        {/* Content */}
                         <div className="flex flex-1 flex-col p-5">
                             <div className="mb-4 flex-1 space-y-2">
                                 <h2 className="text-xl font-semibold text-frost group-hover:text-ember-400 transition-colors">
-                                    {project.title}
+                                    {locale === "en" && project.titleEn ? project.titleEn : project.title}
                                 </h2>
                                 <p className="line-clamp-2 text-sm text-ash/80">
-                                    {project.shortDescription}
+                                    {locale === "en" && project.shortDescriptionEn ? project.shortDescriptionEn : project.shortDescription}
                                 </p>
+
+                                {/* Progress Bar for In Development */}
+                                {project.status === "In Sviluppo" && project.todo && (
+                                    <div className="pt-2 space-y-1">
+                                        <div className="flex items-center justify-between text-xs">
+                                            <span className="text-ash/60">{tProjects("progress")}</span>
+                                            <span className="text-ember-400 font-medium">{getProgressPercentage(project)}%</span>
+                                        </div>
+                                        <div className="h-1.5 w-full rounded-full bg-black/30 overflow-hidden">
+                                            <motion.div
+                                                initial={{ width: 0 }}
+                                                whileInView={{ width: `${getProgressPercentage(project)}%` }}
+                                                transition={{ duration: 1, delay: index * 0.1 }}
+                                                className="h-full bg-gradient-to-r from-ember-500 to-ember-400 rounded-full"
+                                            />
+                                        </div>
+                                    </div>
+                                )}
                             </div>
 
-                            <div className="flex items-center justify-between gap-4 border-t border-white/5 pt-4">
-                                <div className="flex flex-wrap gap-1.5">
-                                    {project.languages.slice(0, 3).map(tag => (
-                                        <span
-                                            key={tag}
-                                            className="text-[10px] uppercase tracking-wider text-ash/60"
+                            {/* Links Row */}
+                            {(project.githubLink !== "#" || project.vercelLink !== "#") && (
+                                <div className="mb-3 flex gap-2">
+                                    {project.githubLink !== "#" && (
+                                        <a
+                                            href={project.githubLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            onClick={(e) => e.stopPropagation()}
+                                            className="flex items-center gap-1.5 rounded-full border border-white/10 bg-black/20 px-3 py-1.5 text-xs text-ash transition hover:border-frost hover:text-frost"
                                         >
-                                            #{tag}
-                                        </span>
-                                    ))}
-                                    {project.languages.length > 3 && (
-                                        <span className="text-[10px] text-ash/60">
-                                            +{project.languages.length - 3}
-                                        </span>
+                                            <Github className="h-3 w-3" />
+                                            GitHub
+                                        </a>
+                                    )}
+                                    {project.vercelLink !== "#" && (
+                                        <a
+                                            href={project.vercelLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            onClick={(e) => e.stopPropagation()}
+                                            className="flex items-center gap-1.5 rounded-full border border-white/10 bg-black/20 px-3 py-1.5 text-xs text-ash transition hover:border-ember-500 hover:text-ember-400"
+                                        >
+                                            <ExternalLink className="h-3 w-3" />
+                                            Live Demo
+                                        </a>
                                     )}
                                 </div>
+                            )}
 
-                                <Link
-                                    href={`/projects/${project.id}`}
-                                    className="flex h-8 w-8 items-center justify-center rounded-full bg-white/5 transition hover:bg-ember-500/20 hover:text-ember-400"
-                                    aria-label="View project"
-                                >
-                                    <ArrowUpRight className="h-4 w-4" />
-                                </Link>
+                            {/* Frosted Glass Footer */}
+                            <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-xl">
+                                <div className="flex items-center justify-between gap-4">
+                                    <div className="flex flex-wrap gap-1.5">
+                                        {project.languages.slice(0, 3).map(tag => (
+                                            <span
+                                                key={tag}
+                                                className="text-[10px] uppercase tracking-wider text-ash/60"
+                                            >
+                                                #{tag}
+                                            </span>
+                                        ))}
+                                        {project.languages.length > 3 && (
+                                            <span className="text-[10px] text-ash/60">
+                                                +{project.languages.length - 3}
+                                            </span>
+                                        )}
+                                    </div>
+
+                                    <Link
+                                        href={`/projects/${project.id}`}
+                                        className="flex h-8 w-8 items-center justify-center rounded-md border border-white/10 text-ash transition hover:border-ember-500 hover:bg-ember-500 hover:text-white"
+                                    >
+                                        <ArrowUpRight className="h-4 w-4" />
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </motion.article>
