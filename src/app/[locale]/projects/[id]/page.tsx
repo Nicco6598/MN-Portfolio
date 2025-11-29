@@ -5,11 +5,19 @@ import { ArrowUpRight, Github } from "lucide-react";
 import type { Metadata } from "next";
 import { getLocale } from "next-intl/server";
 
+import { routing } from "@/i18n/routing";
+
 import { projects } from "@/data/projects";
 import { generateProjectStructuredData, generateBreadcrumbStructuredData } from "@/lib/structured-data";
 
-export const generateStaticParams = () =>
-  projects.map(project => ({ id: String(project.id) }));
+export const generateStaticParams = () => {
+  return routing.locales.flatMap((locale) =>
+    projects.map((project) => ({
+      locale,
+      id: String(project.id),
+    }))
+  );
+};
 
 type PageProps = {
   params: Promise<{ id: string }>;

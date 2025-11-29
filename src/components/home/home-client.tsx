@@ -378,7 +378,7 @@ const Projects = () => {
                                 </div>
 
                                 <Link
-                                    href={`/${locale}/projects/${project.id}`}
+                                    href={`/projects/${project.id}`}
                                     className="flex h-8 w-8 items-center justify-center rounded-full bg-white/5 transition hover:bg-ember-500/20 hover:text-ember-400"
                                     aria-label="View project"
                                 >
