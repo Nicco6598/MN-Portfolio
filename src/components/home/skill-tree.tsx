@@ -263,8 +263,8 @@ const CategoryCard = ({ category, isActive, onClick, translations, showArrow = f
         <motion.button
             onClick={onClick}
             className={`relative w-full rounded-xl sm:rounded-2xl border p-3 sm:p-5 text-left transition-all duration-300 ${isActive
-                    ? `${colors.border} ${colors.bg} ${colors.glow}`
-                    : "border-white/10 bg-surface/60 hover:border-white/20 hover:bg-surface/80"
+                ? `${colors.border} ${colors.bg} ${colors.glow}`
+                : "border-white/10 bg-surface/60 hover:border-white/20 hover:bg-surface/80"
                 }`}
             whileTap={{ scale: 0.98 }}
         >
@@ -348,9 +348,9 @@ export default function SkillTree() {
     return (
         <section className="container space-y-6 sm:space-y-8">
             <div className="space-y-2 sm:space-y-3">
-                <p className="text-xs sm:text-sm uppercase tracking-[0.3em] sm:tracking-[0.4em] text-ash">{t('tech_stack_label')}</p>
-                <h2 className="font-display text-2xl sm:text-4xl text-frost">{t('tech_stack_title')}</h2>
-                <p className="max-w-2xl text-sm sm:text-base text-ash">{t('tech_stack_desc')}</p>
+                <p className="text-xs sm:text-sm uppercase tracking-[0.3em] sm:tracking-[0.4em] text-white">{t('tech_stack_label')}</p>
+                <h2 className="font-display text-2xl sm:text-4xl !text-white">{t('tech_stack_title')}</h2>
+                <p className="max-w-2xl text-sm sm:text-base !text-white">{t('tech_stack_desc')}</p>
             </div>
 
             {/* Stats bar - scrollable on mobile */}

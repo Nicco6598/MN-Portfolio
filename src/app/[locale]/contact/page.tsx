@@ -23,37 +23,38 @@ const defaultValues: ContactFormValues = {
   message: "",
 };
 
-const contactMethods = [
-  {
-    icon: MapPin,
-    label: "Base",
-    value: "Pioltello (MI), Italia",
-    helper: "Operativo su progetti remote-first e onsite a Milano su richiesta",
-  },
-  {
-    icon: CalendarClock,
-    label: "Disponibilità",
-    value: "CET · Slot tra 9:00 e 19:00",
-    helper: "Kickoff entro 2 settimane per team che hanno già scope definito",
-  },
-];
-
 const socials = [
   { label: "GitHub", href: "https://github.com/Nicco6598", icon: Github },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/marconiccolini-/", icon: Linkedin },
 ];
 
-const projectTypes = [
-  "Product Website",
-  "Brand Experience",
-  "dApp / Web3",
-  "Smart Contract",
-  "Altro",
-];
-
 const ContactPage = () => {
   const t = useTranslations("Contact");
   const [submitted, setSubmitted] = useState(false);
+
+  const contactMethods = [
+    {
+      icon: MapPin,
+      label: t("methods_base_label"),
+      value: t("methods_base_value"),
+      helper: t("methods_base_helper"),
+    },
+    {
+      icon: CalendarClock,
+      label: t("methods_availability_label"),
+      value: t("methods_availability_value"),
+      helper: t("methods_availability_helper"),
+    },
+  ];
+
+  const projectTypes = [
+    t("project_type_product"),
+    t("project_type_brand"),
+    t("project_type_dapp"),
+    t("project_type_smart_contract"),
+    t("project_type_other"),
+  ];
+
   const contactSchema = z.object({
     name: z.string().min(2, t("errors.name_min")),
     email: z.string().email(t("errors.email_invalid")),
@@ -81,11 +82,11 @@ const ContactPage = () => {
 
   const contactStats = useMemo(
     () => [
-      { label: "Tempo medio risposta", value: "< 24h" },
-      { label: "Clienti soddisfatti", value: "100%" },
-      { label: "Progetti shippati", value: "9" },
+      { label: t("stats_response"), value: "< 24h" },
+      { label: t("stats_clients"), value: "100%" },
+      { label: t("stats_shipped"), value: "9" },
     ],
-    [],
+    [t],
   );
 
   return (
