@@ -13,7 +13,6 @@ import {
   Search,
   X,
   Grid3x3,
-  List,
   Github,
   ExternalLink,
   TrendingUp,
@@ -27,7 +26,6 @@ const typeOptions = Array.from(new Set(projects.map(project => project.type)));
 const languageOptions = Array.from(new Set(projects.flatMap(project => project.languages)));
 
 type SortOption = "date-desc" | "date-asc" | "name-asc" | "name-desc";
-type ViewMode = "grid" | "list";
 
 const ProjectsPage = () => {
   const t = useTranslations("Projects");
@@ -36,7 +34,6 @@ const ProjectsPage = () => {
   const [typeFilter, setTypeFilter] = useState<string>(ALL_TYPES);
   const [languageFilters, setLanguageFilters] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<SortOption>("date-desc");
-  const [viewMode, setViewMode] = useState<ViewMode>("grid");
   const [focusedCardIndex, setFocusedCardIndex] = useState<number>(-1);
 
   const filteredProjects = useMemo(() => {
@@ -235,29 +232,6 @@ const ProjectsPage = () => {
                 {t("reset")}
               </button>
             </div>
-
-            <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/20 p-1">
-              <button
-                onClick={() => setViewMode("grid")}
-                className={`rounded-full p-2 transition ${viewMode === "grid"
-                  ? "bg-ember-500 text-white"
-                  : "text-ash hover:text-frost"
-                  }`}
-                aria-label="Vista griglia"
-              >
-                <Grid3x3 className="h-4 w-4" />
-              </button>
-              <button
-                onClick={() => setViewMode("list")}
-                className={`rounded-full p-2 transition ${viewMode === "list"
-                  ? "bg-ember-500 text-white"
-                  : "text-ash hover:text-frost"
-                  }`}
-                aria-label="Vista lista"
-              >
-                <List className="h-4 w-4" />
-              </button>
-            </div>
           </div>
         </div>
 
@@ -338,9 +312,7 @@ const ProjectsPage = () => {
             {t("showing")} <span className="text-frost font-semibold">{filteredProjects.length}</span> {t("of")}{" "}
             <span className="text-frost font-semibold">{sortedProjects.length}</span> {t("projects_count")}
           </p>
-          {viewMode === "grid" && (
-            <p className="text-ash/60 text-xs">{t("keyboard_nav")}</p>
-          )}
+          <p className="text-ash/60 text-xs">{t("keyboard_nav")}</p>
         </div>
 
         {/* Projects Grid/List */}
@@ -366,14 +338,14 @@ const ProjectsPage = () => {
             </div>
           </motion.div>
         ) : (
-          <div className={viewMode === "grid" ? "grid gap-6 sm:grid-cols-2 lg:grid-cols-3" : "space-y-4"}>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filteredProjects.map((project, index) => (
               <motion.article
                 key={project.id}
-                className={`group relative overflow-hidden rounded-3xl border transition ${focusedCardIndex === index
+                className={`group relative flex flex-col overflow-hidden rounded-3xl border transition ${focusedCardIndex === index
                   ? "border-ember-500 bg-surface/80 ring-2 ring-ember-500/50"
                   : "border-white/10 bg-surface/50 hover:border-ember-500/50 hover:bg-surface/80"
-                  } ${viewMode === "list" ? "flex flex-row" : "flex flex-col"}`}
+                  }`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
@@ -387,15 +359,14 @@ const ProjectsPage = () => {
                       {project.status === "In Sviluppo"
                         ? t("status_dev")
                         : project.status === "Aggiornato a NextJS"
-                        ? t("status_updated_next")
-                        : project.status}
+                          ? t("status_updated_next")
+                          : project.status}
                     </div>
                   </div>
                 )}
 
                 {/* Image */}
-                <div className={`relative overflow-hidden bg-black ${viewMode === "list" ? "w-64 shrink-0" : "aspect-[16/10]"
-                  }`}>
+                <div className="relative aspect-[16/10] overflow-hidden bg-black">
                   <Image
                     src={project.imageUrl}
                     alt={locale === "en" && project.titleEn ? project.titleEn : project.title}
@@ -419,7 +390,7 @@ const ProjectsPage = () => {
                     <h2 className="text-xl font-semibold text-frost group-hover:text-ember-400 transition-colors">
                       {locale === "en" && project.titleEn ? project.titleEn : project.title}
                     </h2>
-                    <p className={`text-sm text-ash/80 ${viewMode === "grid" ? "line-clamp-2" : "line-clamp-3"}`}>
+                    <p className="line-clamp-2 text-sm text-ash/80">
                       {locale === "en" && project.shortDescriptionEn ? project.shortDescriptionEn : project.shortDescription}
                     </p>
 

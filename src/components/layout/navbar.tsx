@@ -22,8 +22,10 @@ const Navbar = () => {
 
   const isLinkActive = (href: string) => {
     if (!pathname) return false;
-    if (href === "/") return pathname === "/";
-    return pathname.startsWith(href);
+    // Strip locale prefix (e.g., /it or /en) from pathname
+    const pathWithoutLocale = pathname.replace(/^\/(it|en)/, '') || '/';
+    if (href === "/") return pathWithoutLocale === "/";
+    return pathWithoutLocale.startsWith(href);
   };
 
   const basePillClasses =
