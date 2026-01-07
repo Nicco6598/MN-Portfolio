@@ -226,6 +226,58 @@ The stack includes WalletConnect for secure wallet connections, Chainlink oracle
       'Full testing and security audit of the smart contracts',
     ],
   },
+  {
+    id: 8,
+    title: 'Sillage',
+    shortDescription:
+      'Piattaforma premium per appassionati di profumeria artistica con database granulare e moderazione AI.',
+    fullDescription:
+      `Sillage è una piattaforma web premium dedicata agli appassionati di profumeria artistica e di design. Il progetto mira a creare un'esperienza utente raffinata e informativa, combinando un database granulare di fragranze con funzionalità social e strumenti di analisi avanzati.
+
+Le caratteristiche principali includono un'esplorazione avanzata con filtri dinamici per note e accordi, un sistema di review intelligente che traccia performance e batchCode, e l'integrazione con Google Gemini per la moderazione automatica in tempo reale. Il design "Stone & Silk" offre un'interfaccia custom ad alto impatto visivo, ispirata a materiali naturali, con animazioni fluide e layout responsivo.
+
+La sicurezza è garantita da sistemi anti-spam avanzati e rate-limiting distribuito, mentre l'architettura basata su Next.js 16 e React 19 assicura performance allo stato dell'arte.`,
+    titleEn: 'Sillage',
+    shortDescriptionEn:
+      'Premium platform for niche perfumery enthusiasts featuring a granular database and AI-driven moderation.',
+    fullDescriptionEn:
+      `Sillage is a premium web platform dedicated to fans of artistic perfumery and design. The project aims to create a refined and informative user experience, combining a granular fragrance database with social features and advanced analysis tools.
+
+Key features include advanced exploration with dynamic filters for notes and accords, a smart review system that tracks performance and batchCodes, and integration with Google Gemini for real-time automatic moderation. The "Stone & Silk" design provides a high-impact custom UI inspired by natural materials, featuring fluid animations and a responsive layout.
+
+Security is ensured by advanced anti-spam systems and distributed rate-limiting, while the architecture based on Next.js 16 and React 19 guarantees state-of-the-art performance.`,
+    imageUrl: '/images/sillage_logo_white.svg',
+    year: '2026',
+    month: 'Gennaio',
+    languages: [
+      'Next.js',
+      'React',
+      'Tailwind CSS',
+      'Supabase',
+      'Drizzle ORM',
+      'Gemini AI',
+      'Upstash',
+      'Framer Motion',
+    ],
+    type: 'Sviluppo Full-stack',
+    status: 'Completo',
+    todo: [
+      'Implementazione piramide olfattiva dinamica',
+      'Integrazione Google Gemini per moderazione real-time',
+      'Sistema di tracking riformulazioni tramite batchCode',
+      'Ottimizzazione performance tramite RSC e Next.js Image',
+      'Protezione anti-spam avanzata con Upstash',
+    ],
+    todoEn: [
+      'Dynamic olfactory pyramid implementation',
+      'Google Gemini integration for real-time moderation',
+      'Reformulation tracking system via batchCode',
+      'Performance optimization using RSC and Next.js Image',
+      'Advanced anti-spam protection with Upstash',
+    ],
+    vercelLink: 'https://sillage-dev.vercel.app/',
+    githubLink: 'https://github.com/Nicco6598/sillage',
+  },
 ];
 
 export const sortedProjects = [...projects].sort((a, b) => {

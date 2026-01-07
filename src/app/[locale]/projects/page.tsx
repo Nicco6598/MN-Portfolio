@@ -95,6 +95,8 @@ const ProjectsPage = () => {
         return t("type_web");
       case "Sviluppo Smart Contract":
         return t("type_smart_contract");
+      case "Sviluppo Full-stack":
+        return t("type_fullstack");
       default:
         return type;
     }

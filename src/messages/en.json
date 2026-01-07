@@ -146,7 +146,8 @@
         "type_dapp": "dApp Development",
         "type_blockchain": "Blockchain Development",
         "type_web": "Web Development",
-        "type_smart_contract": "Smart Contract Development"
+        "type_smart_contract": "Smart Contract Development",
+        "type_fullstack": "Full-stack Development"
     },
     "Contact": {
         "label": "contact",
