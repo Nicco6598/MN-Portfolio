@@ -8,7 +8,7 @@
 [![Internationalization](https://img.shields.io/badge/i18n-Next--Intl-FF4F81?logo=internationalization)](https://next-intl-docs.vercel.app/)
 [![Motion](https://img.shields.io/badge/Motion-12.3-0055FF?logo=framer)](https://motion.dev/)
 
-> **A high-performance digital showcase of an End-to-End Senior Full-Stack & Web3 Engineer.**  
+> **A high-performance digital showcase of an End-to-End Full-Stack & Web3 Engineer.**  
 > Building immersive interfaces, scalable design systems, and decentralized solutions with a focus on visual excellence and technical rigor.
 
 ---
